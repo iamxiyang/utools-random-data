@@ -1,0 +1,69 @@
+{
+  "pluginName": "随机数据生成",
+  "version": "0.0.1",
+  "description": "插件描述",
+  "author": "何喜阳",
+  "homepage": "https://u.tools",
+  "preload": "preload.js",
+  "logo": "./static/logo.png",
+  "pluginSetting": {
+    "single": false
+  },
+  "features": [
+    {
+      "code": "phone",
+      "explain": "随机生成手机号",
+      "cmds": ["手机号", "电话号码", "phone"]
+    },
+    {
+      "code": "address",
+      "explain": "随机生成国内地址",
+      "cmds": ["地址"]
+    },
+    {
+      "code": "school",
+      "explain": "随机生成院校名称",
+      "cmds": ["学校", "院校", "大学"]
+    },
+    {
+      "code": "username",
+      "explain": "随机生成姓名",
+      "cmds": ["姓名", "名字"]
+    },
+    {
+      "code": "idcard",
+      "explain": "随机生成身份证号",
+      "cmds": ["身份证", "idcard"]
+    },
+    {
+      "code": "text",
+      "explain": "随机生成一大段废话",
+      "cmds": ["文本", "废话", "text"]
+    },
+    {
+      "code": "email",
+      "explain": "随机生成一个邮箱地址",
+      "cmds": ["邮箱", "email"]
+    },
+    {
+      "code": "quotes",
+      "explain": "随机生成名人名言",
+      "cmds": ["名人名言", "quotes"]
+    },
+    {
+      "code": "domain",
+      "explain": "随机生成一个网页地址",
+      "cmds": ["网址", "域名", "url", "domain"]
+    },
+    {
+      "code": "ip",
+      "explain": "随机生成一个ip地址",
+      "cmds": ["ip"]
+    },
+    {
+      "code": "random",
+      "explain": "随机生成数据",
+      "cmds": ["随机生成数据", "random"]
+    }
+  ]
+}
