@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "types": [
-      "utools-api-types"
-    ]
+    "types": ["utools-api-types"],
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "target": "es5",
   }
 }

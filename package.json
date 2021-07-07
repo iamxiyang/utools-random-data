@@ -1,9 +1,13 @@
 {
-  "scripts": {},
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
   "dependencies": {
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@types/node": "^16.0.0",
     "copy-webpack-plugin": "^9.0.1",
     "utools-api-types": "^2.0.5"
   }

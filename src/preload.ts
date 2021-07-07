@@ -10,6 +10,22 @@ const paste = () => {
   }
 }
 
+// 执行隐藏窗口、复制粘贴、退出插件步骤
+const copyPasteOut = (text) => {
+  window.utools.hideMainWindow()
+  utools.copyText(text)
+  paste()
+  window.utools.outPlugin()
+}
+
+// 生成选择虚拟数据列表的逻辑
+
+// 生成手机号的逻辑
+const randomPhone = () => {
+  copyPasteOut(random.phone.phone())
+};
+// 生成地址的逻辑
+
 window.exports = {
   phone: {
     //随机生成手机号逻辑
@@ -18,10 +34,7 @@ window.exports = {
       // 进入插件时调用
       enter: (action) => {
         // action = { code, type, payload }
-        window.utools.hideMainWindow()
-        utools.copyText(random.address.region())
-        paste()
-        window.utools.outPlugin()
+        randomPhone()
       },
     },
   },
@@ -71,7 +84,6 @@ window.exports = {
       select: (action, itemData, callbackSetList) => {
         window.utools.hideMainWindow()
         const url = itemData.url
-        require('electron').shell.openExternal(url)
         window.utools.outPlugin()
       },
       // 子输入框为空时的占位符，默认为字符串"搜索"
