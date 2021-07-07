@@ -1,9 +1,6 @@
 import random from './random'
-interface Window {
-  exports: any
-}
 
-// 粘贴
+// 粘贴指令
 const paste = () => {
   if (utools.isMacOs()) {
     utools.simulateKeyboardTap('v', 'command')
