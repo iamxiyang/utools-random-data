@@ -1,14 +1,18 @@
 {
   "scripts": {
-    "build": "tsc",
-    "test": "jest"
+    "dev": "webpack --config webpack.config.js  --mode=development --watch",
+    "build": "webpack --config webpack.config.js  --mode=production"
   },
   "dependencies": {
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "copy-webpack-plugin": "^9.0.1",
+    "@types/node": "^16.0.1",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-watch": "^5.0.1",
+    "typescript": "^4.3.5",
     "utools-api-types": "^2.0.5"
   }
 }
