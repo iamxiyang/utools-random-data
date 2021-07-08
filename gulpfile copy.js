@@ -1,35 +1,28 @@
-const { task, src, dest, series, parallel } = require('gulp');
+const gulp = require('gulp');
 const ts = require("gulp-typescript");
 const tsProject = ts.createProject("tsconfig.json");
 const watch = require('gulp-watch');
 const clean = require('gulp-clean');
 
-task('clean', function (cb) {
-  // 清空旧的
-  src('dist/', { read: false })
-    .pipe(clean());
-  cb()
-})
 
-task('copy', function (cb) {
+gulp.task("default", function (done) {
+
+  // 清空旧的
+  gulp.src('dist/', { read: false })
+    .pipe(clean());
+
   // 拷贝静态资源
-  src([
+  gulp.src([
     'src/*.json',
     'src/random/*.json',
     'src/static/*',
   ], { base: './src' })
-    .pipe(dest('dist'))
-  cb()
-})
+    .pipe(gulp.dest('dist'))
 
-task('tsc', function (cb) {
   // 编译ts
   tsProject.src()
     .pipe(tsProject())
-    .js.pipe(dest("dist"));
-  cb()
-})
+    .js.pipe(gulp.dest("dist"));
 
-task('default', series('copy', 'tsc'));
-
-// watch('src/*', ['copy', 'tsc']);
+  // todo 持续监听变化，拷贝静态资源、编译ts
+});
