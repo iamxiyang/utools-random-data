@@ -1,4 +1,4 @@
 import random from '../random'
 
-console.log(random.phone.phone());
+console.log(random.people.phone());
 

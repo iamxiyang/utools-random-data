@@ -1,7 +1,6 @@
-const { task, src, dest, series, parallel } = require('gulp');
+const { task, src, dest, series, watch } = require('gulp');
 const ts = require("gulp-typescript");
 const tsProject = ts.createProject("tsconfig.json");
-const watch = require('gulp-watch');
 const clean = require('gulp-clean');
 
 task('clean', function (cb) {
@@ -15,6 +14,7 @@ task('copy', function (cb) {
   // 拷贝静态资源
   src([
     'src/*.json',
+    'src/*.md',
     'src/random/*.json',
     'src/static/*',
   ], { base: './src' })
@@ -30,6 +30,8 @@ task('tsc', function (cb) {
   cb()
 })
 
-task('default', series('copy', 'tsc'));
+task('watch',function(){
+  watch(['src/*'], series('copy', 'tsc'));
+})
 
-// watch('src/*', ['copy', 'tsc']);
+task('default', series('copy', 'tsc','watch'));

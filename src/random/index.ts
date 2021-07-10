@@ -1,7 +1,13 @@
 import address from './address'
-import phone from './phone'
+import school from './school'
+import web from './web'
+import people from './people'
+import saying from './saying'
 
 export default {
   address,
-  phone,
+  people,
+  school,
+  web,
+  saying,
 }
