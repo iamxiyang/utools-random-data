@@ -42,6 +42,16 @@ export const word = (min = 3, max = 10) => {
   }
   return result
 }
+
+// 对于小于10的数字补全0
+export const addZero = (str: any, num: any) => {
+  str = str.toString()
+  for (let i = 0, len = num - str.length; i < len; i++) {
+    str = '0' + str
+  }
+  return str
+}
+
 // 粘贴指令
 export const paste = () => {
   if (utools.isMacOs()) {
