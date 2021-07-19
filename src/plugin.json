@@ -4,61 +4,16 @@
   "description": "随机生成手机号、文本、学校名称、地址、身份证号等数据，用于开发等场景填充内容。",
   "author": "何喜阳",
   "homepage": "https://hexiyang.cn",
-  "preload": "preload.js",
-  "logo": "./static/logo.png",
-  "pluginSetting": {
-    "single": false
+  "main": "index.html",
+  "logo": "static/logo.png",
+  "development": {
+    "main": "http://localhost:8000/index.html"
   },
   "features": [
     {
-      "code": "phone",
-      "explain": "随机生成手机号",
-      "cmds": ["随机生成数据", "手机号", "电话号码", "phone"]
-    },
-    {
-      "code": "address",
-      "explain": "随机生成国内地址",
-      "cmds": ["随机生成数据", "地址"]
-    },
-    {
-      "code": "school",
-      "explain": "随机生成院校名称",
-      "cmds": ["随机生成数据", "学校", "院校", "大学"]
-    },
-    {
-      "code": "username",
-      "explain": "随机生成姓名",
-      "cmds": ["随机生成数据", "姓名", "名字"]
-    },
-    {
-      "code": "idcard",
-      "explain": "随机生成身份证号",
-      "cmds": ["随机生成数据", "身份证", "idcard"]
-    },
-    {
-      "code": "text",
-      "explain": "随机生成一大段废话填充数据",
-      "cmds": ["随机生成数据", "文本", "废话", "text"]
-    },
-    {
-      "code": "email",
-      "explain": "随机生成一个邮箱地址",
-      "cmds": ["随机生成数据", "邮箱", "email"]
-    },
-    {
-      "code": "quotes",
-      "explain": "随机生成名人名言",
-      "cmds": ["随机生成数据", "名人名言", "quotes"]
-    },
-    {
-      "code": "domain",
-      "explain": "随机生成一个网页地址",
-      "cmds": ["随机生成数据", "网址", "域名", "url", "domain"]
-    },
-    {
-      "code": "ip",
-      "explain": "随机生成一个ip地址",
-      "cmds": ["随机生成数据", "ip"]
+      "code": "config",
+      "explain": "随机生成虚拟数据配置",
+      "cmds": ["随机生成数据", "生成数据"]
     }
   ]
 }

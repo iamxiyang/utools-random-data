@@ -1,2 +1,15 @@
-# random-data
-utools插件，随机数据生成器
+# umi project
+
+## Getting Started
+
+Install dependencies,
+
+```bash
+$ yarn
+```
+
+Start the dev server,
+
+```bash
+$ yarn start
+```
