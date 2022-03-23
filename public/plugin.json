@@ -1,0 +1,31 @@
+{
+  "pluginName": "随机生成虚假数据",
+  "version": "1.0.0",
+  "description": "随机生成手机号、文本、学校名称、地址、身份证号等数据，用于开发等场景填充内容。",
+  "author": "何喜阳",
+  "homepage": "https://hexiyang.cn",
+  "main": "index.html",
+  "development": {
+    "main": "http://localhost:3000"
+  },
+  "logo": "./logo.png",
+  "pluginSetting": {
+    "height": 550
+  },
+  "features": [
+    {
+      "code": "random-all",
+      "explain": "随机生成数据插件 - 全部指令，可输入『随机生成数据设置』进插件进行设置",
+      "cmds": [
+        "随机生成数据插件"
+      ]
+    },
+    {
+      "code": "setting",
+      "explain": "随机生成数据插件 - 设置",
+      "cmds": [
+        "随机生成数据设置"
+      ]
+    }
+  ]
+}

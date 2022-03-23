@@ -1,40 +1,45 @@
 {
-  "private": true,
+  "name": "utools-random-data",
+  "version": "0.0.0",
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
-    "postinstall": "umi generate tmp",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
-    "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.5.0",
-    "antd": "^4.16.7",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "umi": "^3.5.13"
+    "@lukeed/uuid": "^2.0.0",
+    "element-plus": "^1.3.0-beta.9",
+    "lodash.camelCase": "npm:lodash.camelcase@^4.3.0",
+    "lodash.capitalize": "^4.2.1",
+    "lodash.clamp": "^4.0.3",
+    "lodash.cloneDeep": "npm:lodash.clonedeep@^4.5.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.flattenDeep": "npm:lodash.flattendeep@^4.4.0",
+    "lodash.kebabCase": "npm:lodash.kebabcase@^4.1.1",
+    "lodash.lowerCase": "npm:lodash.lowercase@^4.3.0",
+    "lodash.random": "^3.2.0",
+    "lodash.sample": "^4.2.1",
+    "lodash.sampleSize": "npm:lodash.samplesize@^4.2.0",
+    "lodash.throttle": "^4.1.1",
+    "lodash.toLower": "npm:lodash.tolower@^4.1.2",
+    "lodash.toUpper": "npm:lodash.toupper@^4.1.2",
+    "lodash.uniqueId": "npm:lodash.uniqueid@^4.0.1",
+    "reregexp": "^1.5.0",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.5.13",
-    "lint-staged": "^10.0.7",
-    "prettier": "^2.2.0",
-    "typescript": "^4.1.2",
-    "utools-api-types": "^2.0.6",
-    "yorkie": "^2.0.0"
+    "@types/lodash.flattendeep": "^4.4.6",
+    "@types/lodash.random": "^3.2.6",
+    "@types/lodash.sample": "^4.2.6",
+    "@types/node": "^17.0.13",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "sass": "^1.49.0",
+    "typescript": "^4.4.4",
+    "unplugin-auto-import": "^0.5.11",
+    "unplugin-vue-components": "^0.17.15",
+    "utools-api-types": "^2.3.0",
+    "vite": "^2.7.2",
+    "vue-tsc": "^0.29.8"
   }
 }

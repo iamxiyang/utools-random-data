@@ -1,13 +1,8 @@
-import address from './address'
-import school from './school'
-import web from './web'
-import people from './people'
-import saying from './saying'
-
-export default {
-  address,
-  people,
-  school,
-  web,
-  saying,
-}
+export * from './modules/address'
+export * from './modules/color'
+export * from './modules/date'
+export * from './modules/other'
+export * from './modules/people'
+export * from './modules/regexp'
+export * from './modules/text'
+export * from './modules/web'
