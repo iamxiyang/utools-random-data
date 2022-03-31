@@ -41,7 +41,7 @@
 </script>
 
 <style scoped lang="scss">
-  :deep.el-input-number {
+  :deep(.el-input-number) {
     width: 200px;
   }
 

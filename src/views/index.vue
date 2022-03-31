@@ -1,6 +1,6 @@
 <!--已创建指令列表-->
 <template>
-  <el-button type="primary" class="m-y-20" @click="editCmd"> 添加新指令 </el-button>
+  <el-button type="primary" class="m-y-20" @click="editCmd()"> 添加新指令 </el-button>
   <el-table :data="tableData" stripe style="width: 100%">
     <el-table-column prop="explain" label="指令名称" />
     <el-table-column prop="cmds" label="唤醒词汇" />
@@ -75,7 +75,7 @@
   }
 
   // 编辑指令
-  const editCmd = (id: string) => {
+  const editCmd = (id: string = '') => {
     router.push({ name: 'edit', params: { id } })
   }
 

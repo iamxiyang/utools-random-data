@@ -1,7 +1,7 @@
 <!--创建和编辑指令-->
 <template>
   <el-page-header class="m-y-20" :icon="ArrowLeft" content="编辑指令" @back="router.back()" />
-  <el-form label-position="top">
+  <el-form label-position="top" :model="info" :rules="formRules">
     <el-form-item required label="功能的唯一标示，不可和其他指令重复">
       <el-input v-model="info.code" :disabled="!!_rev"></el-input>
     </el-form-item>
@@ -34,7 +34,7 @@
     <el-button type="primary" @click="saveCmd">保 存</el-button>
   </div>
 
-  <variable :dialog-table-visible="showDialog"></variable>
+  <!-- <variable :dialog-table-visible="showDialog"></variable> -->
 </template>
 
 <script setup lang="ts">
@@ -52,23 +52,34 @@
   const route = useRoute()
   const { id = '' } = route.params
 
-  const info: any = reactive({
+  const defaultInfo = {
     code: '',
     cmds: [],
     explain: '',
     setFeature: true,
     content: '',
+  }
+  console.log(defaultInfo)
+
+  const info: any = reactive(defaultInfo)
+
+  // TODO 效验
+  const formRules: any = reactive({
+    code: [{ trigger: 'blur', required: true }],
   })
 
   let _rev = $ref('')
 
   let showDialog = ref(true)
   onMounted(() => {
-    // TODO 新增时重复数据
+    console.log(id)
+
     const old = utools.db.get(id as string)
     if (old) {
       Object.assign(info, old.data)
       _rev = old._rev as string
+    } else {
+      Object.assign(info, defaultInfo)
     }
   })
 
@@ -107,10 +118,15 @@
   const saveCmd = () => {
     try {
       // 数据为空判断
-      console.log(info)
 
-      if (!info.code || !info.content) {
-        throw new Error('指令名称和指令内容不能为空')
+      if (!info.code) {
+        throw new Error('指令名称不能为空')
+      }
+      if (info.setFeature && !info.cmds.filter((item: any) => item).length) {
+        throw new Error('开启快捷启动时响应词不能为空')
+      }
+      if (!info.content) {
+        throw new Error('指令内容不能为空')
       }
       const data = toRaw(info)
       utools.db.put({
@@ -137,9 +153,9 @@
 </script>
 
 <style scoped lang="scss">
-  :deep.el-tag,
-  :deep.el-button,
-  :deep.tag-input {
+  :deep(.el-tag),
+  :deep(.el-button),
+  :deep(.tag-input) {
     margin-right: 14px;
     margin-bottom: 14px;
   }
