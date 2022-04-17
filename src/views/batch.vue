@@ -29,7 +29,7 @@
   const route = useRoute()
   const { type = '' } = route.params
 
-  const allDocs = utools.db.allDocs('cmd-')
+  const allDocs = window.utools ? utools.db.allDocs('cmd-') : []
 
   const back = () => {
     router.back()

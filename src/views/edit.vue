@@ -1,26 +1,23 @@
 <!--创建和编辑指令-->
 <template>
   <el-page-header class="m-y-20" :icon="ArrowLeft" content="编辑指令" @back="router.back()" />
-  <el-form label-position="top" :model="info" :rules="formRules">
-    <el-form-item required label="功能的唯一标示，不可和其他指令重复">
-      <el-input v-model="info.code" :disabled="!!_rev"></el-input>
+  <el-form label-position="top" ref="ruleFormRef" :model="info" :rules="formRules">
+    <el-form-item prop="explain" label="功能名称，干什么用的">
+      <el-input v-model="info.explain"></el-input>
     </el-form-item>
-    <el-form-item required label="响应词，uTools输入框用来快捷生成">
+    <el-form-item required prop="cmds" label="响应词，uTools输入框用来快捷生成">
       <el-tag v-for="cmd in info.cmds" :key="cmd" :disable-transitions="false" closable @close="delCmd(cmd)">
         {{ cmd }}
       </el-tag>
       <el-input class="tag-input" v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"> </el-input>
-      <el-button v-else size="small" @click="showInput"> + 新唤醒词 </el-button>
+      <el-button v-else-if="info.cmds.length < 5" size="small" @click="showInput"> + 新唤醒词 </el-button>
     </el-form-item>
-    <el-form-item label="对此功能的说明">
-      <el-input v-model="info.explain"></el-input>
-    </el-form-item>
-    <el-form-item label="快捷启动">
+    <el-form-item prop="setFeature" label="快捷启动">
       <el-tooltip class="box-item" effect="dark" content="开启后可通过uTools搜索框直接键入指令名使用" placement="top-start">
         <el-switch v-model="info.setFeature"></el-switch>
       </el-tooltip>
     </el-form-item>
-    <el-form-item required label="指令内容">
+    <el-form-item required prop="content" label="指令内容">
       <el-input type="textarea" v-model="info.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
       <div class="m-y-20">
         <el-select placeholder="插入变量" filterable @change="addVariable">
@@ -30,8 +27,8 @@
     </el-form-item>
   </el-form>
   <div class="m-y-20 footer">
-    <el-button @click="testCmd">测 试</el-button>
-    <el-button type="primary" @click="saveCmd">保 存</el-button>
+    <el-button @click="testCmd" :disabled="!info.content">测 试</el-button>
+    <el-button type="primary" @click="saveCmd(ruleFormRef)">保 存</el-button>
   </div>
 
   <!-- <variable :dialog-table-visible="showDialog"></variable> -->
@@ -42,18 +39,18 @@
   import { ArrowLeft } from '@element-plus/icons-vue'
 
   import { nextTick, reactive, onMounted, toRaw, ref } from 'vue'
-  import { ElInput, ElMessage } from 'element-plus'
+  import { ElForm, ElInput, ElMessage } from 'element-plus'
   import { useRoute } from 'vue-router'
-
   import variable from '../constant/variable'
   import { runCmd } from '../utils/random'
   import Variable from '../components/variable.vue'
+  import { uuid } from '../random'
+  export type ElFormInstance = InstanceType<typeof ElForm>
 
   const route = useRoute()
   const { id = '' } = route.params
 
   const defaultInfo = {
-    code: '',
     cmds: [],
     explain: '',
     setFeature: true,
@@ -63,17 +60,27 @@
 
   const info: any = reactive(defaultInfo)
 
-  // TODO 效验
+  // 效验
+  const validatePass = (rule: any, value: any, callback: any) => {
+    if ((!value || value.length === 0) && !info.setFeature) {
+      callback(new Error('快捷启动时唤醒词不能为空'))
+    } else {
+      callback()
+    }
+  }
+
+  const ruleFormRef = ref<ElFormInstance>()
+
   const formRules: any = reactive({
-    code: [{ trigger: 'blur', required: true }],
+    cmds: [{ trigger: 'blur', validator: validatePass }],
+    content: [{ trigger: 'blur', required: true, message: '指令内容必须填写' }],
+    explain: [{ trigger: 'blur', required: true, message: '指令名称必须填写' }],
   })
 
   let _rev = $ref('')
 
   let showDialog = ref(true)
   onMounted(() => {
-    console.log(id)
-
     const old = utools.db.get(id as string)
     if (old) {
       Object.assign(info, old.data)
@@ -115,22 +122,13 @@
     runCmd(info.content)
   }
   // 保存指令
-  const saveCmd = () => {
+  const saveCmd = async (formEl: ElFormInstance | undefined) => {
     try {
-      // 数据为空判断
-
-      if (!info.code) {
-        throw new Error('指令名称不能为空')
-      }
-      if (info.setFeature && !info.cmds.filter((item: any) => item).length) {
-        throw new Error('开启快捷启动时响应词不能为空')
-      }
-      if (!info.content) {
-        throw new Error('指令内容不能为空')
-      }
+      if (!formEl) return
+      await formEl.validate()
       const data = toRaw(info)
       utools.db.put({
-        _id: (id || 'cmd-' + info.code) as string,
+        _id: (id || 'cmd-' + uuid()) as string,
         _rev,
         data,
       })
@@ -144,7 +142,7 @@
       }, 1000)
     } catch (err: any) {
       ElMessage({
-        message: err?.message,
+        message: '信息填写不完整',
         type: 'warning',
         center: true,
       })

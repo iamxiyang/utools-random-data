@@ -24,6 +24,7 @@
     "lodash.toLower": "npm:lodash.tolower@^4.1.2",
     "lodash.toUpper": "npm:lodash.toupper@^4.1.2",
     "lodash.uniqueId": "npm:lodash.uniqueid@^4.0.1",
+    "pinia": "^2.0.13",
     "reregexp": "^1.5.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"

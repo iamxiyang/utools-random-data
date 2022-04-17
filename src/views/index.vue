@@ -45,12 +45,16 @@
   const { tableData } = toRefs(state)
 
   onMounted(() => {
-    state.allDocs = utools.db.allDocs('cmd-')
+    if (window.utools) {
+      // TODO 迁移到外层，改写pinia数据
+      state.allDocs = utools.db.allDocs('cmd-')
+    }
   })
 
   // 设置/取消设置快捷启动
   const featureChange = (bool: boolean, item: any) => {
     const { _id, _rev, setFeature, code, explain, cmds } = toRaw(item)
+    // TODO 必须存在cmds才允许设置快捷启动
     if (bool) {
       utools.setFeature({
         code,
