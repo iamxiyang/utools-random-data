@@ -95,7 +95,7 @@ const defaultCmds = [
     data: {
       code: 'ip',
       explain: '随机生成一个ip地址',
-      cmds: ['ip'],
+      cmds: [],
       content: '@{ip}',
       feature: true,
     },

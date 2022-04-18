@@ -1,13 +1,13 @@
 <!--已创建指令列表-->
 <template>
-  <el-button type="primary" class="m-y-20" @click="editCmd()"> 添加新指令 </el-button>
+  <el-button type="primary" class="m-y-20" @click="editCmd('')"> 添加新指令 </el-button>
   <el-table :data="tableData" stripe style="width: 100%">
     <el-table-column prop="explain" label="指令名称" />
     <el-table-column prop="cmds" label="唤醒词汇" />
     <el-table-column label="快捷启动" width="90">
       <template #default="scope">
         <el-tooltip class="box-item" effect="dark" content="开启后可通过uTools搜索框直接键入唤醒词使用" placement="top-start">
-          <el-switch v-model="scope.row.feature" @change="(val:boolean) => featureChange(val, scope.row.index)" />
+          <el-switch :value="scope.row.feature" @change="(val:boolean) => featureChange(val, scope.row.index)" />
         </el-tooltip>
       </template>
     </el-table-column>
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
-  import { ElMessageBox } from 'element-plus'
+  import { ElMessageBox, ElMessage } from 'element-plus'
   import { computed } from '@vue/runtime-core'
   import { storeToRefs } from 'pinia'
 
@@ -43,15 +43,18 @@
   })
 
   const featureChange = (val: boolean, index: number) => {
-    if (features.value[index].data.cmds.length === 0) {
-      return ElMessageBox.alert('请先添加唤醒词')
+    if (!features.value[index].data.cmds?.length) {
+      return ElMessage({
+        message: '请先编辑，需要添加唤醒词汇后才能开启',
+        type: 'error',
+      })
     }
     features.value[index].data.feature = val
   }
 
   // 编辑指令
-  const editCmd = (id: string = '') => {
-    router.push({ name: 'edit', params: { id } })
+  const editCmd = (id: string) => {
+    router.push({ name: 'edit', query: { id } })
   }
 
   // 删除指令
