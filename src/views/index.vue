@@ -6,15 +6,15 @@
     <el-table-column prop="cmds" label="唤醒词汇" />
     <el-table-column label="快捷启动" width="90">
       <template #default="scope">
-        <el-tooltip class="box-item" effect="dark" content="开启后可通过uTools搜索框直接键入指令名使用" placement="top-start">
-          <el-switch v-model="scope.row.setFeature" @change="(val = true) => featureChange(val, scope.row)" />
+        <el-tooltip class="box-item" effect="dark" content="开启后可通过uTools搜索框直接键入唤醒词使用" placement="top-start">
+          <el-switch v-model="scope.row.feature" @change="(val:boolean) => featureChange(val, scope.row.index)" />
         </el-tooltip>
       </template>
     </el-table-column>
     <el-table-column prop="address" label="操作">
       <template #default="scope">
         <el-button type="text" @click="editCmd(scope.row._id)">修改</el-button>
-        <el-popconfirm title="确定要删除?" @confirm="deleteCmd(scope.row._id, scope.row.code)">
+        <el-popconfirm title="确定要删除?一旦删除不可恢复" @confirm="deleteCmd(scope.row.index)">
           <template #reference>
             <el-button type="text"> 删除 </el-button>
           </template>
@@ -28,54 +28,25 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
   import { ElMessageBox } from 'element-plus'
-  import { computed, onMounted, reactive, toRefs } from '@vue/runtime-core'
-  import { toRaw } from 'vue'
+  import { computed } from '@vue/runtime-core'
+  import { storeToRefs } from 'pinia'
 
+  import useAppStore from '../store/index'
+  const appStore = useAppStore()
   const router = useRouter()
+  const { features } = storeToRefs(appStore)
 
-  let state: any = reactive({
-    allDocs: [] as any[],
-    tableData: computed(() => {
-      return state.allDocs.map((item: any) => {
-        return { _id: item._id, _rev: item._rev, ...item.data }
-      })
-    }),
-  })
-
-  const { tableData } = toRefs(state)
-
-  onMounted(() => {
-    if (window.utools) {
-      // TODO 迁移到外层，改写pinia数据
-      state.allDocs = utools.db.allDocs('cmd-')
-    }
-  })
-
-  // 设置/取消设置快捷启动
-  const featureChange = (bool: boolean, item: any) => {
-    const { _id, _rev, setFeature, code, explain, cmds } = toRaw(item)
-    // TODO 必须存在cmds才允许设置快捷启动
-    if (bool) {
-      utools.setFeature({
-        code,
-        explain,
-        cmds: toRaw(cmds),
-        platform: ['win32', 'darwin', 'linux'],
-      })
-    } else {
-      utools.removeFeature(code)
-    }
-    utools.db.put({
-      _id,
-      _rev,
-      data: {
-        setFeature: bool,
-        code,
-        explain,
-        cmds: toRaw(cmds),
-      },
+  const tableData = computed(() => {
+    return features.value.map((item: any, index) => {
+      return { _id: item._id, _rev: item._rev, ...item.data, index }
     })
-    state.allDocs = utools.db.allDocs('cmd-')
+  })
+
+  const featureChange = (val: boolean, index: number) => {
+    if (features.value[index].data.cmds.length === 0) {
+      return ElMessageBox.alert('请先添加唤醒词')
+    }
+    features.value[index].data.feature = val
   }
 
   // 编辑指令
@@ -84,16 +55,13 @@
   }
 
   // 删除指令
-  const deleteCmd = async (id: string, code: string) => {
+  const deleteCmd = async (index: number) => {
     try {
-      if (state.allDocs.length === 1) {
+      if (features.value.length === 1) {
         ElMessageBox.alert('就剩最后一个指令了，就别删除了吧，如果指令内容不符合要求可以进行修改')
         return
       }
-      await ElMessageBox.confirm('一旦删除不可恢复，如果再次使用相关指令需要重新创建。', '确定删除 ?')
-      utools.db.remove(id)
-      utools.removeFeature(code)
-      state.allDocs = utools.db.allDocs('cmd-')
+      features.value.splice(index, 1)
     } catch (err) {}
   }
 
