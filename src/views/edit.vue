@@ -5,7 +5,7 @@
     <el-form-item prop="explain" label="功能名称，干什么用的">
       <el-input v-model="edit.explain"></el-input>
     </el-form-item>
-    <el-form-item required prop="cmds" label="响应词，uTools输入框用来快捷生成">
+    <el-form-item prop="cmds" label="响应词，uTools输入框用来快捷生成">
       <el-tag v-for="cmd in edit.cmds" :key="cmd" :disable-transitions="false" closable @close="delCmd(cmd)">
         {{ cmd }}
       </el-tag>
@@ -27,71 +27,69 @@
     </el-form-item>
   </el-form>
   <div class="m-y-20 footer">
-    <el-button @click="testCmd">测 试</el-button>
+    <!-- <el-button @click="testCmd">测 试</el-button> -->
     <el-button type="primary" @click="saveCmd(ruleFormRef)">保 存</el-button>
   </div>
-
-  <!-- <variable :dialog-table-visible="showDialog"></variable> -->
 </template>
 
 <script setup lang="ts">
   import router from '../router'
   import { ArrowLeft } from '@element-plus/icons-vue'
-
-  import { nextTick, reactive, computed, toRaw, ref, onMounted } from 'vue'
+  import { nextTick, reactive, toRaw, ref, onMounted } from 'vue'
   import { ElForm, ElInput, ElMessage } from 'element-plus'
   import { useRoute } from 'vue-router'
   import variable from '../constant/variable'
   import { runCmd } from '../utils/random'
-  import Variable from '../components/variable.vue'
   import { uuid } from '../random'
   import { storeToRefs } from 'pinia'
-  export type ElFormInstance = InstanceType<typeof ElForm>
   import useAppStore from '../store/index'
   import { cloneDeep, uniqueId } from 'lodash'
+  export type ElFormInstance = InstanceType<typeof ElForm>
+
   const appStore = useAppStore()
   const { features } = storeToRefs(appStore)
 
-  const defaultEdit = {
-    code: uniqueId(),
-    explain: '',
-    cmds: [],
-    content: '',
-    feature: false,
+  const defaultEdit = () => {
+    return {
+      code: uniqueId(),
+      explain: '',
+      cmds: [],
+      content: '',
+      feature: false,
+    }
   }
 
   const id = ref('')
   const rev = ref('')
-  let edit: Feature = reactive({ ...defaultEdit })
-  let originEdit: Feature = reactive({ ...cloneDeep(defaultEdit) })
-
-  // 效验
-  const validatePass = (rule: any, value: any, callback: any) => {
-    if ((!value || value.length === 0) && !edit.feature) {
-      callback(new Error('快捷启动时唤醒词不能为空'))
-    } else {
-      callback()
-    }
-  }
+  const defaultData = defaultEdit()
+  let edit = reactive<Feature>(defaultData)
+  let originEdit = reactive<Feature>(cloneDeep(defaultData))
 
   onMounted(() => {
     const { id: queryId } = useRoute().query
-    id.value = (queryId as string) || uuid()
+    id.value = (queryId as string) || `cmd-${uuid()}`
 
     if (queryId) {
-      const data = features.value.find((item) => item._id === queryId)
-
+      const find = features.value.find((item) => item._id === queryId)
+      const data = find?.data
       if (data) {
-        rev.value = data._rev as string
-        edit = Object.assign({}, data.data)
-        originEdit = Object.assign({}, cloneDeep(data.data))
-        // TODO更新不对
-        console.log(edit)
+        rev.value = find?._rev as string
+        edit = Object.assign(edit, data)
+        originEdit = Object.assign(originEdit, cloneDeep(data))
       }
     }
   })
 
   const ruleFormRef = ref<ElFormInstance>()
+
+  // 效验
+  const validatePass = (rule: any, value: any, callback: any) => {
+    if ((!value || value.length === 0) && edit.feature) {
+      callback(new Error('快捷启动时唤醒词不能为空'))
+    } else {
+      callback()
+    }
+  }
 
   const formRules: any = reactive({
     cmds: [{ trigger: 'blur', validator: validatePass }],
@@ -99,17 +97,9 @@
     explain: [{ trigger: 'blur', required: true, message: '指令名称必须填写' }],
   })
 
-  let _rev = $ref('')
-
-  let showDialog = ref(true)
-
   let inputValue = $ref('')
   let inputVisible = $ref(false)
   let InputRef = $ref<InstanceType<typeof ElInput>>()
-
-  const delCmd = (tag: string) => {
-    edit.cmds.splice(edit.cmds.indexOf(tag), 1)
-  }
 
   const showInput = () => {
     inputVisible = true
@@ -130,8 +120,14 @@
   const addVariable = (val: string) => {
     edit.content = edit.content + val
   }
+
+  const delCmd = (tag: string) => {
+    edit.cmds.splice(edit.cmds.indexOf(tag), 1)
+  }
+
   // 进行指令测试
   const testCmd = () => {
+    // TODO 生成一遍，把结果弹窗显示
     runCmd(edit.content)
   }
   // 保存指令
@@ -139,11 +135,11 @@
     try {
       if (!formEl) return
       await formEl.validate()
-      const data = toRaw(editInfo)
-      utools.db.put({
-        _id: (id || 'cmd-' + uuid()) as string,
-        _rev,
-        data,
+      const index = features.value.findIndex((item) => item._id === id.value)
+      features.value.splice(index, 1, {
+        _id: id.value,
+        _rev: rev.value,
+        data: edit,
       })
       ElMessage({
         message: '已保存',
@@ -180,5 +176,3 @@
     justify-content: flex-end;
   }
 </style>
-
-function $ref(arg0: string) { throw new Error('Function not implemented.') } function ref(arg0: string) { throw new Error('Function not implemented.') }

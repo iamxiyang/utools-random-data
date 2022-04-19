@@ -4,17 +4,17 @@
   <el-form label-position="left" label-width="80px">
     <el-form-item label="选择指令">
       <el-select placeholder="请选择指令" filterable class="w-200" @change="cccChange">
-        <el-option v-for="item in allDocs" :key="item._id" :label="item.data.explain" :value="item.data.code"></el-option>
+        <el-option v-for="item in features" :key="item._id" :label="item.data.explain" :value="item.data.code"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="生成数量">
-      <el-input-number min="1" step-strictly></el-input-number>
+      <el-input-number min="1" :max="500" step-strictly></el-input-number>
     </el-form-item>
     <el-form-item label="分割符号">
       <el-input placeholder="\r"></el-input>
     </el-form-item>
     <el-form-item label="生成结果">
-      <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 14 }"></el-input>
+      <el-input type="textarea" placeholder="单次最多生成 500 个，生成后可复制使用" :autosize="{ minRows: 8, maxRows: 14 }"></el-input>
     </el-form-item>
   </el-form>
   <div class="m-y-20 footer">
@@ -23,13 +23,16 @@
 </template>
 
 <script setup lang="ts">
-  import { useRoute } from 'vue-router'
-  import router from '../router'
+  import { storeToRefs } from 'pinia'
+  import { useRoute, useRouter } from 'vue-router'
+  import useAppStore from '../store/index'
+
+  const appStore = useAppStore()
+  const router = useRouter()
+  const { features } = storeToRefs(appStore)
 
   const route = useRoute()
   const { type = '' } = route.params
-
-  const allDocs = window.utools ? utools.db.allDocs('cmd-') : []
 
   const back = () => {
     router.back()

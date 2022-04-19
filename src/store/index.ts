@@ -1,4 +1,3 @@
-import { uniqueId, cloneDeep } from 'lodash'
 import { defineStore } from 'pinia'
 
 const defaultFeatures: DbFeature[] = [
@@ -108,62 +107,8 @@ export default defineStore('app', {
   state: () => {
     return {
       features: window.utools ? (utools.db.allDocs('cmd-') as DbFeature[]) : defaultFeatures,
-      edit: {
-        data: {
-          code: uniqueId(),
-          explain: '',
-          cmds: [],
-          content: '',
-          feature: false,
-        },
-      } as DbFeature,
-      originEdit: {
-        data: {
-          code: uniqueId(),
-          explain: '',
-          cmds: [],
-          content: '',
-          feature: false,
-        },
-      } as DbFeature,
+      delete: '',
     }
   },
-  actions: {
-    setEdit(data: DbFeature | undefined) {
-      const defaultEdit = {
-        data: {
-          code: uniqueId(),
-          explain: '',
-          cmds: [],
-          content: '',
-          feature: false,
-        },
-      }
-      this.$patch((state) => {
-        state.edit = data || defaultEdit
-        state.originEdit = cloneDeep(data || defaultEdit)
-      })
-    },
-  },
+  actions: {},
 })
-
-// if (bool) {
-//   utools.setFeature({
-//     code,
-//     explain,
-//     cmds: toRaw(cmds),
-//     platform: ['win32', 'darwin', 'linux'],
-//   })
-// } else {
-//   utools.removeFeature(code)
-// }
-// utools.db.put({
-//   _id,
-//   _rev,
-//   data: {
-//     setFeature: bool,
-//     code,
-//     explain,
-//     cmds: toRaw(cmds),
-//   },
-// })
