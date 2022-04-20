@@ -1,15 +1,16 @@
+import random from 'lodash.random'
 import sample from 'lodash.sample'
 import textJson from './text.json'
 
 const { lunyu, tuhua, feihua } = textJson
 
 // 随机返回一句论语
-const returnLunyu = () => {
+export const returnLunyu = () => {
   return sample(lunyu)
 }
 
 // 随机返回一句土话
-const returnTuhua = () => {
+export const returnTuhua = () => {
   return sample(tuhua)
 }
 
@@ -19,7 +20,7 @@ const choice = (a: 'title' | 'famous' | 'bosh' | 'after' | 'before') => {
 }
 
 // 随机生成一段废话
-const returnFeihua = (title = '随机一段废话', length = 1000) => {
+const returnFeihua = (length = 200, title = '随机一段废话') => {
   let body = ''
   while (body.length < length) {
     let num = (Math.random() * 100) | 0
@@ -38,16 +39,6 @@ const returnFeihua = (title = '随机一段废话', length = 1000) => {
   return body
 }
 
-export const text = (config: { length?: number; type: string; title?: string } = { type: 'feihua' }) => {
-  const { type, length } = config
-  switch (type) {
-    case 'lunyu':
-      return returnLunyu()
-    case 'tuhua':
-      return returnTuhua()
-    case 'feihua':
-      return returnFeihua(config.title, length)
-    default:
-      return returnLunyu()
-  }
+export const text = (min: number = 200, max: number = min) => {
+  return returnFeihua(random(min, max))
 }

@@ -1,115 +1,168 @@
-export default [
-  // 日期时间
-  {
-    example: '日期(2022-01-01)',
-    name: '${日期}',
+import { city, color, address, county, express, IdCard, postcode, province, school, street, community, date, week, timestamp, uuid, carNumber, username, phone, tel, useRegexp, text, audio, img, ip, domain, url, email, constellation, ipv4, ipv6, mac, returnLunyu, returnTuhua } from '../random/index'
+
+interface VariableTypes {
+  [key: string]: {
+    function: any
+    example: string
+    description: string
+  }
+}
+
+// 这里存放所有对外暴露的变量，key是变量使用词汇
+export default {
+  '${省}': {
+    function: province,
+    example: province(),
+    description: '随机返回一个省',
   },
-  {
-    example: '年(2022)',
-    name: '${年}',
+  '${市}': {
+    function: city,
+    example: city(),
+    description: '城市，如果在省后面调用则肯定返回的嗯是属于上级的',
   },
-  {
-    example: '月(01)',
-    name: '${月}',
+  '${县}': {
+    function: county,
+    example: county(),
+    description: '县，如果在省市后面调用则肯定返回的是属于上级的',
   },
-  {
-    example: '日(01)',
-    name: '${日}',
+  '${街道}': {
+    function: street,
+    example: street(),
+    description: '街道，如果在省市县后面调用则肯定返回的是属于上级的',
   },
-  {
-    example: '时间戳(1578790400000)',
-    name: '${时间戳}',
+  '${小区}': {
+    function: community,
+    example: community(),
+    description: '随机返回一个虚假的小区名称',
   },
-  {
-    example: '星期(星期四)',
-    name: '${星期}',
+  '${学校}': {
+    function: school,
+    example: school(),
+    description: '随机返回一个大学名称',
   },
-  // 网络
-  {
-    example: '域名(www.baidu.com)',
-    name: '${域名}',
+  '${快递地址}': {
+    function: express,
+    example: express(),
+    description: '随机返回一个快递地址，包含地址、手机、姓名',
   },
-  {
-    example: 'ip(192.168.0.1)',
-    name: '${ip}',
+  '${地址}': {
+    function: address,
+    example: address(),
+    description: '随机返回一个地址，包含省市县街道等',
   },
-  {
-    example: '网址(http://www.baidu.com/index.html)',
-    name: '${网址}',
+  '${颜色}': {
+    function: color,
+    example: color(),
+    description: '支持传递一个类型，支持rgb、rgba、hsl、hsla、hex，不传或传参不对将随机返回一种格式',
   },
-  {
-    example: '邮箱(a@b.com)',
-    name: '${邮箱}',
+  '${日期}': {
+    function: date,
+    example: date(),
+    description: '支持根据dayjs格式化标记返回特定格式内容，默认参数 Y-M-D',
   },
-  // 文本
-  {
-    example: '长文本(100~999个字符)',
-    name: '${文本(100,999)}',
+  '${星期}': {
+    function: week,
+    example: week(),
+    description: '随机返回一个日期，如 星期一、星期日',
   },
-  {
-    example: '短文本(0~99个字符)',
-    name: '${文本(0,99)}',
+  '${时间戳}': {
+    function: timestamp,
+    example: timestamp(),
+    description: '随机一个时间的时间戳，精确到毫秒（13位）',
   },
-  // 用户
-  {
-    example: '手机号(13000000000)',
-    name: '${手机号}',
+  '${UUID}': {
+    function: uuid,
+    example: uuid(),
+    description: '随机返回一个UUID',
   },
-  {
-    example: '手机号带前缀(+8618888889999)',
-    name: '${手机号(true)}',
+  '${车牌号}': {
+    function: carNumber,
+    example: carNumber(),
+    description: '随机返回一个车牌号，支持传递一个参数选择返回新能源车牌号',
   },
-  {
-    example: '电话号码(0311-88888888)',
-    name: '${电话号码}',
+  '${手机号}': {
+    function: phone,
+    example: phone(),
+    description: '随机返回一个手机号码，支持传递一个参数是否返回前缀',
   },
-  {
-    example: '身份证号(441424199001011234)',
-    name: '${身份证号}',
+  '${电话号码}': {
+    function: tel,
+    example: tel(),
+    description: '随机返回一个电话号码',
   },
-  {
-    example: '姓名(张三)',
-    name: '${姓名}',
+  '${姓名}': {
+    function: username,
+    example: username(),
+    description: '随机返回一个中文姓名',
   },
-  // 地址
-  {
-    example: '地址(省市县+街道+小区)',
-    name: '${地址}',
+  '${身份证号}': {
+    function: IdCard,
+    example: IdCard(),
+    description: '随机返回一个符合规则的国内身份证号',
   },
-  {
-    example: '省(广东)',
-    name: '${省}',
+  '${星座}': {
+    function: constellation,
+    example: constellation(),
+    description: '随机返回一个星座',
   },
-  {
-    example: '市(河南省郑州市)',
-    name: '${市}',
+  '${正则}': {
+    function: useRegexp,
+    example: useRegexp(/[a-zA-Z0-9]{6,12}/),
+    description: '实验性功能，后续可能更改！支持正则表达式，可以传递一个正则表达式，返回一个符合正则表达式的字符串，依赖reregexp',
   },
-  {
-    example: '县(河南省郑州市郑东新区)',
-    name: '${县}',
+  '${文本}': {
+    function: text,
+    example: text(),
+    description: '随机返回一段无规律的文本，支持传递文本长度，如 text(100) 返回的内容是固定 100个字符， text(100, 120) 返回的内容是100~120个字符，默认是200个字符',
   },
-  {
-    example: '街道(xxxx街道)',
-    name: '${街道}',
+  '${论语}': {
+    function: returnLunyu,
+    example: returnLunyu(),
+    description: '随机返回一句论语，如非必须不建议继续使用，后续可能删掉该功能',
   },
-  {
-    example: '小区(xxxx小区)',
-    name: '${小区}',
+  '${土话}': {
+    function: returnTuhua,
+    example: returnTuhua(),
+    description: '随机返回一句土话，如非必须不建议继续使用，后续可能删掉该功能',
   },
-  {
-    example: '学校(xx学校)',
-    name: '${学校}',
+  '${邮箱}': {
+    function: email,
+    example: email(),
+    description: '随机返回一个邮箱地址',
   },
-  {
-    example: '快递地址(地址+姓名+手机号/电话)',
-    name: '${快递地址}',
+  '${网址}': {
+    function: url,
+    example: url(),
+    description: '随机返回一个网址',
   },
-  {
-    example: '颜色值(#ff0000)',
-    name: '${颜色}',
+  '${域名}': {
+    function: domain,
+    example: domain(),
+    description: '随机返回一个域名',
   },
-  {
-    example: 'UUID(xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)',
-    name: '${UUID}',
+  '${ipv4}': {
+    function: ipv4,
+    example: ipv4(),
+    description: '随机返回一个ipv4的地址',
   },
-]
+  '${ipv6}': {
+    function: ipv6,
+    example: ipv6(),
+    description: '随机返回一个ipv6的地址',
+  },
+  '${ip}': {
+    function: ip,
+    example: ip(),
+    description: '随机返回一个ipv4或ipv6的地址',
+  },
+  '${mac}': {
+    function: mac,
+    example: mac(),
+    description: '随机返回一个mac地址，如 5F-CF-71-76-57-B7',
+  },
+  '${图片地址}': {
+    function: img,
+    example: img(),
+    description: '随机返回一个图片地址，支持传递宽高，如 img(200,300)',
+  },
+} as unknown as VariableTypes

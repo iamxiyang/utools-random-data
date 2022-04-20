@@ -2,7 +2,8 @@ import dayjs from 'dayjs'
 
 // 生成时间戳
 export const timestamp = (): number => {
-  return Math.floor(Math.random() * 1000000000000)
+  // 随机返回一个有效的13位时间戳
+  return Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
 }
 
 // 星期
@@ -13,8 +14,6 @@ export const week = (): number => {
   return `星期${strArr[number]}`
 }
 
-// TODO 改成随机一个有效时间戳，根据 dayjs 按照一定格式转换返回
-
-export const date = (format = 'Y-M-D') => {
+export const date = (format: string = 'Y-M-D') => {
   return dayjs(timestamp()).format(format)
 }

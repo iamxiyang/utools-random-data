@@ -28,14 +28,35 @@ export const domain = (showProtocol: boolean = true) => {
   const suffix = ['com', 'cn', 'net', 'xyz', 'vip', 'site', 'com.cn']
   return `${showProtocol ? sample(protocol) : ''}${useRegexp(/([a-z0-9]{4,8})/)}.${sample(suffix)}`
 }
+
+// ipv4
+export const ipv4 = () => {
+  return `${random(255)}.${random(255)}.${random(255)}.${random(255)}`
+}
+
+// ipv6
+export const ipv6 = () => {
+  return `${random(65535, true)}.${random(65535, true)}.${random(65535, true)}.${random(65535, true)}`
+}
+
 // ip
 export const ip = () => {
-  return `${random(0, 255)}.${random(0, 255)}.${random(0, 255)}.${random(0, 255)}`
+  // 随机返回ipv4或ipv6
+  return random(1) ? ipv4() : ipv6()
 }
+
+// mac地址
+export const mac = () => {
+  return `${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true)
+    .toString(16)
+    .padStart(2, '0')}`
+}
+
 // 图片地址
-export const img = (size: string = '1000x1000') => {
-  return `https://dummyimage.com/${size}`
+export const img = (w: string | number = 100, h: string | number = 100) => {
+  return `https://dummyimage.com/${w}x${h}`
 }
+
 // 音频地址
 export const audio = () => {
   return ' '
