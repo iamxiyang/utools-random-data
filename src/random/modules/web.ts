@@ -36,7 +36,8 @@ export const ipv4 = () => {
 
 // ipv6
 export const ipv6 = () => {
-  return `${random(65535, true)}.${random(65535, true)}.${random(65535, true)}.${random(65535, true)}`
+  // 随机生成ipv6地址
+  return `${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}`
 }
 
 // ip
@@ -47,14 +48,13 @@ export const ip = () => {
 
 // mac地址
 export const mac = () => {
-  return `${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true).toString(16).padStart(2, '0')}-${random(255, true)
-    .toString(16)
-    .padStart(2, '0')}`
+  // 随机生成mac地址
+  return `${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}`
 }
 
 // 图片地址
-export const img = (w: string | number = 100, h: string | number = 100) => {
-  return `https://dummyimage.com/${w}x${h}`
+export const img = (w: string | number = 1000, h: string | number = w) => {
+  return `https://dummyimage.com/${w}x${h}?text=${new Date().getTime()}`
 }
 
 // 音频地址

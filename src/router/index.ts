@@ -5,6 +5,7 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
+      redirect: '/index',
       component: () => import('@/views/layout.vue'),
       children: [
         {

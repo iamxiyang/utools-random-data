@@ -58,7 +58,7 @@ export default {
   '${日期}': {
     function: date,
     example: date(),
-    description: '支持根据dayjs格式化标记返回特定格式内容，默认参数 Y-M-D',
+    description: '支持根据dayjs格式化标记返回特定格式内容，默认参数 YYYY-MM-DD',
   },
   '${星期}': {
     function: week,
@@ -108,11 +108,11 @@ export default {
   '${正则}': {
     function: useRegexp,
     example: useRegexp(/[a-zA-Z0-9]{6,12}/),
-    description: '实验性功能，后续可能更改！支持正则表达式，可以传递一个正则表达式，返回一个符合正则表达式的字符串，依赖reregexp',
+    description: '实验性功能，后续可能更改！支持正则表达式，可以传递一个正则表达式，返回一个符合正则表达式的字符串，如 ${正则(/[a-zA-Z0-9]{6,12}/)} 依赖reregexp',
   },
   '${文本}': {
     function: text,
-    example: text(),
+    example: text(40),
     description: '随机返回一段无规律的文本，支持传递文本长度，如 text(100) 返回的内容是固定 100个字符， text(100, 120) 返回的内容是100~120个字符，默认是200个字符',
   },
   '${论语}': {

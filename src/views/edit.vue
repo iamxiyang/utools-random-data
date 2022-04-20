@@ -2,7 +2,7 @@
 <template>
   <el-page-header class="m-y-20" :icon="ArrowLeft" content="编辑指令" @back="router.back()" />
   <el-form label-position="top" ref="ruleFormRef" :model="edit" :rules="formRules">
-    <el-form-item prop="explain" label="功能名称，干什么用的">
+    <el-form-item prop="explain" label="功能名称">
       <el-input v-model="edit.explain"></el-input>
     </el-form-item>
     <el-form-item prop="cmds" label="响应词，uTools输入框用来快捷生成">
@@ -21,7 +21,7 @@
       <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
       <div class="m-y-20">
         <el-select placeholder="插入变量" filterable @change="addVariable">
-          <el-option v-for="item in variable" :key="item.example" :label="item.example" :value="item.name"></el-option>
+          <el-option v-for="item in _variable" :key="item.name" :label="item.name" :value="item.name"></el-option>
         </el-select>
       </div>
     </el-form-item>
@@ -35,7 +35,7 @@
 <script setup lang="ts">
   import router from '../router'
   import { ArrowLeft } from '@element-plus/icons-vue'
-  import { nextTick, reactive, toRaw, ref, onMounted } from 'vue'
+  import { nextTick, reactive, computed, ref, onMounted } from 'vue'
   import { ElForm, ElInput, ElMessage } from 'element-plus'
   import { useRoute } from 'vue-router'
   import variable from '../constant/variable'
@@ -64,6 +64,16 @@
   const defaultData = defaultEdit()
   let edit = reactive<Feature>(defaultData)
   let originEdit = reactive<Feature>(cloneDeep(defaultData))
+
+  const _variable = computed(() => {
+    return Object.keys(variable).map((key) => {
+      return {
+        name: key,
+        example: variable[key].example,
+        description: variable[key].description,
+      }
+    })
+  })
 
   onMounted(() => {
     const { id: queryId } = useRoute().query
@@ -135,6 +145,7 @@
     try {
       if (!formEl) return
       await formEl.validate()
+      // TODO 功能名称、响应词判断重复？
       const index = features.value.findIndex((item) => item._id === id.value)
       features.value.splice(index, 1, {
         _id: id.value,
@@ -164,7 +175,6 @@
   :deep(.el-button),
   :deep(.tag-input) {
     margin-right: 14px;
-    margin-bottom: 14px;
   }
   .tag-input {
     display: inline-block;

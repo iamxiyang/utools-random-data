@@ -8,12 +8,12 @@ export const timestamp = (): number => {
 
 // 星期
 export const week = (): number => {
-  const number = Math.floor(Math.random() * 7) + 1
+  const number = Math.floor(Math.random() * 7)
   const strArr: { [index: number]: string } = ['一', '二', '三', '四', '五', '六', '日']
   // @ts-ignore
   return `星期${strArr[number]}`
 }
 
-export const date = (format: string = 'Y-M-D') => {
+export const date = (format: string = 'YYYY-MM-DD') => {
   return dayjs(timestamp()).format(format)
 }
