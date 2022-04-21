@@ -152,19 +152,35 @@
 
   // 进行指令测试
   const testCmd = () => {
-    // TODO 生成一遍，把结果弹窗显示
     const text = runCmd(edit.content)
     const text2 = runCmd(edit.content)
     testText.value = [text, text2]
     dialogTest.value = true
   }
+
   // 保存指令
   const saveCmd = async (formEl: ElFormInstance | undefined) => {
     try {
       if (!formEl) return
       await formEl.validate()
-      // TODO 功能名称、响应词判断重复？
-      const index = features.value.findIndex((item) => item._id === id.value)
+      // 判断功能名称和响应词不能重复
+      for (let i = 0, len = features.value.length; i < len; i++) {
+        const _id = features.value[i]._id
+        const { explain, cmds } = features.value[i].data
+        if (_id !== id.value) {
+          if (explain === edit.explain) {
+            ElMessage.error('功能名称已存在，不能重复')
+            return
+          }
+          for (let c = 0, clen = cmds.length; c < clen; c++) {
+            if (edit.cmds.includes(cmds[c])) {
+              ElMessage.error(`响应词${cmds[c]}已存在，不能重复`)
+              return
+            }
+          }
+        }
+      }
+      const index = features.value.findIndex((item: DbFeature) => item._id === id.value)
       features.value.splice(index, 1, {
         _id: id.value,
         _rev: rev.value,
