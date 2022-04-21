@@ -2,8 +2,8 @@ import { city, color, address, county, express, IdCard, postcode, province, scho
 
 interface VariableTypes {
   [key: string]: {
-    function: any
-    example: string
+    function: Function
+    example: string | number
     description: string
   }
 }
@@ -18,7 +18,7 @@ export default {
   '${市}': {
     function: city,
     example: city(),
-    description: '城市，如果在省后面调用则肯定返回的嗯是属于上级的',
+    description: '城市，如果在省后面调用则肯定返回的是属于上级的',
   },
   '${县}': {
     function: county,
@@ -165,4 +165,4 @@ export default {
     example: img(),
     description: '随机返回一个图片地址，支持传递宽高，如 img(200,300)',
   },
-} as unknown as VariableTypes
+} as VariableTypes

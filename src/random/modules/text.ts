@@ -36,6 +36,12 @@ const returnFeihua = (length = 200, title = '随机一段废话') => {
         body = body.replace('x', title)
     }
   }
+  if (body.length > length) {
+    return body.slice(0, length)
+  }
+  if (body.length < length) {
+    return body.padEnd(length - body.length, '哈')
+  }
   return body
 }
 

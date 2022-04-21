@@ -1,26 +1,23 @@
-<!-- TODO -->
-
-
-
-写一个变量列表，可以复制或直接使用变量？
-
-3、内容解析、生成算法
-4、内置变量
-5、页面解析、配置
-
 # utools-random-data
 
-vite + vue3 + ts + element-plus + scss + pinia + utools api + reregexp
+一款 Utools 插件，用于生成随机数据。如果帮到了你，请不要吝啬你的 Star！
 
-## 目录结构
+## 下载
 
-src  
--- assets 静态资源，通常不需要改动
--- components 公共组件
--- pages 页面组件
--- mock 随机数据生成逻辑目录
--- 主逻辑
-store 配置数据、存放配置、实时和 utools 同步
-utils
--- random 和 random 文件对应
--- 助手，一些函数封装
+1. Utools 插件中心搜索【随机】
+1. 官方离线中心 https://api.u-tools.cn/Plugins/developer/allPlugins
+
+## 使用
+
+## 参与贡献
+
+## 打赏
+
+## TODO
+
+功能名称、响应词 查重
+所有的功能列表开发（没有假如快捷启动时可使用，默认唤醒词：随机数据指令列表、随机数据设置）
+utools 相关数据同步
+旧数据迁移
+代码优化
+数据测试优化

@@ -7,23 +7,26 @@
 </template>
 
 <script setup lang="ts">
-const openGithub = () => utools.shellOpenExternal('https://github.com/iamxiyang/utools-random-data');
+  const openUrl = (url: string) => {
+    window.utools ? utools.shellOpenExternal(url) : window.open(url, '_blank')
+  }
+  const openGithub = () => openUrl('https://github.com/iamxiyang/utools-random-data')
 </script>
 
 <style scoped lang="scss">
-p {
-  font-size: 16px;
-  line-height: 2;
-  margin-bottom: 10px;
-}
+  p {
+    font-size: 16px;
+    line-height: 2;
+    margin-bottom: 10px;
+  }
 
-.link {
-  color: #3a8ee6;
-  cursor: pointer;
-}
+  .link {
+    color: #3a8ee6;
+    cursor: pointer;
+  }
 
-.note {
-  font-size: 14px;
-  color: #888;
-}
+  .note {
+    font-size: 14px;
+    color: #888;
+  }
 </style>

@@ -16,12 +16,12 @@ export const runCmd = (content: string) => {
     const macthArguments = match.match(/\((.*?)\)/)?.[1] || ''
     let _arguments = macthArguments.split(',')
     if (variable[fun]) {
-      const result = variable?.[fun]?.function(..._arguments)
+      const result = variable?.[fun]?.function(..._arguments.filter((i) => i))
       // 缓存结果便于后续使用
       tempCaches[match] = result
       return result
     }
     return p1
   })
-  return parseContent
+  return parseContent.trim()
 }

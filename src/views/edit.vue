@@ -27,9 +27,21 @@
     </el-form-item>
   </el-form>
   <div class="m-y-20 footer">
-    <!-- <el-button @click="testCmd">测 试</el-button> -->
+    <el-button @click="testCmd">测 试</el-button>
     <el-button type="primary" @click="saveCmd(ruleFormRef)">保 存</el-button>
   </div>
+
+  <el-dialog v-model="dialogTest" title="测试结果" width="60vw">
+    <div>
+      <el-alert title="以下是根据你的指令内容随机生成的2条内容，如果觉得不符合预期可修改后重新测试" type="info" />
+      <div class="m-t-40 p-b-10">
+        <template v-for="(text, index) in testText" :key="text">
+          <p class="m-0">{{ text }}</p>
+          <el-divider v-if="index < testText.length - 1" />
+        </template>
+      </div>
+    </div>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -64,6 +76,9 @@
   const defaultData = defaultEdit()
   let edit = reactive<Feature>(defaultData)
   let originEdit = reactive<Feature>(cloneDeep(defaultData))
+
+  const dialogTest = ref(false)
+  const testText = ref<string[] | number[]>([])
 
   const _variable = computed(() => {
     return Object.keys(variable).map((key) => {
@@ -138,7 +153,10 @@
   // 进行指令测试
   const testCmd = () => {
     // TODO 生成一遍，把结果弹窗显示
-    runCmd(edit.content)
+    const text = runCmd(edit.content)
+    const text2 = runCmd(edit.content)
+    testText.value = [text, text2]
+    dialogTest.value = true
   }
   // 保存指令
   const saveCmd = async (formEl: ElFormInstance | undefined) => {
@@ -176,6 +194,17 @@
   :deep(.tag-input) {
     margin-right: 14px;
   }
+
+  .m-0 {
+    margin: 0;
+  }
+  .m-t-40 {
+    margin-top: 40px;
+  }
+  .p-b-10 {
+    padding-bottom: 10px;
+  }
+
   .tag-input {
     display: inline-block;
     width: 100px;
