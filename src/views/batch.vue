@@ -51,6 +51,7 @@
       return ElMessage.error('请选择指令')
     }
     let text = ''
+    // @ts-ignore
     const content = features.value.find((item) => item._id === curFeature)?.data.content
     if (!content) return
     for (let i = 0; i < number; i++) {

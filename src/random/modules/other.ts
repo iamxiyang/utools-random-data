@@ -1,6 +1,7 @@
 import sample from 'lodash.sample'
 
 export const uuid = () => {
+  // @ts-ignore
   return crypto.randomUUID()
 }
 

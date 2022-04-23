@@ -96,6 +96,7 @@
     id.value = (queryId as string) || `cmd-${uuid()}`
 
     if (queryId) {
+      // @ts-ignore
       const find = features.value.find((item: any) => item._id === queryId)
       const data = find?.data
       if (data) {
