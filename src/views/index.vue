@@ -36,6 +36,7 @@
   const router = useRouter()
   const { features } = storeToRefs(appStore)
 
+  // TODO 当前页面响应比较慢，需要优化
   const tableData = computed(() => {
     return features.value.map((item: any, index) => {
       return { _id: item._id, _rev: item._rev, ...item.data, index }

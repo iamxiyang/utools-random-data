@@ -1,9 +1,13 @@
-import defaultFeatures from '@/constant/defaultFeature'
+import defaultFeatures from '../constant/defaultFeature'
+import useAppStore from '../store/index'
 
 export const initCmds = () => {
   const features = utools.getFeatures()
   if (features.length) return
   utools.db.bulkDocs(defaultFeatures)
+  // 同时把数据初始化到pinia
+  const appStore = useAppStore()
+  appStore.init()
   for (let i = 0; i < defaultFeatures.length - 1; i++) {
     const {
       data: { code, explain, cmds, feature },

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import defaultFeatures from '@/constant/defaultFeature'
+import defaultFeatures from '../constant/defaultFeature'
 
 export default defineStore('app', {
   state: () => {
@@ -8,5 +8,12 @@ export default defineStore('app', {
       delete: '',
     }
   },
-  actions: {},
+  actions: {
+    async init() {
+      const data: DbFeature[] = window.utools ? (utools.db.allDocs('cmd-') as DbFeature[]) : defaultFeatures
+      if (data.length) {
+        this.features = data
+      }
+    },
+  },
 })

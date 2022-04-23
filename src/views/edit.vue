@@ -55,15 +55,16 @@
   import { uuid } from '../random'
   import { storeToRefs } from 'pinia'
   import useAppStore from '../store/index'
-  import { cloneDeep, uniqueId } from 'lodash'
+  import { cloneDeep } from 'lodash'
   export type ElFormInstance = InstanceType<typeof ElForm>
+  // TODO 当前页面响应比较慢，需要优化
 
   const appStore = useAppStore()
   const { features } = storeToRefs(appStore)
 
   const defaultEdit = () => {
     return {
-      code: uniqueId(),
+      code: '',
       explain: '',
       cmds: [],
       content: '',
@@ -95,7 +96,7 @@
     id.value = (queryId as string) || `cmd-${uuid()}`
 
     if (queryId) {
-      const find = features.value.find((item) => item._id === queryId)
+      const find = features.value.find((item: any) => item._id === queryId)
       const data = find?.data
       if (data) {
         rev.value = find?._rev as string
@@ -179,6 +180,9 @@
             }
           }
         }
+      }
+      if (!edit.code) {
+        edit.code = id.value
       }
       const index = features.value.findIndex((item: DbFeature) => item._id === id.value)
       features.value.splice(index, 1, {

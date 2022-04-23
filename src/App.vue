@@ -5,7 +5,6 @@
 </template>
 <script setup lang="ts">
   import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-  import router from './router'
 </script>
 <style lang="scss">
   body {

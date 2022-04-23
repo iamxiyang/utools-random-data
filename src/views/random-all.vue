@@ -1,50 +1,99 @@
+window.scrollTo(0, 0)
 <template>
-  <div
-    v-for="item in allDocs"
-    :key="item._id"
-    class="line"
-    @click="runCmd(item.data.code)"
-  >
-    <p class="explain">{{ item.data.explain }}</p>
-    <div v-if="item.data.setFeature">
-      <el-tag
-        type="info"
-        class="m-r-10"
-        v-for="tag in item.data.cmds"
-        :key="tag"
-      >
-        {{ tag }}
-      </el-tag>
+  <div v-for="(item, index) in features" :key="item._id" class="line" :class="{ active: active === index }" @click="runCmd(item.data.code)">
+    <img src="/logo.png" class="icon" alt="logo" />
+    <div class="content">
+      <p class="explain">{{ item.data.explain }}</p>
+      <div v-if="item.data.feature">
+        <span class="m-r-10 tag" v-for="tag in item.data.cmds" :key="tag">
+          {{ tag }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const allDocs = utools.db.allDocs("cmd-");
-// TODO 目前没有utools自带模板的体验好，如不能按键上下选择，后续再考虑优化
-const runCmd = (code: string) => {
-  alert(code);
-};
+  import { storeToRefs } from 'pinia'
+  import { onMounted, onUnmounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  import useAppStore from '../store/index'
+  import { runCmd } from '../utils/random'
+  import { copyPasteOut } from '../utils/utools'
+
+  const appStore = useAppStore()
+  const router = useRouter()
+  const { features } = storeToRefs(appStore)
+
+  let active = $ref(0)
+
+  const keyDown = (event: KeyboardEvent) => {
+    switch (event.code) {
+      case 'ArrowUp':
+        if (active > 0) {
+          active = active - 1
+        }
+        break
+      case 'ArrowDown':
+        if (active < features.value.length - 1) {
+          active = active + 1
+        }
+        break
+      case 'Enter':
+      case 'Space':
+        const text = runCmd(features.value[active].data.content)
+        if (text) {
+          copyPasteOut(text)
+        } else {
+          router.replace('/index')
+        }
+        break
+    }
+  }
+
+  onMounted(() => {
+    window.addEventListener('keydown', keyDown)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('keydown', keyDown)
+  })
 </script>
 
 <style scoped lang="scss">
-.line {
-  height: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 3%;
-  border-bottom: 1px solid #f2f2f2;
-  cursor: pointer;
-  &:active {
-    background-color: #f2f2f2;
+  .line {
+    display: flex;
+    align-items: center;
+    padding: 10px 1%;
+    border-bottom: 1px solid #f2f2f2;
+    cursor: pointer;
+    &:active,
+    &.active {
+      background-color: #dee2e6;
+    }
+    .icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      margin-right: 16px;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .explain {
+      margin: 0 0 2px 0;
+      font-size: 14px;
+    }
+    .tag {
+      color: #8a8a8a;
+      font-size: 12px;
+    }
   }
-  .explain {
-    margin: 0 0 6px 0;
-    font-size: 15px;
+  .m-r-10 {
+    margin-right: 10px;
   }
-}
-.m-r-10 {
-  margin-right: 10px;
-}
 </style>
