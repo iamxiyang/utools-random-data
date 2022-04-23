@@ -2,7 +2,7 @@ import defaultFeatures from '../constant/defaultFeature'
 import useAppStore from '../store/index'
 
 export const initCmds = () => {
-  const features = utools.getFeatures()
+  const features = utools.db.allDocs('cmd-')
   if (features.length) return
   utools.db.bulkDocs(defaultFeatures)
   // 同时把数据初始化到pinia
