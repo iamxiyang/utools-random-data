@@ -14,7 +14,7 @@
       <el-input placeholder="\r\n" v-model="symbol"></el-input>
     </el-form-item>
     <el-form-item label="生成结果">
-      <el-input type="textarea" v-model="result" placeholder="单次最多生成 500 个，生成后可复制使用" :autosize="{ minRows: 8, maxRows: 14 }"></el-input>
+      <el-input type="textarea" v-model="result" placeholder="单次最多生成 500 个，生成后可复制使用" :autosize="{ minRows: 8, maxRows: 12 }"></el-input>
     </el-form-item>
   </el-form>
   <div class="m-y-20 footer">

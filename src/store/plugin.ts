@@ -1,10 +1,8 @@
 import { PiniaPluginContext } from 'pinia'
-import { DebuggerEventExtraInfo, toRaw } from 'vue'
+import { DebuggerEventExtraInfo } from 'vue'
 
 //  通过pinia的Api监听数据变更，进而实现数据直接操作，自动同步到utools
 export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
-  if (!window.utools) return
-
   /* 
   utools操作
 
@@ -25,27 +23,77 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
   每次删除：db.remove 如果 feature是true 同时调用 removeFeature
 
   */
-  store.$subscribe((mutation) => {
-    console.log(mutation.events)
+  store.$subscribe(
+    (mutation) => {
+      console.log(mutation, store.$state.deleteId)
 
-    if (mutation.storeId !== 'app') return
-    const { key, newValue, oldValue, target } = mutation.events as DebuggerEventExtraInfo
-    if (key === 'length') {
-      // TODO 这样无法判断具体是新增还是删除了哪个数据，需要考虑怎么记录
-    } else if (key === 'feature') {
-      // 修改快捷启动
-      const { code, explain, cmds } = target as any
-      if (newValue) {
-        utools.setFeature({
-          code,
-          explain,
-          cmds,
-          platform: ['win32', 'darwin', 'linux'],
+      if (mutation.storeId !== 'app') return
+      const { type, key, newValue, oldValue, target } = mutation.events as DebuggerEventExtraInfo & { target: any }
+      if (!window.utools) return
+
+      if (type === 'add') {
+        // 新增功能，同步到数据库
+        window.utools.db.put(newValue)
+        if (newValue.feature) {
+          // 如果是需要同步到utools的功能，则调用setFeature
+          utools.setFeature({
+            code: newValue.code,
+            explain: newValue.explain,
+            cmds: newValue.cmds,
+            platform: ['win32', 'darwin', 'linux'],
+          })
+        }
+      } else if (key === 'length' && newValue === target.length && oldValue > newValue) {
+        utools.db.remove(store.$state.deleteId)
+        utools.removeFeature(store.$state.deleteId)
+        store.$state.deleteId = ''
+      } else if (key === 'feature') {
+        // 修改快捷启动
+        const { code, explain, cmds, content } = target
+
+        const data = window.utools.db.get(newValue.code)
+        window.utools.db.put({
+          _id: newValue.code,
+          _rev: data?._rev,
+          data: {
+            code,
+            explain,
+            cmds,
+            content,
+          },
         })
+
+        if (newValue) {
+          utools.setFeature({
+            code,
+            explain,
+            cmds,
+            platform: ['win32', 'darwin', 'linux'],
+          })
+        } else {
+          utools.removeFeature(code)
+        }
       } else {
-        utools.removeFeature(code)
+        // 一次修改了很多东西
+
+        utools.db.put(newValue)
+
+        if (newValue.feature && !oldValue.feature) {
+          // 如果是需要同步到utools的功能，则调用setFeature
+          utools.setFeature({
+            code: newValue.code,
+            explain: newValue.explain,
+            cmds: newValue.cmds,
+            platform: ['win32', 'darwin', 'linux'],
+          })
+        } else if (!newValue.feature && oldValue.feature) {
+          // 如果是需要同步到utools的功能，则调用removeFeature
+          utools.removeFeature(oldValue.code)
+        }
       }
-    } else {
-    }
-  })
+    },
+    {
+      detached: true,
+    },
+  )
 }

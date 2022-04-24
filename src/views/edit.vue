@@ -101,7 +101,7 @@
       const data = find?.data
       if (data) {
         rev.value = find?._rev as string
-        edit = Object.assign(edit, data)
+        edit = Object.assign(edit, cloneDeep(data))
         originEdit = Object.assign(originEdit, cloneDeep(data))
       }
     }
@@ -186,11 +186,21 @@
         edit.code = id.value
       }
       const index = features.value.findIndex((item: DbFeature) => item._id === id.value)
-      features.value.splice(index, 1, {
-        _id: id.value,
-        _rev: rev.value,
-        data: edit,
-      })
+      if (index >= 0) {
+        features.value.splice(index, 1, {
+          _id: id.value,
+          _rev: rev.value,
+          data: edit,
+        })
+      } else {
+        features.value.push({
+          _id: id.value,
+          _rev: rev.value,
+          // @ts-ignore
+          data: edit,
+        })
+      }
+
       ElMessage({
         message: '已保存',
         type: 'success',
