@@ -38,7 +38,6 @@ if (window.utools) {
       await router.replace({ name: 'random-all' })
       return
     }
-
     // 获取指令对应的配置内容，执行生成指令，然后退出插件
     const dbData = utools.db.get(code)
     if (dbData) {
@@ -46,8 +45,12 @@ if (window.utools) {
       const text = runCmd(data.content)
       copyPasteOut(text)
       return
+    } else {
+      initApp()
+      await router.replace({ name: 'index' })
+      utools.showNotification('指令不存在')
+      utools.removeFeature(code)
     }
-    initApp()
   })
 } else {
   initApp()

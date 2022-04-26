@@ -102,10 +102,24 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
+"@types/lodash.clonedeep@^4.5.7":
+  "integrity" "sha512-ccNqkPptFIXrpVqUECi60/DFxjNKsfoQxSQsgcBJCX/fuX1wgyQieojkcWH/KpE3xzLoWN/2k+ZeGqIN3paSvw=="
+  "resolved" "https://registry.npmmirror.com/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.7.tgz"
+  "version" "4.5.7"
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.flattendeep@^4.4.6":
   "integrity" "sha512-uLm2MaRVlqJSGsMK0RZpP5T3KqReq+9WbYDHCUhBhp98v56hMG/Yht52bsoTSui9xz2mUvQ9NfG3LrNGDL92Ng=="
   "resolved" "https://registry.npmmirror.com/@types/lodash.flattendeep/-/lodash.flattendeep-4.4.6.tgz"
   "version" "4.4.6"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.isequal@^4.5.6":
+  "integrity" "sha512-Ww4UGSe3DmtvLLJm2F16hDwEQSv7U0Rr8SujLUA2wHI2D2dm8kPu6Et+/y303LfjTIwSBKXB/YTUcAKpem/XEg=="
+  "resolved" "https://registry.npmmirror.com/@types/lodash.isequal/-/lodash.isequal-4.5.6.tgz"
+  "version" "4.5.6"
   dependencies:
     "@types/lodash" "*"
 
@@ -731,10 +745,20 @@
   "resolved" "https://registry.npmmirror.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   "version" "4.0.8"
 
+"lodash.differencewith@^4.5.0":
+  "integrity" "sha512-/8JFjydAS+4bQuo3CpLMBv7WxGFyk7/etOAsrQUCu0a9QVDemxv0YQ0rFyeZvqlUD314SERfNlgnlqqHmaQ0Cg=="
+  "resolved" "https://registry.npmmirror.com/lodash.differencewith/-/lodash.differencewith-4.5.0.tgz"
+  "version" "4.5.0"
+
 "lodash.flattenDeep@npm:lodash.flattendeep@^4.4.0":
   "integrity" "sha512-uHaJFihxmJcEX3kT4I23ABqKKalJ/zDrDg0lsFtc1h+3uw49SIJ5beyhx5ExVRti3AvKoOJngIj7xz3oylPdWQ=="
   "resolved" "https://registry.npmmirror.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz"
   "version" "4.4.0"
+
+"lodash.isequal@^4.5.0":
+  "integrity" "sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ=="
+  "resolved" "https://registry.npmmirror.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz"
+  "version" "4.5.0"
 
 "lodash.kebabCase@npm:lodash.kebabcase@^4.1.1":
   "integrity" "sha512-N8XRTIMMqqDgSy4VLKPnJ/+hpGZN+PHQiJnSenYqPaVV/NCqEogTnAdZLQiGKhxX+JCs8waWq2t1XHWKOmlY8g=="

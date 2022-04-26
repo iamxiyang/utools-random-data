@@ -47,7 +47,7 @@
 <script setup lang="ts">
   import router from '../router'
   import { ArrowLeft } from '@element-plus/icons-vue'
-  import { nextTick, reactive, computed, ref, onMounted } from 'vue'
+  import { nextTick, reactive, computed, ref, onMounted, toRaw } from 'vue'
   import { ElForm, ElInput, ElMessage } from 'element-plus'
   import { useRoute } from 'vue-router'
   import variable from '../constant/variable'
@@ -190,14 +190,14 @@
         features.value.splice(index, 1, {
           _id: id.value,
           _rev: rev.value,
-          data: edit,
+          data: toRaw(edit),
         })
       } else {
         features.value.push({
           _id: id.value,
           _rev: rev.value,
           // @ts-ignore
-          data: edit,
+          data: toRaw(edit),
         })
       }
 

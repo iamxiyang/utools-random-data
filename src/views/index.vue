@@ -34,7 +34,7 @@
   import useAppStore from '../store/index'
   const appStore = useAppStore()
   const router = useRouter()
-  const { features, deleteId } = storeToRefs(appStore)
+  const { features } = storeToRefs(appStore)
 
   // TODO 当前页面响应比较慢，需要优化
   const tableData = computed(() => {
@@ -65,7 +65,6 @@
         ElMessageBox.alert('就剩最后一个指令了，就别删除了吧，如果指令内容不符合要求可以进行修改')
         return
       }
-      deleteId.value = features.value[index]._id + ''
       features.value.splice(index, 1)
     } catch (err) {}
   }

@@ -5,6 +5,7 @@
       <el-menu-item index="batch">批量生成</el-menu-item>
       <el-menu-item index="about">关于插件</el-menu-item>
       <el-menu-item index="variable">内置变量</el-menu-item>
+      <el-menu-item index="test">test</el-menu-item>
     </el-menu>
     <div class="view">
       <router-view />

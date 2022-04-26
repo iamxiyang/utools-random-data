@@ -48,6 +48,14 @@ export const router = createRouter({
             title: '内置变量',
           },
         },
+        {
+          path: '/test',
+          name: 'test',
+          component: () => import('@/views/test.vue'),
+          meta: {
+            title: 'test',
+          },
+        },
       ],
     },
     {
