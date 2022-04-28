@@ -53,6 +53,16 @@ if (window.utools) {
       utools.removeFeature(code)
     }
   })
+
+  utools.onPluginOut(() => {
+    console.log('用户退出插件')
+    app.unmount()
+  })
+
+  // utools.onPluginDetach(() => {
+  //   alert('分离窗口时自动粘贴可能存在问题，请手动粘贴')
+  //   console.log('插件被分离')
+  // })
 } else {
   mountApp()
   console.error('目前不在 utools 环境，仅限调试使用，保存的数据刷新后会被重置')
