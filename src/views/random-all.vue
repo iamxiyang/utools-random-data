@@ -1,5 +1,5 @@
 <template>
-  <div v-for="(item, index) in features" :key="item._id" class="line" :class="{ active: active === index }" @click="runCmd(item.data.content)">
+  <div v-for="(item, index) in features" :key="item._id" class="line" :class="{ active: active === index }" @click="clickCmd(item)">
     <img src="/logo.png" class="icon" alt="logo" />
     <div class="content">
       <p class="explain">{{ item.data.explain }}</p>
@@ -25,6 +25,15 @@
   const { features } = $(storeToRefs(appStore))
 
   let active = $ref(0)
+
+  const clickCmd = (item: DbDoc) => {
+    const text = runCmd(item.data.content)
+    if (text) {
+      copyPasteOut(text)
+    } else {
+      router.replace('/index')
+    }
+  }
 
   const keyDown = (event: KeyboardEvent) => {
     switch (event.code) {
