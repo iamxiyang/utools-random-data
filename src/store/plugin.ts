@@ -11,9 +11,6 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
     // db上的旧数据
     const data: DbDoc[] = window.utools ? utools.db.allDocs('cmd-') : cloneDeep(defaultFeature)
 
-    console.log(data)
-    console.log(features)
-
     const dataIds = data.map((row) => row._id)
     const featureIds = features.map((row) => row._id)
 
@@ -48,7 +45,6 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
         })
       }
     })
-    // @ts-ignore
     const res = utools.db.bulkDocs(addUpdate)
     console.log(res)
   }
