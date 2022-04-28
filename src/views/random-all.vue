@@ -1,6 +1,5 @@
-window.scrollTo(0, 0)
 <template>
-  <div v-for="(item, index) in features" :key="item._id" class="line" :class="{ active: active === index }" @click="runCmd(item.data.code)">
+  <div v-for="(item, index) in features" :key="item._id" class="line" :class="{ active: active === index }" @click="runCmd(item.data.content)">
     <img src="/logo.png" class="icon" alt="logo" />
     <div class="content">
       <p class="explain">{{ item.data.explain }}</p>
@@ -23,7 +22,7 @@ window.scrollTo(0, 0)
 
   const appStore = useAppStore()
   const router = useRouter()
-  const { features } = storeToRefs(appStore)
+  const { features } = $(storeToRefs(appStore))
 
   let active = $ref(0)
 
@@ -35,13 +34,13 @@ window.scrollTo(0, 0)
         }
         break
       case 'ArrowDown':
-        if (active < features.value.length - 1) {
+        if (active < features.length - 1) {
           active = active + 1
         }
         break
       case 'Enter':
       case 'Space':
-        const text = runCmd(features.value[active].data.content)
+        const text = runCmd(features[active].data.content)
         if (text) {
           copyPasteOut(text)
         } else {
