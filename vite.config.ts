@@ -7,6 +7,10 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
+  build: {
+    target: 'es2019',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

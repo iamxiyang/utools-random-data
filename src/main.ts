@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import 'element-plus/dist/index.css'
 
 import App from './App.vue'
 import router from './router'
-import 'element-plus/dist/index.css'
 import { utoolsDbSync } from './store/plugin'
 import { runCmd } from './utils/random'
 import { initCmds } from './utils/init'
