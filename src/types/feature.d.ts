@@ -4,5 +4,5 @@ interface Feature {
   icon?: string // 图标,可选
   cmds: string[] // 功能响应词汇
   content: string // 功能内容，会被解析后返回使用
-  feature?: boolean // 是否添加到直接唤醒
+  feature?: boolean // 是否添加到直接唤醒，仅用于db中当做判断依据
 }

@@ -5,12 +5,12 @@ import defaultFeatures from '../constant/defaultFeature'
 export default defineStore('app', {
   state: () => {
     return {
-      features: window.utools ? (utools.db.allDocs('cmd-') as DbFeature[]) : cloneDeep(defaultFeatures),
+      features: (window.utools ? utools.db.allDocs('cmd-') : cloneDeep(defaultFeatures)) as DbDoc[],
     }
   },
   actions: {
     async init() {
-      const data: DbFeature[] = window.utools ? (utools.db.allDocs('cmd-') as DbFeature[]) : cloneDeep(defaultFeatures)
+      const data: DbDoc[] = window.utools ? utools.db.allDocs('cmd-') : cloneDeep(defaultFeatures)
       if (data.length) {
         this.features = data
       }

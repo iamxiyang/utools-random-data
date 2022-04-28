@@ -26,12 +26,11 @@
   import { ElMessage } from 'element-plus'
   import { onMounted } from 'vue'
   import { storeToRefs } from 'pinia'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute } from 'vue-router'
   import useAppStore from '../store/index'
   import { runCmd } from '../utils/random'
 
   const appStore = useAppStore()
-  const router = useRouter()
   const { features } = storeToRefs(appStore)
 
   const route = useRoute()
@@ -51,7 +50,6 @@
       return ElMessage.error('请选择指令')
     }
     let text = ''
-    // @ts-ignore
     const content = features.value.find((item) => item._id === curFeature)?.data.content
     if (!content) return
     for (let i = 0; i < number; i++) {
@@ -68,7 +66,6 @@
   :deep(.el-input-number) {
     width: 200px;
   }
-
   .footer {
     display: flex;
     align-items: center;
