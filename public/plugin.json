@@ -15,13 +15,13 @@
   "features": [
     {
       "code": "random-all",
-      "explain": "随机生成数据插件 - 全部指令",
+      "explain": "随机生成数据-全部指令，如果找不到指令可以点击这里",
       "cmds": ["随机生成数据插件全部指令"]
     },
     {
       "code": "setting",
-      "explain": "随机生成数据插件 - 设置",
-      "cmds": ["随机生成数据插件设置"]
+      "explain": "随机生成数据-设置",
+      "cmds": ["设置", "随机生成数据插件设置"]
     },
     {
       "code": "cmd-phone",
@@ -79,7 +79,7 @@
     },
     {
       "code": "cmd-ip",
-      "explain": "随机生成一个ip地址",
+      "explain": "随机生成一个ipv4地址",
       "cmds": ["ip", "ipv4"],
       "content": "${ipv4}"
     }

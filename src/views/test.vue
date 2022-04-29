@@ -8,17 +8,19 @@
 </template>
 
 <script setup lang="ts">
+  import { debug } from '../utils/helper'
+
   const allDocs = () => {
     const a = utools.db.allDocs()
-    console.log(a)
+    debug(a)
   }
   const allDocsCmd = () => {
     const a = utools.db.allDocs('cmd-')
-    console.log(a)
+    debug(a)
   }
   const getFeatures = () => {
     const features = utools.getFeatures()
-    console.log(features)
+    debug(features)
   }
   const setFeature = () => {
     utools.setFeature({

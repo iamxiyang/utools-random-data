@@ -1,4 +1,5 @@
 import variable from '../constant/variable'
+import { _clearAddressCaches } from '../random'
 
 // 解析内容
 export const runCmd = (content: string) => {
@@ -23,5 +24,6 @@ export const runCmd = (content: string) => {
     }
     return p1
   })
+  _clearAddressCaches()
   return parseContent.trim()
 }

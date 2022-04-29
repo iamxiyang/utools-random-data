@@ -38,7 +38,7 @@ export default {
   '${学校}': {
     function: school,
     example: school(),
-    description: '随机返回一个大学名称',
+    description: '随机返回一个大学名称，内置数据有限，不建议批量生成',
   },
   '${快递地址}': {
     function: express,
@@ -53,12 +53,12 @@ export default {
   '${颜色}': {
     function: color,
     example: color(),
-    description: '支持传递一个类型，支持rgb、rgba、hsl、hsla、hex，不传或传参不对将随机返回一种格式',
+    description: '可以传递一个类型，如 ${颜色(rgb)} ，支持rgb、rgba、hsl、hsla、hex，不传或传参不对将随机返回一种格式',
   },
   '${日期}': {
     function: date,
     example: date(),
-    description: '支持根据dayjs格式化标记返回特定格式内容，默认参数 YYYY-MM-DD',
+    description: '支持根据dayjs格式化标记返回特定格式内容，如 ${日期(YYYY-MM-DD)}，默认参数 YYYY-MM-DD',
   },
   '${星期}': {
     function: week,
@@ -83,7 +83,7 @@ export default {
   '${手机号}': {
     function: phone,
     example: phone(),
-    description: '随机返回一个手机号码，支持传递一个参数是否返回前缀',
+    description: '随机返回一个手机号码，支持传递一个参数是否返回 86+ 前缀',
   },
   '${电话号码}': {
     function: tel,
@@ -113,7 +113,7 @@ export default {
   '${文本}': {
     function: text,
     example: text(40),
-    description: '随机返回一段无规律的文本，支持传递文本长度，如 text(100) 返回的内容是固定 100个字符， text(100, 120) 返回的内容是100~120个字符，默认是200个字符',
+    description: '随机返回一段无规律的文本，支持传递文本长度，如 ${文本(100)} 返回的内容是固定 100个字符， ${文本(100,120)} 返回的内容是100~120个字符，默认是200个字符',
   },
   '${论语}': {
     function: returnLunyu,
@@ -163,6 +163,6 @@ export default {
   '${图片地址}': {
     function: img,
     example: img(),
-    description: '随机返回一个图片地址，支持传递宽高，如 img(200,300)',
+    description: '随机返回一个图片地址，支持传递宽高，如 ${图片地址(200,300)} 返回的图片宽高为 200*300',
   },
 } as VariableTypes

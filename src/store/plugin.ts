@@ -3,6 +3,7 @@ import { PiniaPluginContext } from 'pinia'
 import isEqual from 'lodash.isequal'
 import cloneDeep from 'lodash.cloneDeep'
 import defaultFeature from '../constant/defaultFeature'
+import { debug } from '../utils/helper'
 
 //  通过pinia的Api监听数据变更，进而实现数据直接操作，自动同步到utools
 export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
@@ -46,7 +47,7 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
       }
     })
     const res = utools.db.bulkDocs(addUpdate)
-    console.log(res)
+    debug(res)
   }
 
   store.$subscribe(
