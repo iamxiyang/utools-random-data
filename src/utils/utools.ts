@@ -22,13 +22,13 @@ export const copyPasteOut = (text: string) => {
     debug('仅uTools插件环境可用', text)
     return
   }
+  window.utools.hideMainWindow()
+  utools.copyText(text)
+  paste()
   if (isFirstUse) {
     showTips()
     utools.db.put({ _id: 'is-first-use', data: new Date().getTime() })
     isFirstUse = false
   }
-  window.utools.hideMainWindow()
-  utools.copyText(text)
-  paste()
   window.utools.outPlugin()
 }
