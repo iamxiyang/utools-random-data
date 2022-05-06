@@ -1,9 +1,4 @@
 {
-  "pluginName": "随机生成虚假数据",
-  "version": "1.0.0",
-  "description": "随机生成手机号、文本、学校名称、地址、身份证号等数据，用于开发等场景填充内容。",
-  "author": "何喜阳",
-  "homepage": "https://hexiyang.cn",
   "main": "index.html",
   "development": {
     "main": "http://localhost:3000"
