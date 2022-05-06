@@ -99,7 +99,7 @@ export const IdCard = () => {
     const end = date.getTime() - 18 * 365 * 24 * 60 * 60 * 1000
     const ageDate = random(start, end)
     date.setTime(ageDate)
-    return `${date.getFullYear()}${separator}${String(date.getMonth()).padStart(2, '0')}${separator}${String(date.getDate()).padStart(2, '0')}`
+    return `${date.getFullYear()}${separator}${String(date.getMonth() + 1).padStart(2, '0')}${separator}${String(date.getDate()).padStart(2, '0')}`
   }
 
   // 根据前17位计算第18位效验码
