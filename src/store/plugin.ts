@@ -1,7 +1,7 @@
 import { toRaw } from 'vue'
 import { PiniaPluginContext } from 'pinia'
 import isEqual from 'lodash.isequal'
-import cloneDeep from 'lodash.cloneDeep'
+import cloneDeep from 'lodash.clonedeep'
 import defaultFeature from '../constant/defaultFeature'
 
 const tryRemoveFeature = (row: DbDoc) => {

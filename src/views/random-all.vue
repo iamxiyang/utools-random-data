@@ -13,9 +13,6 @@
 </template>
 
 <script setup lang="ts">
-  import { storeToRefs } from 'pinia'
-  import { onMounted, onUnmounted } from 'vue'
-  import { useRouter } from 'vue-router'
   import useAppStore from '../store/index'
   import { runCmd } from '../utils/random'
   import { copyPasteOut } from '../utils/utools'

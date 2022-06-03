@@ -1,6 +1,6 @@
 <!--已创建指令列表-->
 <template>
-  <el-button type="primary" class="m-y-20" @click="editCmd('')"> 添加新指令 </el-button>
+  <el-button type="primary" class="m-y-20px" @click="editCmd('')"> 添加新指令 </el-button>
   <el-table :data="tableData" stripe style="width: 100%">
     <el-table-column prop="explain" label="指令名称" />
     <el-table-column prop="cmds" label="唤醒词汇" />
@@ -11,32 +11,28 @@
         </el-tooltip>
       </template>
     </el-table-column>
-    <el-table-column prop="address" label="操作">
+    <el-table-column prop="address" align="center" label="操作">
       <template #default="scope">
-        <el-button type="text" @click="editCmd(scope.row._id)">修改</el-button>
+        <el-button text type="primary" @click="editCmd(scope.row._id)">修改</el-button>
         <el-popconfirm title="确定要删除?一旦删除不可恢复" @confirm="deleteCmd(scope.row.index)">
           <template #reference>
-            <el-button type="text"> 删除 </el-button>
+            <el-button text type="primary"> 删除 </el-button>
           </template>
         </el-popconfirm>
-        <el-button type="text" @click="batchCmd(scope.row._id)"> 批量生成 </el-button>
+        <el-button text type="primary" @click="batchCmd(scope.row._id)"> 批量生成 </el-button>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script setup lang="ts">
-  import { useRouter } from 'vue-router'
   import { ElMessageBox, ElMessage } from 'element-plus'
-  import { computed } from '@vue/runtime-core'
-  import { storeToRefs } from 'pinia'
 
   import useAppStore from '../store/index'
   const appStore = useAppStore()
   const router = useRouter()
   const { features } = storeToRefs(appStore)
 
-  // TODO 当前页面响应比较慢，需要优化
   const tableData = computed(() => {
     return features.value.map((item: any, index) => {
       return { _id: item._id, _rev: item._rev, ...item.data, index }

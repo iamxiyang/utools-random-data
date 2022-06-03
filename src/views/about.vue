@@ -1,5 +1,5 @@
 <template>
-  <h2 class="m-y-20">关于插件</h2>
+  <h2 class="m-y-20px">关于插件</h2>
   <p>随机生成虚假数据插件，是一款 <strong>开源</strong>、<strong>免费</strong> 的 uTools 插件。</p>
   <p>Github地址：<span class="link" @click="openGithub">https://github.com/iamxiyang/utools-random-data</span></p>
   <p>开发者微信：hexiyangwxh <span class="note">（添加时请备注来自uTools随机生成数据插件）</span></p>

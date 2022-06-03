@@ -1,5 +1,9 @@
 # utools-random-data
 
+# TODO
+
+依赖整理、ts类型、unocss 、暗黑模式
+
 一款 uTools 插件，用于生成随机数据，在系统开发等场景极其有用。目前已经支持 **_多种数据自己组合_**、**_正则语法随机生成内容_**、**_批量生成_** 等特色功能。如果帮到了你，请不要吝啬你的 Star！
 
 > 项目使用 Vite、Vue3、pinia、Element Plus 等技术进行开发，开发过程中参考了 mockjs、random-something 等开源库的实现。日期格式化使用 dayjs、正则生成数据使用 reregexp
@@ -7,7 +11,7 @@
 ## 下载
 
 1. uTools 插件中心搜索【随机生成数据】找到插件直接下载安装使用。
-1. 官方离线中心 https://api.u-tools.cn/Plugins/developer/allPlugins 搜索【随机生成数据】下载后拖到 uTools 输入框安装使用。
+1. 官方离线中心 <https://api.u-tools.cn/Plugins/developer/allPlugins> 搜索【随机生成数据】下载后拖到 uTools 输入框安装使用。
 
 ## 使用
 

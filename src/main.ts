@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import { utoolsDbSync } from './store/plugin'
@@ -8,6 +7,8 @@ import { runCmd } from './utils/random'
 import { initCmds } from './utils/init'
 import { copyPasteOut } from './utils/utools'
 import { debug } from './utils/helper'
+import 'element-plus/es/components/message/style/css'
+import 'uno.css'
 
 let app: any
 

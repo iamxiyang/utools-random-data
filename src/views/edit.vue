@@ -1,6 +1,7 @@
 <!--创建和编辑指令-->
 <template>
-  <el-page-header class="m-y-20" :icon="ArrowLeft" content="编辑指令" @back="router.back()" />
+  <!-- TODO ，图标使用 uno css  -->
+  <el-page-header class="m-y-20px" content="编辑指令" @back="router.back()" />
   <el-form label-position="top" ref="ruleFormRef" :model="edit" :rules="formRules">
     <el-form-item prop="explain" label="功能名称">
       <el-input v-model="edit.explain"></el-input>
@@ -19,14 +20,14 @@
     </el-form-item>
     <el-form-item required prop="content" label="指令内容">
       <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
-      <div class="m-y-20">
+      <div class="m-y-20px">
         <el-select placeholder="插入变量" filterable @change="addVariable">
           <el-option v-for="item in _variable" :key="item.name" :label="item.name" :value="item.name"></el-option>
         </el-select>
       </div>
     </el-form-item>
   </el-form>
-  <div class="m-y-20 footer">
+  <div class="m-y-20px footer">
     <el-button @click="testCmd">测 试</el-button>
     <el-button type="primary" @click="saveCmd(ruleFormRef)">保 存</el-button>
   </div>
@@ -45,16 +46,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ArrowLeft } from '@element-plus/icons-vue'
-  import { nextTick, reactive, computed, ref, onMounted, toRaw, watchEffect } from 'vue'
-  import { ElForm, ElInput, ElMessage } from 'element-plus'
-  import { useRoute, useRouter } from 'vue-router'
+  import { ElInput, ElMessage } from 'element-plus'
   import variable from '../constant/variable'
   import { runCmd } from '../utils/random'
   import { uuid } from '../random'
-  import { storeToRefs } from 'pinia'
   import useAppStore from '../store/index'
-  export type ElFormInstance = InstanceType<typeof ElForm>
 
   const appStore = useAppStore()
   const { features } = $(storeToRefs(appStore))
@@ -117,7 +113,7 @@
   }
 
   // 内容效验
-  const ruleFormRef = ref<ElFormInstance>()
+  const ruleFormRef = ref<ElForm>()
   const validatePass = (rule: any, value: any, callback: any) => {
     if ((!value || value.length === 0) && edit.feature) {
       callback(new Error('快捷启动时唤醒词不能为空'))

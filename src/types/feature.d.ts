@@ -6,3 +6,5 @@ interface Feature {
   content: string // 功能内容，会被解析后返回使用
   feature?: boolean // 是否添加到直接唤醒，仅用于db中当做判断依据
 }
+
+// TODO 目前都有哪些类型？怎么覆盖utools默认的垃圾类型定义
