@@ -1,15 +1,19 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { useDark } from '@vueuse/core'
+
 import App from './App.vue'
 import router from './router'
+
+import 'uno.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+import 'element-plus/es/components/message/style/css'
+
 import { utoolsDbSync } from './store/plugin'
 import { initCmds } from './utils/init'
 import { debug } from './utils/helper'
 import { runCmd } from './utils/random'
 import { copyPasteOut } from './utils/utools'
-
-import 'element-plus/es/components/message/style/css'
-import 'uno.css'
 
 let app: any
 
@@ -63,3 +67,5 @@ if (window.utools) {
   render()
   console.error('目前不在 utools 环境，仅限调试使用，保存的数据刷新后会被重置')
 }
+
+useDark({})
