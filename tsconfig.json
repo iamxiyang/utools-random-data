@@ -13,7 +13,9 @@
     "paths": {
       "@": ["./src"]
     },
-    "types": ["node", "utools-api-types"]
+    "types": ["node"],
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules/**"]
 }

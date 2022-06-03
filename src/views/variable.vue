@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
   import variable from '../constant/variable'
 
   const data = computed(() => {

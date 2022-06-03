@@ -1,10 +1,10 @@
 <!--选择指令批量生成数据-->
 <template>
-  <h2 class="m-y-20">批量生成</h2>
+  <h2 class="m-y-20px">批量生成</h2>
   <el-form label-position="left" label-width="80px">
     <el-form-item label="选择指令">
-      <el-select placeholder="请选择指令" filterable v-model="curFeature" class="w-200">
-        <el-option v-for="item in features" :key="item._id" :label="item.data.explain" :value="item._id"></el-option>
+      <el-select placeholder="请选择指令" filterable v-model="curFeature" class="w-200px">
+        <el-option v-for="item in features" :key="item._id" :label="item.data.explain" :value="item._id"> </el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="生成数量">
@@ -17,16 +17,13 @@
       <el-input type="textarea" v-model="result" placeholder="单次最多生成 500 个，生成后可复制使用" :autosize="{ minRows: 8, maxRows: 12 }"></el-input>
     </el-form-item>
   </el-form>
-  <div class="m-y-20 footer">
+  <div class="m-y-20px flex items-center justify-end">
     <el-button type="primary" @click="saveCmd">生 成</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
   import { ElMessage } from 'element-plus'
-  import { onMounted } from 'vue'
-  import { storeToRefs } from 'pinia'
-  import { useRoute } from 'vue-router'
   import useAppStore from '../store/index'
   import { runCmd } from '../utils/random'
 
@@ -65,10 +62,5 @@
 <style scoped lang="scss">
   :deep(.el-input-number) {
     width: 200px;
-  }
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
   }
 </style>

@@ -1,7 +1,7 @@
 import { toRaw } from 'vue'
 import { PiniaPluginContext } from 'pinia'
 import isEqual from 'lodash.isequal'
-import cloneDeep from 'lodash.cloneDeep'
+import cloneDeep from 'lodash.clonedeep'
 import defaultFeature from '../constant/defaultFeature'
 
 const tryRemoveFeature = (row: DbDoc) => {
@@ -13,6 +13,7 @@ const tryRemoveFeature = (row: DbDoc) => {
       code,
       explain,
       cmds,
+      platform: ['win32', 'darwin', 'linux'],
     })
     utools.removeFeature(row._id)
   }
@@ -59,6 +60,7 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
           code,
           explain,
           cmds,
+          platform: ['win32', 'darwin', 'linux'],
         })
       }
     })

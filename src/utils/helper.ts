@@ -1,5 +1,5 @@
 export const debug = (...args: any) => {
-  if (!utools || utools.isDev()) {
+  if (!window.utools || utools.isDev()) {
     console.log(...args)
   }
 }

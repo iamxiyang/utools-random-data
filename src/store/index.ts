@@ -1,5 +1,5 @@
-import { cloneDeep } from 'lodash'
 import { defineStore } from 'pinia'
+import cloneDeep from 'lodash.clonedeep'
 import defaultFeatures from '../constant/defaultFeature'
 
 export default defineStore('app', {

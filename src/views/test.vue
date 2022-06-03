@@ -28,7 +28,7 @@
       explain: 'hosts切换' + new Date().getTime(),
       // "icon": "res/xxx.png",
       // "icon": "data:image/png;base64,xxx...",
-      // "platform": ["win32", "darwin", "linux"]
+      platform: ['win32', 'darwin', 'linux'],
       cmds: ['hosts'],
     })
   }
