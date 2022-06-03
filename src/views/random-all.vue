@@ -4,7 +4,7 @@
     <div class="content">
       <p class="explain">{{ item.data.explain }}</p>
       <div v-if="item.data.feature">
-        <span class="m-r-10 tag" v-for="tag in item.data.cmds" :key="tag">
+        <span class="m-r-10px tag" v-for="tag in item.data.cmds" :key="tag">
           {{ tag }}
         </span>
       </div>
@@ -70,11 +70,11 @@
     display: flex;
     align-items: center;
     padding: 10px 1%;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid var(--el-border-color-lighter, #f2f2f2);
     cursor: pointer;
     &:active,
     &.active {
-      background-color: #dee2e6;
+      background-color: var(--el-fill-color-light, #dee2e6);
     }
     .icon {
       width: 36px;
@@ -97,8 +97,5 @@
       color: #8a8a8a;
       font-size: 12px;
     }
-  }
-  .m-r-10 {
-    margin-right: 10px;
   }
 </style>

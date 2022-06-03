@@ -13,13 +13,13 @@
     </el-table-column>
     <el-table-column prop="address" align="center" label="操作">
       <template #default="scope">
-        <el-button text type="primary" @click="editCmd(scope.row._id)">修改</el-button>
+        <el-button text class="!px-4px" type="primary" @click="editCmd(scope.row._id)">修改</el-button>
         <el-popconfirm title="确定要删除?一旦删除不可恢复" @confirm="deleteCmd(scope.row.index)">
           <template #reference>
-            <el-button text type="primary"> 删除 </el-button>
+            <el-button text class="!px-4px" type="primary"> 删除 </el-button>
           </template>
         </el-popconfirm>
-        <el-button text type="primary" @click="batchCmd(scope.row._id)"> 批量生成 </el-button>
+        <el-button text class="!px-4px" type="primary" @click="batchCmd(scope.row._id)"> 批量生成 </el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -28,7 +28,7 @@
 <script setup lang="ts">
   import { ElMessageBox, ElMessage } from 'element-plus'
   import useAppStore from '../store/index'
-  
+
   const appStore = useAppStore()
   const router = useRouter()
   const { features } = storeToRefs(appStore)
