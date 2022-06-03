@@ -21,7 +21,6 @@ specifiers:
   unocss: ^0.37.2
   unplugin-auto-import: ^0.8.6
   unplugin-vue-components: ^0.19.6
-  utools-api-types: ^2.6.4
   vite: ^2.9.9
   vue: ^3.2.36
   vue-router: ^4.0.15
@@ -52,7 +51,6 @@ devDependencies:
   unocss: registry.npmmirror.com/unocss/0.37.2_vite@2.9.9
   unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.8.6_vite@2.9.9
   unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.19.6_vite@2.9.9+vue@3.2.36
-  utools-api-types: registry.npmmirror.com/utools-api-types/2.6.4
   vite: registry.npmmirror.com/vite/2.9.9_sass@1.52.1
   vue-tsc: registry.npmmirror.com/vue-tsc/0.35.2_typescript@4.7.2
 
@@ -1900,12 +1898,6 @@ packages:
       vite: registry.npmmirror.com/vite/2.9.9_sass@1.52.1
       webpack-sources: registry.npmmirror.com/webpack-sources/3.2.3
       webpack-virtual-modules: registry.npmmirror.com/webpack-virtual-modules/0.4.3
-    dev: true
-
-  registry.npmmirror.com/utools-api-types/2.6.4:
-    resolution: {integrity: sha512-pJuGvjSScwePuc6F/PVtL6DSCm+XzF78CBKxFUU82FON4vB8MGDXPCp6Y/25T/ndKyiyFj1zCR8ObyxtdikzPg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/utools-api-types/-/utools-api-types-2.6.4.tgz}
-    name: utools-api-types
-    version: 2.6.4
     dev: true
 
   registry.npmmirror.com/vite/2.9.9_sass@1.52.1:

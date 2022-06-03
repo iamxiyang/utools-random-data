@@ -1,6 +1,5 @@
 <!--创建和编辑指令-->
 <template>
-  <!-- TODO ，图标使用 uno css  -->
   <el-page-header class="m-y-20px" content="编辑指令" @back="router.back()" />
   <el-form label-position="top" ref="ruleFormRef" :model="edit" :rules="formRules">
     <el-form-item prop="explain" label="功能名称">
@@ -27,7 +26,7 @@
       </div>
     </el-form-item>
   </el-form>
-  <div class="m-y-20px footer">
+  <div class="m-y-20px flex items-center justify-end">
     <el-button @click="testCmd">测 试</el-button>
     <el-button type="primary" @click="saveCmd(ruleFormRef)">保 存</el-button>
   </div>
@@ -35,7 +34,7 @@
   <el-dialog v-model="dialogTest" title="测试结果" width="60vw">
     <div>
       <el-alert title="以下是根据你的指令内容随机生成的2条内容，如果觉得不符合预期可修改后重新测试" type="info" />
-      <div class="m-t-40 p-b-10">
+      <div class="m-t-40px p-b-10px">
         <template v-for="(text, index) in testText" :key="text">
           <p class="m-0">{{ text }}</p>
           <el-divider v-if="index < testText.length - 1" />
@@ -46,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ElInput, ElMessage } from 'element-plus'
+  import { ElInput, ElMessage, FormInstance } from 'element-plus'
   import variable from '../constant/variable'
   import { runCmd } from '../utils/random'
   import { uuid } from '../random'
@@ -113,7 +112,7 @@
   }
 
   // 内容效验
-  const ruleFormRef = ref<ElForm>()
+  const ruleFormRef = ref<FormInstance>()
   const validatePass = (rule: any, value: any, callback: any) => {
     if ((!value || value.length === 0) && edit.feature) {
       callback(new Error('快捷启动时唤醒词不能为空'))
@@ -155,7 +154,7 @@
   }
 
   // 保存指令
-  const saveCmd = async (formEl: ElFormInstance | undefined) => {
+  const saveCmd = async (formEl: FormInstance | undefined) => {
     try {
       if (!formEl) return
       await formEl.validate()
@@ -210,23 +209,8 @@
     margin-right: 14px;
   }
 
-  .m-0 {
-    margin: 0;
-  }
-  .m-t-40 {
-    margin-top: 40px;
-  }
-  .p-b-10 {
-    padding-bottom: 10px;
-  }
-
   .tag-input {
     display: inline-block;
     width: 100px;
-  }
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
   }
 </style>

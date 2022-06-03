@@ -210,7 +210,7 @@ interface Display {
 }
 
 interface DbDoc {
-  [key: string]: string | number
+  data: any
   _id: string
   _rev?: string
 }

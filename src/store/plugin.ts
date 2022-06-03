@@ -13,6 +13,7 @@ const tryRemoveFeature = (row: DbDoc) => {
       code,
       explain,
       cmds,
+      platform: ['win32', 'darwin', 'linux'],
     })
     utools.removeFeature(row._id)
   }
@@ -59,6 +60,7 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
           code,
           explain,
           cmds,
+          platform: ['win32', 'darwin', 'linux'],
         })
       }
     })

@@ -31,7 +31,6 @@
     "unocss": "^0.37.2",
     "unplugin-auto-import": "^0.8.6",
     "unplugin-vue-components": "^0.19.6",
-    "utools-api-types": "^2.6.4",
     "vite": "^2.9.9",
     "vue-tsc": "^0.35.2"
   }
