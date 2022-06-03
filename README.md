@@ -22,10 +22,35 @@
 
 ## 参与贡献
 
-欢迎参与贡献，提交 PR，一起把这款插件变得更好用。如有建议也可以直接联系我的微信 hexiyangwxh （备注 utools 随机数据插件）
+非常欢迎你的加入！[提一个 Issue](https://github.com/iamxiyang/utools-random-data/issues/) 或者提交一个 Pull Request。
 
-## 打赏
+**Pull Request:**
+
+1. Fork 代码!
+2. 创建自己的分支: `git checkout -b feat/xxxx`
+3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
+4. 推送您的分支: `git push origin feat/xxxx`
+5. 提交`pull request`
+
+**Git 贡献提交规范:**
+
+- 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+  - `feat` 增加新功能
+  - `fix` 修复问题/BUG
+  - `style` 代码风格相关无影响运行结果的
+  - `perf` 优化/性能提升
+  - `refactor` 重构
+  - `revert` 撤销修改
+  - `test` 测试相关
+  - `docs` 文档/注释
+  - `chore` 依赖更新/脚手架配置修改等
+  - `workflow` 工作流改进
+  - `ci` 持续集成
+  - `types` 类型定义文件更改
+  - `wip` 开发中
+
+## 打赏作者
+
+如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹。
 
 ![打赏](https://test-1309419893.cos.ap-shanghai.myqcloud.com/%E6%89%93%E8%B5%8F.jpg)
-
-感谢您的支持
