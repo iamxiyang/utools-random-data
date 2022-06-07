@@ -84,7 +84,7 @@ export const username = () => {
 }
 
 // 身份证号
-export const IdCard = () => {
+export const IdCard = (maxAge:number= 50,minAge:number=18) => {
   // 身份证号码生成，规则参考：https://baike.baidu.com/item/%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81/3400358
 
   // 第一、二位表示省级行政区。
@@ -95,8 +95,8 @@ export const IdCard = () => {
   // 随机生成一个生日
   const birthday = (separator = '') => {
     const date = new Date()
-    const start = date.getTime() - 50 * 365 * 24 * 60 * 60 * 1000
-    const end = date.getTime() - 18 * 365 * 24 * 60 * 60 * 1000
+    const start = date.getTime() - maxAge * 365 * 24 * 60 * 60 * 1000
+    const end = date.getTime() - minAge * 365 * 24 * 60 * 60 * 1000
     const ageDate = random(start, end)
     date.setTime(ageDate)
     return `${date.getFullYear()}${separator}${String(date.getMonth() + 1).padStart(2, '0')}${separator}${String(date.getDate()).padStart(2, '0')}`
