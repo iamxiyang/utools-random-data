@@ -98,7 +98,7 @@ export default {
   '${身份证号}': {
     function: IdCard,
     example: IdCard(),
-    description: '随机返回一个符合规则的国内身份证号',
+    description: '随机返回一个符合规则的国内身份证号,支持传递最大年龄和最小年龄，如 ${身份证号(100)} 或 ${身份证号(100,2)} 返回的身份证号码年龄在2-100之间',
   },
   '${星座}': {
     function: constellation,
