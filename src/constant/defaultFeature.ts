@@ -40,16 +40,6 @@ export default [
     },
   },
   {
-    _id: 'cmd-idcard',
-    data: {
-      code: 'cmd-idcard',
-      explain: '随机生成身份证号',
-      cmds: ['身份证', 'idcard'],
-      content: '${身份证号}',
-      feature: true,
-    },
-  },
-  {
     _id: 'cmd-text',
     data: {
       code: 'cmd-text',
