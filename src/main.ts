@@ -8,6 +8,7 @@ import router from './router'
 import 'uno.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/es/components/message/style/css'
+import 'element-plus/theme-chalk/el-message-box.css'
 
 import { utoolsDbSync } from './store/plugin'
 import { initCmds } from './utils/init'
