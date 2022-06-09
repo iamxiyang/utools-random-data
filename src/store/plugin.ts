@@ -68,7 +68,7 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
   }
 
   store.$subscribe(
-    (mutation) => {
+    (mutation:any) => {
       if (mutation.storeId !== 'app') return
       getFeatures(toRaw(store.$state.features))
     },

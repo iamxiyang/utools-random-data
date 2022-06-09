@@ -47,7 +47,7 @@
       return ElMessage.error('请选择指令')
     }
     let text = ''
-    const content = features.value.find((item) => item._id === curFeature)?.data.content
+    const content = features.value.find((item:DbDoc) => item._id === curFeature)?.data.content
     if (!content) return
     for (let i = 0; i < number; i++) {
       text += runCmd(content)
