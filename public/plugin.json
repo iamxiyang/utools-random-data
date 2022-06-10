@@ -43,6 +43,12 @@
       "content": "${姓名}"
     },
     {
+      "code": "cmd-idcard",
+      "explain": "随机生成身份证号",
+      "cmds": ["身份证", "idcard"],
+      "content": "${身份证号}"
+    },
+    {
       "code": "cmd-text",
       "explain": "随机生成一大段废话填充数据",
       "cmds": ["文本", "废话", "text"],
