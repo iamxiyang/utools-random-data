@@ -17,6 +17,7 @@ import { initCmds } from './utils/init'
 import { debug } from './utils/helper'
 import { runCmd } from './utils/random'
 import { copyPasteOut } from './utils/utools'
+import useAppStore from './store/index'
 
 let app: any
 
@@ -28,13 +29,14 @@ const render = () => {
   app.use(pinia)
   app.use(router)
   app.mount('#app')
+  // 同时把数据初始化到pinia
+  const appStore = useAppStore()
+  appStore.init()
 }
 
 if (window.utools) {
+  initCmds()
   utools.onPluginEnter(({ code, type, payload }) => {
-    // 初始化数据
-    initCmds()
-
     debug('用户进入插件', code, type, payload)
     if (code === 'setting') {
       render()

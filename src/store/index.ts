@@ -5,7 +5,7 @@ import defaultFeatures from '../constant/defaultFeature'
 export default defineStore('app', {
   state: () => {
     return {
-      features: (window.utools ? utools.db.allDocs('cmd-') : cloneDeep(defaultFeatures)) as DbDoc[],
+      features: cloneDeep(defaultFeatures),
     }
   },
   actions: {
