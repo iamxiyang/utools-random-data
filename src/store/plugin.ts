@@ -3,21 +3,7 @@ import { PiniaPluginContext } from 'pinia'
 import isEqual from 'lodash.isequal'
 import cloneDeep from 'lodash.clonedeep'
 import defaultFeature from '../constant/defaultFeature'
-
-const tryRemoveFeature = (row: DbDoc) => {
-  // 不知道具体原因，测试时发现内置指令删除时会报错，但尝试更新后再删除就不会报错，这里多尝试一次
-  const { code, explain, cmds } = toRaw(row.data)
-  const res = utools.removeFeature(row._id)
-  if (!res) {
-    utools.setFeature({
-      code,
-      explain,
-      cmds,
-      platform: ['win32', 'darwin', 'linux'],
-    })
-    utools.removeFeature(row._id)
-  }
-}
+import { tryRemoveFeature } from '../utils/utools'
 
 //  通过pinia的Api监听数据变更，进而实现数据直接操作，自动同步到utools
 export const utoolsDbSync = ({ store }: PiniaPluginContext) => {

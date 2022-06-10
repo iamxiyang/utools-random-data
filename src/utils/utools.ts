@@ -32,3 +32,18 @@ export const copyPasteOut = (text: string) => {
   }
   window.utools.outPlugin()
 }
+
+export const tryRemoveFeature = (row: DbDoc) => {
+  // 不知道具体原因，测试时发现内置指令删除时会报错，但尝试更新后再删除就不会报错，这里多尝试一次
+  const { code, explain, cmds } = isRef(row) ? toRaw(row.data) : row.data
+  const res = utools.removeFeature(row._id)
+  if (!res) {
+    utools.setFeature({
+      code,
+      explain,
+      cmds,
+      platform: ['win32', 'darwin', 'linux'],
+    })
+    utools.removeFeature(row._id)
+  }
+}

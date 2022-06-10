@@ -1,4 +1,5 @@
 import defaultFeatures from '../constant/defaultFeature'
+import { tryRemoveFeature } from './utools'
 
 export const initCmds = () => {
   const features = utools.db.allDocs('cmd-')
@@ -19,7 +20,7 @@ export const initCmds = () => {
           platform: ['win32', 'darwin', 'linux'],
         })
       } else {
-        utools.removeFeature(code)
+        tryRemoveFeature(item)
       }
     })
     return
