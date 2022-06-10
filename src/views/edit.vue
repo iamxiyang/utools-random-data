@@ -53,7 +53,7 @@ import { uuid } from '../random'
 import useAppStore from '../store/index'
 
 const appStore = useAppStore()
-const { features } = $(storeToRefs(appStore))
+const { features }: { features: DbDoc[] } = $(storeToRefs(appStore))
 
 const router = useRouter()
 
@@ -78,7 +78,7 @@ onMounted(() => {
   id = (queryId as string) || `cmd-${uuid()}`
 
   if (queryId) {
-    const find = features.find((item: DbDoc) => item._id === queryId)
+    const find: DbDoc | undefined = features.find((item: DbDoc) => item._id === queryId)
     const data = find?.data
     if (data) {
       rev = find?._rev as string
