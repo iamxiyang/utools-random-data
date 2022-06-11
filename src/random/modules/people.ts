@@ -84,7 +84,7 @@ export const username = () => {
 }
 
 // 身份证号
-export const IdCard = (maxAge:number= 50,minAge:number=18) => {
+export const IdCard = (maxAge: number = 50, minAge: number = 18) => {
   // 身份证号码生成，规则参考：https://baike.baidu.com/item/%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81/3400358
 
   // 第一、二位表示省级行政区。

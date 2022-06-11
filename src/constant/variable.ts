@@ -38,7 +38,7 @@ export default {
   '${学校}': {
     function: school,
     example: school(),
-    description: '随机返回一个大学名称，内置数据有限，不建议批量生成',
+    description: '随机返回一个大学名称，随机生成的，不确保真实存在',
   },
   '${快递地址}': {
     function: express,
