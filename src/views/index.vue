@@ -80,7 +80,7 @@ onMounted(() => {
       // 使用提示
       ElMessageBox.confirm(`该插件的目的是帮助开发、测试人员在开发阶段进行数据测试，所有生成的数据都是虚假的，只确保符合特定校验规则，并不是真实存在的。请您合理使用。`, {
         title: '使用提示',
-        confirmButtonText: '我知道了，继续使用',
+        confirmButtonText: '我知道了',
         showCancelButton: false,
         type: 'warning',
       });
