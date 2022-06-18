@@ -75,4 +75,7 @@ const saveCmd = () => {
 :deep(.el-input-number) {
   width: 200px;
 }
+:deep(.el-textarea__inner) {
+  resize: none;
+}
 </style>
