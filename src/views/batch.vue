@@ -20,7 +20,7 @@
     </el-form-item>
     <el-form-item label="生成结果">
       <el-input type="textarea" v-model="result" placeholder="单次最多生成 500 个，生成后可复制使用"
-        :autosize="{ minRows: 8, maxRows: 12 }"></el-input>
+        :autosize="{ minRows: 8, maxRows: 8 }"></el-input>
     </el-form-item>
   </el-form>
   <div class="m-y-20px flex items-center justify-end">
