@@ -1,4 +1,7 @@
 {
-  "cSpell.words": ["pinia"],
+  "cSpell.words": [
+    "Builderer",
+    "pinia"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,4 +1,41 @@
-import { city, color, address, county, express, IdCard, postcode, province, school, street, community, date, week, timestamp, uuid, carNumber, username, phone, tel, useRegexp, text, audio, img, ip, domain, url, email, constellation, ipv4, ipv6, mac, returnLunyu, returnTuhua } from '../random/index'
+import random from 'lodash.random'
+import {
+  city,
+  color,
+  address,
+  county,
+  express,
+  IdCard,
+  province,
+  school,
+  street,
+  community,
+  date,
+  week,
+  timestamp,
+  uuid,
+  carNumber,
+  username,
+  phone,
+  tel,
+  useRegexp,
+  text,
+  audio,
+  img,
+  ip,
+  domain,
+  url,
+  email,
+  constellation,
+  ipv4,
+  ipv6,
+  mac,
+  returnLunyu,
+  returnTuhua,
+  companyName,
+  bankCard,
+  bankCardNumber,
+} from '../random/index'
 
 interface VariableTypes {
   [key: string]: {
@@ -38,7 +75,7 @@ export default {
   '${学校}': {
     function: school,
     example: school(),
-    description: '随机返回一个大学名称，内置数据有限，不建议批量生成',
+    description: '随机返回一个大学名称，随机生成的，不确保真实存在',
   },
   '${快递地址}': {
     function: express,
@@ -164,5 +201,25 @@ export default {
     function: img,
     example: img(),
     description: '随机返回一个图片地址，支持传递宽高，如 ${图片地址(200,300)} 返回的图片宽高为 200*300',
+  },
+  '${银行卡}': {
+    function: bankCard,
+    example: bankCard(),
+    description: '随机返回一个银行卡信息',
+  },
+  '${银行卡号}': {
+    function: bankCardNumber,
+    example: bankCardNumber(),
+    description: '随机返回一个银行卡号',
+  },
+  '${公司名称}': {
+    function: companyName,
+    example: companyName(),
+    description: '随机返回一个公司名称',
+  },
+  '${随机数}': {
+    function: random,
+    example: random(),
+    description: '随机返回随机数，底层依赖lodash.random 可以查看lodash文档。默认返回0或1，支持传递参数，传递1个参数时是最大值，2个参数时是最小值、最大值，3个参数时是最小、最大、指定返回浮点数',
   },
 } as VariableTypes
