@@ -15,7 +15,6 @@
     "lodash.random": "^3.2.0",
     "lodash.sample": "^4.2.1",
     "lodash.times": "^4.3.2",
-    "lodash.uniq": "^4.5.0",
     "pinia": "^2.0.14",
     "reregexp": "^1.6.0",
     "vue": "^3.2.36",
