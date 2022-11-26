@@ -19,63 +19,72 @@
       <el-input placeholder="\r\n" v-model="symbol"></el-input>
     </el-form-item>
     <el-form-item label="生成结果">
-      <el-input type="textarea" v-model="result" placeholder="单次最多生成 500 个，生成后可复制使用"
-        :autosize="{ minRows: 8, maxRows: 8 }"></el-input>
+      <el-input type="textarea" v-model="result" placeholder="单次最多生成 500 个，生成后可复制使用" :autosize="{ minRows: 8, maxRows: 8 }"></el-input>
     </el-form-item>
   </el-form>
   <div class="m-y-20px flex items-center justify-end">
     <el-button type="primary" @click="saveCmd">生 成</el-button>
+    <el-button @click="copyResult">复制结果</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
-import useAppStore from '../store/index'
-import { runCmd } from '../utils/random'
+  import { ElMessage } from 'element-plus'
+  import useAppStore from '../store/index'
+  import { runCmd } from '../utils/random'
+  import { copyText } from '../utils/helper'
+  const appStore = useAppStore()
+  const { features } = storeToRefs(appStore)
 
-const appStore = useAppStore()
-const { features } = storeToRefs(appStore)
+  const route = useRoute()
+  const { id = '' } = route.params
 
-const route = useRoute()
-const { id = '' } = route.params
+  let curFeature = $ref('')
+  let number = $ref(1)
+  let symbol = $ref('\r\n')
+  let result = $ref('')
+  let isFilterRepeat = $ref(false)
 
-let curFeature = $ref('')
-let number = $ref(1)
-let symbol = $ref('\r\n')
-let result = $ref('')
-let isFilterRepeat = $ref(false)
+  onMounted(() => {
+    curFeature = id as string
+  })
 
-onMounted(() => {
-  curFeature = id as string
-})
-
-const saveCmd = () => {
-  if (!curFeature) {
-    return ElMessage.error('请选择指令')
+  const saveCmd = () => {
+    if (!curFeature) {
+      return ElMessage.error('请选择指令')
+    }
+    const content = features.value.find((item: DbDoc) => item._id === curFeature)?.data.content
+    if (!content) return
+    let text = ''
+    const arr = []
+    for (let i = 0; i < number; i++) {
+      arr.push(runCmd(content))
+    }
+    if (isFilterRepeat) {
+      const _arr = [...new Set(arr)]
+      text = _arr.join(symbol)
+      ElMessage.info(`已过滤重复内容，实际生成 ${_arr.length} 条`)
+    } else {
+      text = arr.join(symbol)
+    }
+    result = text
   }
-  const content = features.value.find((item: DbDoc) => item._id === curFeature)?.data.content
-  if (!content) return
-  let text = ''
-  const arr = []
-  for (let i = 0; i < number; i++) {
-    arr.push(runCmd(content))
+
+  const copyResult = () => {
+    if (!result) {
+      return ElMessage.error('请先生成数据')
+    }
+    copyText(result)
+    ElMessage.success('复制成功')
   }
-  if (isFilterRepeat) {
-    const _arr = [...new Set(arr)]
-    text = _arr.join(symbol)
-    ElMessage.info(`已过滤重复内容，实际生成 ${_arr.length} 条`)
-  } else {
-    text = arr.join(symbol)
-  }
-  result = text
-}
 </script>
 
 <style scoped lang="scss">
-:deep(.el-input-number) {
-  width: 200px;
-}
-:deep(.el-textarea__inner) {
-  resize: none;
-}
+  :deep(.el-input-number) {
+    width: 200px;
+  }
+
+  :deep(.el-textarea__inner) {
+    resize: none;
+  }
 </style>
