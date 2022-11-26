@@ -70,32 +70,12 @@ export default [
     },
   },
   {
-    _id: 'cmd-quotes',
-    data: {
-      code: 'cmd-quotes',
-      explain: '随机生成名人名言',
-      cmds: ['名人名言', 'quotes'],
-      content: '${论语}',
-      feature: false,
-    },
-  },
-  {
     _id: 'cmd-domain',
     data: {
       code: 'cmd-domain',
       explain: '随机生成一个网页地址',
       cmds: ['网址', '域名', 'url', 'domain'],
       content: '${网址}',
-      feature: false,
-    },
-  },
-  {
-    _id: 'cmd-ip',
-    data: {
-      code: 'cmd-ip',
-      explain: '随机生成一个ip地址',
-      cmds: ['ip', 'ipv4'],
-      content: '${ipv4}',
       feature: false,
     },
   },

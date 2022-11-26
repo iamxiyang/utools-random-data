@@ -152,16 +152,6 @@ export default {
     example: text(40),
     description: '随机返回一段无规律的文本，支持传递文本长度，如 ${文本(100)} 返回的内容是固定 100个字符， ${文本(100,120)} 返回的内容是100~120个字符，默认是200个字符',
   },
-  '${论语}': {
-    function: returnLunyu,
-    example: returnLunyu(),
-    description: '随机返回一句论语，如非必须不建议继续使用，后续可能删掉该功能',
-  },
-  '${土话}': {
-    function: returnTuhua,
-    example: returnTuhua(),
-    description: '随机返回一句土话，如非必须不建议继续使用，后续可能删掉该功能',
-  },
   '${邮箱}': {
     function: email,
     example: email(),
@@ -217,9 +207,19 @@ export default {
     example: companyName(),
     description: '随机返回一个公司名称',
   },
+  '${论语}': {
+    function: returnLunyu,
+    example: returnLunyu(),
+    description: '不建议继续使用，下个大版本将移除！',
+  },
+  '${土话}': {
+    function: returnTuhua,
+    example: returnTuhua(),
+    description: '不建议继续使用，下个大版本将移除！',
+  },
   '${随机数}': {
     function: random,
     example: random(),
-    description: '随机返回随机数，底层依赖lodash.random 可以查看lodash文档。默认返回0或1，支持传递参数，传递1个参数时是最大值，2个参数时是最小值、最大值，3个参数时是最小、最大、指定返回浮点数',
+    description: '建议减少使用该变量，下个大版本可能会有不兼容更改！随机返回数字，底层依赖lodash.random 可以查看lodash文档。默认返回0或1',
   },
 } as VariableTypes
