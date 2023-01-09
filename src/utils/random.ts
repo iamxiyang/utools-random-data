@@ -5,7 +5,9 @@ import { _clearAddressCaches } from '../random'
 export const runCmd = (content: string) => {
   if (!content) return ''
   let tempCaches: { [key: string]: string } = {}
-  const parseContent = content.replace(/\$\{(.(?!\${))*\}/gim, (match, p1, offset, string) => {
+  // 添加防贪婪，用于解决模板是JSON字符串的问题
+  const replaceReg = /\$\{(.(?!\${))*?\}/gim
+  const parseContent = content.replace(replaceReg, (match, p1, offset, string) => {
     // ${域名}
     // ${身份证号()}
     // ${文本()}
@@ -29,7 +31,8 @@ export const runCmd = (content: string) => {
       tempCaches[match] = result
       return result
     }
-    return p1
+    // 如果该函数没有匹配到任何结果，返回当前匹配到的字符串
+    return match
   })
   _clearAddressCaches()
   return parseContent.trim()
