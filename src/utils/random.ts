@@ -5,7 +5,7 @@ import { _clearAddressCaches } from '../random'
 export const runCmd = (content: string) => {
   if (!content) return ''
   let tempCaches: { [key: string]: string } = {}
-  const parseContent = content.replace(/\$\{(.(?!\${))*\}/gim, (match, p1, offset, string) => {
+  const parseContent = content.replace(/\$\{(正则\(.*?\)|.*?)(?!\$\{)\}/gim, (match, p1, offset, string) => {
     // ${域名}
     // ${身份证号()}
     // ${文本()}
@@ -14,6 +14,7 @@ export const runCmd = (content: string) => {
     // ${正则(/[a-zA-Z0-9]{6,12}/)}
     // ${日期(YYYY-MM-DD HH:mm:ss)} 
     // ${日期(YYYY-MM-DDHH:mm:ss)}
+    // {"accountType":1,"username":"${时间戳}","mobile":"${手机号}","email":"${邮箱}","roleIdList":[2],"isSecondConfirm":true,"deptId":120,"id":null}
     if (tempCaches[match]) {
       // 如果在一个内容中出现相同的变量，则始终返回相同内容
       return tempCaches[match]
