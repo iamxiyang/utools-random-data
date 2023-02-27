@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
   import { ElInput, ElMessage, FormInstance } from 'element-plus'
+  import cloneDeep from 'lodash.clonedeep'
   import variable from '../constant/variable'
   import { runCmd } from '../utils/random'
   import { uuid } from '../random'
@@ -81,7 +82,7 @@
       const data = find?.data
       if (data) {
         rev = find?._rev as string
-        edit = data
+        edit = cloneDeep(data)
       }
     }
   })
