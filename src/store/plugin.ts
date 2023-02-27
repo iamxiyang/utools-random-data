@@ -3,7 +3,6 @@ import { PiniaPluginContext } from 'pinia'
 import isEqual from 'lodash.isequal'
 import cloneDeep from 'lodash.clonedeep'
 import defaultFeature from '../constant/defaultFeature'
-import { tryRemoveFeature } from '../utils/utools'
 
 //  通过pinia的Api监听数据变更，进而实现数据直接操作，自动同步到utools
 export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
@@ -29,13 +28,13 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
     if (!window.utools) return
     del.forEach((row) => {
       if (row.data.feature) {
-        tryRemoveFeature(row)
+        utools.removeFeature(row._id)
       }
       utools.db.remove(row._id)
     })
     update.forEach((row) => {
       if (!row.data.feature) {
-        tryRemoveFeature(row)
+        utools.removeFeature(row._id)
       }
     })
     const addUpdate = [...update, ...add]
@@ -54,7 +53,7 @@ export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
   }
 
   store.$subscribe(
-    (mutation:any) => {
+    (mutation: any) => {
       if (mutation.storeId !== 'app') return
       getFeatures(toRaw(store.$state.features))
     },
