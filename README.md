@@ -6,6 +6,10 @@
 
 > 项目使用 Vite、Vue3、pinia、Element Plus 等技术进行开发，开发过程中参考了 mockjs、random-something 等开源库的实现。其中日期格式化使用 dayjs、正则生成数据使用 reregexp
 
+## 说明
+
+目前正在规划下个版本的开发。当前版本仅修复 BUG，不再做大的改动。如果你想了解最新版本的情况，可以查看v2分支。
+
 ## 下载
 
 1. uTools 插件中心搜索【随机生成虚假数据】找到插件直接下载安装使用。
@@ -38,19 +42,19 @@
 **Git 贡献提交规范:**
 
 - 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))  
-  - `feat` 增加新功能  
-  - `fix` 修复问题/BUG  
-  - `style` 代码风格相关无影响运行结果的  
-  - `perf` 优化/性能提升  
-  - `refactor` 重构  
-  - `revert` 撤销修改  
-  - `test` 测试相关  
-  - `docs` 文档/注释  
-  - `chore` 依赖更新/脚手架配置修改等  
-  - `workflow` 工作流改进
-  - `ci` 持续集成  
-  - `types` 类型定义文件更改  
-  - `wip` 开发中  
+    - `feat` 增加新功能  
+    - `fix` 修复问题/BUG  
+    - `style` 代码风格相关无影响运行结果的  
+    - `perf` 优化/性能提升  
+    - `refactor` 重构  
+    - `revert` 撤销修改  
+    - `test` 测试相关  
+    - `docs` 文档/注释  
+    - `chore` 依赖更新/脚手架配置修改等  
+    - `workflow` 工作流改进
+    - `ci` 持续集成  
+    - `types` 类型定义文件更改  
+    - `wip` 开发中
 
 ## 打赏作者
 
