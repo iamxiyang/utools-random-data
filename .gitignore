@@ -5,3 +5,5 @@ dist-ssr
 *.local
 TODO.md
 __tests__
+.idea
+*.log
