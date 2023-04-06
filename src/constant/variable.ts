@@ -35,6 +35,7 @@ import {
   companyName,
   bankCard,
   bankCardNumber,
+  genCreditCode
 } from '../random/index'
 
 interface VariableTypes {
@@ -221,5 +222,10 @@ export default {
     function: random,
     example: random(),
     description: '建议减少使用该变量，下个大版本可能会有不兼容更改！随机返回数字，底层依赖lodash.random 可以查看lodash文档。默认返回0或1',
+  },
+  '${信用代码}': {
+    function: genCreditCode,
+    example: genCreditCode(),
+    description: '随机返回的能通过校验的信用代码',
   },
 } as VariableTypes
