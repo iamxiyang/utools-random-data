@@ -1,9 +1,10 @@
 {
   "main": "index.html",
   "development": {
-    "main": "http://localhost:3000"
+    "main": "http://localhost:5173"
   },
   "logo": "./logo.png",
+  "preload": "preload.js",
   "pluginSetting": {
     "height": 550
   },
