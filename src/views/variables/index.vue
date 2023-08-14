@@ -5,7 +5,6 @@
     <el-table-column prop="name" label="内置变量"></el-table-column>
     <el-table-column prop="example" label="示例">
       <template #default="{ row }">
-        <!-- TODO 复杂变量，需要传参的可能无法提供示例，如果提供不了，到时候就删掉，或者显示自定义变量不显示示例，或者生成时存起来？需要支持不传参生成？ -->
         {{ row.example ? row.example : _evaluate(row.code) }}
       </template>
     </el-table-column>
@@ -14,20 +13,25 @@
 </template>
 
 <script setup lang="ts">
-  import useAppStore from '../../store/app.store'
+  import { useAppStore } from '../../store/app.store'
+  import { evaluate } from '../../utils/variable'
   const router = useRouter()
   const appStore = useAppStore()
   const { allVariables } = storeToRefs(appStore)
-
-  const _evaluate = (code: string) => {
-    return window.preload.evaluate(code, true)
-  }
 
   const editVar = (id: string) => {
     router.push({
       name: '/variables/edit',
       params: { id },
     })
+  }
+
+  const _evaluate = (code: string) => {
+    try {
+      return evaluate(code, true)
+    } catch (err) {
+      return '出错' + err
+    }
   }
   // const data = computed(() => {
   //   return Object.keys(allVariables).map((key) => {
