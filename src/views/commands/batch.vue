@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
   import { ElMessage } from 'element-plus'
-  import useAppStore from '../../store/app.store'
+  import { useAppStore } from '../../store/app.store'
   import { copyText } from '../../utils'
   import { runCmd } from '../../commands/parse'
   const appStore = useAppStore()
@@ -61,7 +61,7 @@
     for (let i = 0; i < number.value; i++) {
       arr.push(runCmd(content))
     }
-    if (isFilterRepeat) {
+    if (isFilterRepeat.value) {
       const _arr = [...new Set(arr)]
       text = _arr.join(symbol.value)
       ElMessage.info(`已过滤重复内容，实际生成 ${_arr.length} 条`)
