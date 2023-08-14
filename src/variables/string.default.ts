@@ -1,32 +1,42 @@
 // 存放一些自定义变量的实现，用于给用户当做参考
 
-/* 
-自定义变量的沙箱中已内置部分方法，见 ./preload/variable.ts sandbox
+const tips = `// 为了便于使用，内置了一些常用的库，具体用法可参考对应文档
+// _dayjs: dayjs,
+// _clonedeep: clonedeep, //lodash.clonedeep 深拷贝
+// _isequal: isequal, //lodash.isequal 深比较
+// _random: random, //lodash.random 生成随机数
+// _sample: sample, //lodash.sample 从集合中获得一个随机元素。
+// _times: times, //lodash.times 调用 iteratee n 次，每次调用返回的结果存入到数组中
+// 正常的 JavaScript 代码都可以书写，最终需要 return，返回值将作为变量的值
+`
 
-简易变量，直接写即可，也可以按照复杂函数写。
-Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
-
-复杂变量（如果需要传参），需要写成一个函数，函数名必须和变量名一致。
-const 随机数 = (min,max=200) => {
-  return Math.floor(Math.random() * (max - min)) + min
-}
-*/
 const lunyuStr = `
-const lunyu = ['知者乐水，仁者乐山。', '志当存高远。', '言必信，行必果。', '人而无信，不知其可也。', '鞠躬尽瘁，死而后已。', '敏而好学，不耻下问。', '君子坦荡荡，小人长戚戚。', '自行束修以上，吾未尝无诲焉。', '己所不欲，勿施于人。']
-lunyu[(Math.random() * lunyu.length) | 0]
+${tips}
+return _sample([
+  '知者乐水，仁者乐山。',
+  '志当存高远。',
+  '言必信，行必果。',
+  '人而无信，不知其可也。',
+  '鞠躬尽瘁，死而后已。',
+  '敏而好学，不耻下问。',
+  '君子坦荡荡，小人长戚戚。',
+  '自行束修以上，吾未尝无诲焉。',
+  '己所不欲，勿施于人。',
+  '学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？',
+  '先进于礼乐，野人也；后进于礼乐，君子也。如用之，则吾从先进。',
+  // ... 可以在下面继续完善
+])
 `
 
 const tuhuaStr = `
-function 土话() {
-  const tuhua=[
-      "在你孤单的时候有人陪伴你，在你失落的时候有人帮助你。幸福就是无论你走到天涯海角，总会有人牵挂你！",
-      "世间即使多可怕，总留下你依然让我值得牵挂。",
-      "把自己当傻瓜，不懂就问，你会学的更多。",
-  ]
-  return tuhua[(Math.random() * tuhua.length) | 0]
-}  
-  `
+${tips}
+return _sample([
+ "在你孤单的时候有人陪伴你，在你失落的时候有人帮助你。幸福就是无论你走到天涯海角，总会有人牵挂你！",
+ "世间即使多可怕，总留下你依然让我值得牵挂。",
+ "把自己当傻瓜，不懂就问，你会学的更多。",
+])`
 
+// TODO  自定义变量不再支持传参，当前写法作废，需要改成内置
 const feihuaStr = `
 function 文本(minLength = 200, maxLength = 200) {
   const chars = "的一是在不了有和人这中大为上个国我以要他时来用们生到作地于出就分对成会可主发年动同工也能下过子说产种面而方后多定行学法所民得经十三之进着等部度家电力力里如水化高自二理起小物现实加量都两体制机当使点从业本去把性好应开它合还因由其些然前外天政四日那社义事平形相全表间样与关各重新线内数正心反你明看原又么利比或但质气第向道命此变条只没结解问意建月公无系军很情者最立代想已通并提直题党程展五果料象员革位入常文总次品式活设及管特件长求老头基资边流路级少图山统接知较将组见计别她手角期根论运农指几九区强放决西被干做必战先回则任取据处队南给色光门即保治北造百规热领七海口东导器压志世金增争济阶油思术极交受联什认六共权收证改清己美再采转更单风切打白教速花带安场身车例真务具万每目至达走积示议声报斗完类八离华名确才科张信马节话米整空元况今集温传土许步群广石记需段研界拉林律叫且究观越织装影算低持音众书布复容儿须际商非验连断深难近矿千周委素技备半办青省列习响约支般史感劳便团往酸历市克何除消构府称太准精值号率族维划选标写存候毛亲快效斯院查江型村穿弟李背景飞收转刻造户证切站黑层站随尔尤至确酒需价";
@@ -40,22 +50,19 @@ function 文本(minLength = 200, maxLength = 200) {
 `
 
 const 星座STR = `
- const constellations = ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
- constellations[(Math.random() * lunyu.length) | 0]
-`
+${tips}
+return _sample(['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座'])`
 
 // 随机返回一个有效的13位时间戳
 const 时间戳 = `
-Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
+${tips}
+return Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
 `
 
 const 星期 = `
-const number = Math.floor(Math.random() * 7)
-const weeks = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-weeks[number]
+${tips}
+return _sample(['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'])
 `
-
-
 
 // // 车牌号
 // export const carNumber = (newEnergy: boolean = false) => {
@@ -102,7 +109,6 @@ weeks[number]
 //   return type && obj[type] ? obj[type] : sample(arr)
 // }
 
-
 // 生成时间戳
 // export const timestamp = (): number => {
 //   return Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
@@ -112,9 +118,6 @@ weeks[number]
 //   return dayjs(timestamp()).format(format)
 // }
 
-
-
-
 // // 邮箱
 // export const email = () => {
 //   // 随机字符@随机域名
@@ -122,7 +125,7 @@ weeks[number]
 // }
 // // 网址
 // export const url = () => {
-//   /* 
+//   /*
 //   可能的URL：
 //   域名/index.html
 //   域名/article_abc.html
@@ -178,8 +181,8 @@ export default [
   {
     _id: 'var-xingzuo',
     data: {
+      name: '星座',
       code: 星座STR,
     },
   },
-  
 ]
