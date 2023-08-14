@@ -2,7 +2,7 @@ import { debug } from '.'
 
 // 粘贴指令
 export const paste = () => {
-  if (utools.isMacOs()) {
+  if (utools.isMacOS()) {
     utools.simulateKeyboardTap('v', 'command')
   }
   if (utools.isWindows() || utools.isLinux()) {
