@@ -1,23 +1,22 @@
 {
   "main": "index.html",
   "development": {
-    "main": "http://localhost:5173"
+    "main": "http://localhost:5175"
   },
   "logo": "./logo.png",
-  "preload": "preload.js",
   "pluginSetting": {
-    "height": 550
+    "height": 600
   },
   "features": [
     {
       "code": "random-all",
-      "explain": "随机生成数据-全部指令，如果找不到指令可以点击这里",
-      "cmds": ["随机生成数据插件全部指令", "random-all"]
+      "explain": "随机数据-全部指令，如果找不到指令可以点击这里",
+      "cmds": ["随机生成数据全部指令", "random-all"]
     },
     {
       "code": "setting",
-      "explain": "随机生成数据-设置",
-      "cmds": ["设置", "随机生成数据插件设置", "setting"]
+      "explain": "随机数据-设置",
+      "cmds": ["设置", "随机生成数据设置", "setting"]
     }
   ]
 }
