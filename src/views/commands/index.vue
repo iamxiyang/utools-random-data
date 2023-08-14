@@ -27,12 +27,12 @@
 
 <script setup lang="ts">
   import { ElMessageBox, ElMessage } from 'element-plus'
-  import useAppStore from '../../store/app.store'
+  import { useAppStore } from '../../store/app.store'
 
   const router = useRouter()
   const appStore = useAppStore()
   const { commands } = storeToRefs(appStore)
-
+  
   const tableData = computed(() => {
     return commands.value.map((item: any, index: number) => {
       return { _id: item._id, _rev: item._rev, ...item.data, index }

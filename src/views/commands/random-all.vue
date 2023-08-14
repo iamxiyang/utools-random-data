@@ -15,7 +15,7 @@
 <script setup lang="ts">
   import { useEventListener } from '@vueuse/core'
   import { runCmd } from '../../commands/parse'
-  import useAppStore from '../../store/app.store'
+  import { useAppStore } from '../../store/app.store'
   import { copyPasteOut } from '../../utils/utools'
 
   const router = useRouter()

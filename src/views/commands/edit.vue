@@ -46,10 +46,10 @@
 
 <script setup lang="ts">
   import cloneDeep from 'lodash.clonedeep'
-  import useAppStore from '../../store/app.store'
   import { ElInput, ElMessage, FormInstance } from 'element-plus'
   import { runCmd } from '../../commands/parse'
   import { uuid } from '../../variables/modules/other'
+  import { useAppStore } from '../../store/app.store'
 
   const appStore = useAppStore()
   const { commands } = storeToRefs(appStore)

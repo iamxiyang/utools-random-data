@@ -23,7 +23,7 @@ const systemVariables = Object.keys(variables).map((name) => {
   }
 }) as SystemVariables[]
 
-export default defineStore('app', {
+export const useAppStore = defineStore('app', {
   state: (): AppStore => {
     return {
       variables: [],
