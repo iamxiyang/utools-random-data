@@ -20,6 +20,7 @@
     },
     "types": [
       "node",
+      "element-plus/global",
       "utools-api-types"
     ],
     "skipLibCheck": true

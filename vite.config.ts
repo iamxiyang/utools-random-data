@@ -4,11 +4,10 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import VueRouter from 'unplugin-vue-router/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 import Unocss from 'unocss/vite'
 import presetWind from '@unocss/preset-wind'
-import VueRouter from 'unplugin-vue-router/vite'
-import { createPreloadPlugin } from 'vite-plugin-utools-helper'
-import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -55,7 +54,8 @@ export default defineConfig({
     Unocss({
       presets: [presetWind()],
     }),
-    // preload打包
-    createPreloadPlugin(),
   ],
+  server: {
+    port: 5175,
+  },
 })
