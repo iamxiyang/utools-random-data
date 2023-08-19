@@ -57,11 +57,6 @@ export const phone = (prefix: boolean = false) => {
   return prefix ? `+86${num}` : num
 }
 
-// 电话号码
-export const tel = () => {
-  return '0' + Math.floor(Math.random() * 10000000000)
-}
-
 // 姓名
 export const username = () => {
   // 常见的中文姓

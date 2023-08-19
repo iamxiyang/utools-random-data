@@ -10,7 +10,7 @@ const tips = `// 为了便于使用，内置了一些常用的库，具体用法
 // 正常的 JavaScript 代码都可以书写，最终需要 return，返回值将作为变量的值
 `
 
-const lunyuStr = `
+const 论语 = `
 ${tips}
 return _sample([
   '知者乐水，仁者乐山。',
@@ -28,30 +28,19 @@ return _sample([
 ])
 `
 
-const tuhuaStr = `
+const 土话 = `
 ${tips}
 return _sample([
  "在你孤单的时候有人陪伴你，在你失落的时候有人帮助你。幸福就是无论你走到天涯海角，总会有人牵挂你！",
  "世间即使多可怕，总留下你依然让我值得牵挂。",
  "把自己当傻瓜，不懂就问，你会学的更多。",
-])`
-
-// TODO  自定义变量不再支持传参，当前写法作废，需要改成内置
-const feihuaStr = `
-function 文本(minLength = 200, maxLength = 200) {
-  const chars = "的一是在不了有和人这中大为上个国我以要他时来用们生到作地于出就分对成会可主发年动同工也能下过子说产种面而方后多定行学法所民得经十三之进着等部度家电力力里如水化高自二理起小物现实加量都两体制机当使点从业本去把性好应开它合还因由其些然前外天政四日那社义事平形相全表间样与关各重新线内数正心反你明看原又么利比或但质气第向道命此变条只没结解问意建月公无系军很情者最立代想已通并提直题党程展五果料象员革位入常文总次品式活设及管特件长求老头基资边流路级少图山统接知较将组见计别她手角期根论运农指几九区强放决西被干做必战先回则任取据处队南给色光门即保治北造百规热领七海口东导器压志世金增争济阶油思术极交受联什认六共权收证改清己美再采转更单风切打白教速花带安场身车例真务具万每目至达走积示议声报斗完类八离华名确才科张信马节话米整空元况今集温传土许步群广石记需段研界拉林律叫且究观越织装影算低持音众书布复容儿须际商非验连断深难近矿千周委素技备半办青省列习响约支般史感劳便团往酸历市克何除消构府称太准精值号率族维划选标写存候毛亲快效斯院查江型村穿弟李背景飞收转刻造户证切站黑层站随尔尤至确酒需价";
-  const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
+])
 `
 
-const 星座STR = `
+const 星座 = `
 ${tips}
-return _sample(['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座'])`
+return _sample(['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座'])
+`
 
 // 随机返回一个有效的13位时间戳
 const 时间戳 = `
@@ -64,125 +53,371 @@ ${tips}
 return _sample(['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'])
 `
 
-// // 车牌号
-// export const carNumber = (newEnergy: boolean = false) => {
-//   // 部分城市的简称
-//   const province = ['京', '津', '冀', '浙', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '桂', '川', '贵', '新']
-//   // 英文字母
-//   const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-//   const number = `${sample(province)}${sample(letter)}${uuid().toUpperCase()}`
-//   return newEnergy ? number.substr(0, 8) : number.substr(0, 7)
-// }
+const rgb颜色 = `
+${tips}
+return \`rgb(\${_random(255)},\${_random(255)},\${_random(255)})\`
+`
 
-// import sample from 'lodash.sample'
-// import random from 'lodash.random'
+const ipv4 = `
+${tips}
+return \`\${_random(255)}.\${_random(255)}.\${_random(255)}.\${_random(255)}\`
+`
 
-// const rgb = () => {
-//   return `rgb(${random(255)},${random(255)},${random(255)})`
-// }
+const ipv6 = `
+${tips}
+return Array.from({ length: 8 }, () => Math.floor(Math.random() * 65535).toString(16)).join(':')
+`
 
-// const rgba = () => {
-//   return `rgba(${random(255)},${random(255)},${random(255)},${random(1)})`
-// }
+const ip = `
+${tips}
 
-// const hsl = () => {
-//   return `hsl(${random(360)},${random(100)}%,${random(100)}%)`
-// }
+const ipv4 = () => {
+  return \`\${_random(255)}.\${_random(255)}.\${_random(255)}.\${_random(255)}\`
+}
+const ipv6 = () => {
+  return Array.from({ length: 8 }, () => Math.floor(Math.random() * 65535).toString(16)).join(':')
+}
 
-// const hsla = () => {
-//   return `hsla(${random(360)},${random(100)}%,${random(100)}%,${random(1)})`
-// }
+return _random() > 0.5 ? ipv4() : ipv6()
+`
 
-// const hex = () => {
-//   return `#${random(0xffffff).toString(16)}`
-// }
+const 电话号码 = `
+${tips}
+return \`0\${Math.floor(Math.random() * 10000000000)}\`
+`
 
-// export const color = (type: 'rgb' | 'rgba' | 'hsl' | 'hsla' | 'hex' | undefined = undefined) => {
-//   const arr = [rgb(), rgba(), hsl(), hsla(), hex()]
-//   const obj = {
-//     rgb: arr[0],
-//     rgba: arr[1],
-//     hsl: arr[2],
-//     hsla: arr[3],
-//     hex: arr[4],
-//   }
-//   return type && obj[type] ? obj[type] : sample(arr)
-// }
+const 姓名 = `
+${tips}
+const firstName=[
+    '王',
+    '李',
+    '张',
+    '刘',
+    '陈',
+    '杨',
+    '赵',
+    '黄',
+    '周',
+    '吴',
+    '徐',
+    '孙',
+    '胡',
+    '朱',
+    '高',
+    '林',
+    '何',
+    '郭',
+    '马',
+    '罗',
+    '梁',
+    '宋',
+    '郑',
+    '谢',
+    '韩',
+    '唐',
+    '冯',
+    '于',
+    '董',
+    '萧',
+    '程',
+    '曹',
+    '袁',
+    '邓',
+    '许',
+    '傅',
+    '沈',
+    '曾',
+    '彭',
+    '吕',
+    '苏',
+    '卢',
+    '蒋',
+    '蔡',
+    '贾',
+    '丁',
+    '魏',
+    '薛',
+    '叶',
+    '阎',
+    '余',
+    '潘',
+    '杜',
+    '戴',
+    '夏',
+    '锺',
+    '汪',
+    '田',
+    '任',
+    '姜',
+    '范',
+    '方',
+    '石',
+    '姚',
+    '谭',
+    '廖',
+    '邹',
+    '熊',
+    '金',
+    '陆',
+    '郝',
+    '孔',
+    '白',
+    '崔',
+    '康',
+    '毛',
+    '邱',
+    '秦',
+    '江',
+    '史',
+    '顾',
+    '侯',
+    '邵',
+    '孟',
+    '龙',
+    '万',
+    '段',
+    '雷',
+    '钱',
+    '汤',
+    '尹',
+    '黎',
+    '易',
+    '常',
+    '武',
+    '乔',
+    '贺',
+    '赖',
+    '龚',
+]
+const lastName=[
+    '子璇',
+    '淼',
+    '国栋',
+    '夫子',
+    '瑞堂',
+    '甜',
+    '尚',
+    '国贤',
+    '贺祥',
+    '晨涛',
+    '伟',
+    '芳',
+    '娜',
+    '秀英',
+    '敏',
+    '静',
+    '丽',
+    '强',
+    '磊',
+    '军',
+    '洋',
+    '勇',
+    '艳',
+    '杰',
+    '娟',
+    '涛',
+    '明',
+    '超',
+    '秀兰',
+    '霞',
+    '平',
+    '刚',
+    '桂英',
+    '昊轩',
+    '易轩',
+    '益辰',
+    '益帆',
+    '益冉',
+    '瑾春',
+    '瑾昆',
+    '春齐',
+    '杨',
+    '文昊',
+    '东东',
+    '雄霖',
+    '浩晨',
+    '熙涵',
+    '溶溶',
+    '冰枫',
+    '欣欣',
+    '宜豪',
+    '欣慧',
+    '建政',
+    '美欣',
+    '淑慧',
+    '文轩',
+    '文杰',
+    '欣源',
+    '忠林',
+    '榕润',
+    '欣汝',
+    '慧嘉',
+    '新建',
+    '建林',
+    '亦菲',
+    '林',
+    '冰洁',
+    '佳欣',
+    '涵涵',
+    '禹辰',
+    '淳美',
+    '泽惠',
+    '伟洋',
+    '涵越',
+    '润丽',
+    '翔',
+    '淑华',
+    '晶莹',
+    '凌晶',
+    '苒溪',
+    '雨涵',
+    '嘉怡',
+    '佳毅',
+    '子辰',
+    '佳琪',
+    '紫轩',
+    '瑞辰',
+    '昕蕊',
+    '萌',
+    '明远',
+    '欣宜',
+    '泽远',
+    '欣怡',
+    '佳怡',
+    '佳惠',
+    '晨茜',
+    '晨璐',
+    '运昊',
+    '汝鑫',
+    '淑君',
+    '晶滢',
+    '润莎',
+    '榕汕',
+    '佳钰',
+    '佳玉',
+    '晓庆',
+    '一鸣',
+    '语晨',
+    '添池',
+    '添昊',
+    '雨泽',
+    '雅晗',
+    '雅涵',
+    '清妍',
+    '诗悦',
+    '嘉乐',
+    '晨涵',
+    '天赫',
+    '玥傲',
+    '佳昊',
+    '天昊',
+    '萌萌',
+    '若萌',
+]
+return _sample(firstName) + _sample(lastName)
+`
 
-// 生成时间戳
-// export const timestamp = (): number => {
-//   return Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
-// }
-
-// export const date = (format: string = 'YYYY-MM-DD') => {
-//   return dayjs(timestamp()).format(format)
-// }
-
-// // 邮箱
-// export const email = () => {
-//   // 随机字符@随机域名
-//   return `${uuid().substring(0, 4).toLowerCase()}@${domain(false)}`
-// }
-// // 网址
-// export const url = () => {
-//   /*
-//   可能的URL：
-//   域名/index.html
-//   域名/article_abc.html
-//   域名/2022/12.html
-//   域名/abc.html?q=1
-//   */
-//   return `${domain()}/${uuid().substring(0, 4).toLowerCase()}.html`
-// }
-
-// // 域名
-// export const domain = (showProtocol: boolean = true) => {
-//   // 域名协议
-//   const protocol = ['http://', 'https://']
-//   // 域名后缀
-//   const suffix = ['com', 'cn', 'net', 'xyz', 'vip', 'site', 'com.cn']
-//   return `${showProtocol ? sample(protocol) : ''}${useRegexp(/([a-z0-9]{4,8})/)}.${sample(suffix)}`
-// }
-
-// // ipv4
-// export const ipv4 = () => {
-//   return `${random(255)}.${random(255)}.${random(255)}.${random(255)}`
-// }
-
-// // ipv6
-// export const ipv6 = () => {
-//   // 随机生成ipv6地址
-//   return `${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}:${useRegexp(/([A-F0-9]{4})/g)}`
-// }
-
-// // ip
-// export const ip = () => {
-//   // 随机返回ipv4或ipv6
-//   return random(1) ? ipv4() : ipv6()
-// }
-
-// // mac地址
-// export const mac = () => {
-//   // 随机生成mac地址
-//   return `${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}`
-// }
-
-// // 图片地址
-// export const img = (w: string | number = 1000, h: string | number = w) => {
-//   return `https://dummyimage.com/${w}x${h}?text=${new Date().getTime()}`
-// }
-
-// // 音频地址
-// export const audio = () => {
-//   return ' '
-// }
+const 小区 = `
+const prefix = ['天下', '世纪', '龙湖', '高兴', '万乐', '智慧']
+const suffix = ['新村', '新花园', '小区', '广场', '中心', '家园', '新城']
+return _sample(prefix) + _sample(suffix)
+`
 
 export default [
+  {
+    _id: 'var-lunyu',
+    data: {
+      name: '论语',
+      code: 论语,
+      explain: '随机返回一句论语',
+    },
+  },
+  {
+    _id: 'var-tuhua',
+    data: {
+      name: '土话',
+      code: 土话,
+      explain: '随机返回一句土话',
+    },
+  },
   {
     _id: 'var-xingzuo',
     data: {
       name: '星座',
-      code: 星座STR,
+      code: 星座,
+      explain: '随机返回一个星座',
+    },
+  },
+  {
+    _id: 'var-shijiancuo',
+    data: {
+      name: '时间戳',
+      code: 时间戳,
+      explain: '随机返回一个13位时间戳',
+    },
+  },
+  {
+    _id: 'var-xingqi',
+    data: {
+      name: '星期',
+      code: 星期,
+      explain: '随机返回一个星期几，如星期一',
+    },
+  },
+  {
+    _id: 'var-rgbcolor',
+    data: {
+      name: 'rgb颜色',
+      code: rgb颜色,
+      explain: '随机生成一个 rgb 颜色',
+    },
+  },
+  {
+    _id: 'var-ipv4',
+    data: {
+      name: 'ipv4',
+      code: ipv4,
+      explain: '随机生成一个 ipv4 地址',
+    },
+  },
+  {
+    _id: 'var-ipv6',
+    data: {
+      name: 'ipv6',
+      code: ipv6,
+      explain: '随机生成一个 ipv6 地址',
+    },
+  },
+  {
+    _id: 'var-ip',
+    data: {
+      name: 'ip',
+      code: ip,
+      explain: '随机返回一个 ipv4 地址或 ipv6 地址',
+    },
+  },
+  {
+    _id: 'var-dianhuahaoma',
+    data: {
+      name: '电话号码',
+      code: 电话号码,
+      explain: '随机生成一个电话号码',
+    },
+  },
+  {
+    _id: 'var-xingming',
+    data: {
+      name: '姓名',
+      code: 姓名,
+      explain: '随机生成一个中文姓名',
+    },
+  },
+  {
+    _id: 'var-xiaoqu',
+    data: {
+      name: '小区',
+      code: 小区,
+      explain: '随机生成一个小区名称',
     },
   },
 ]

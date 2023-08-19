@@ -1,10 +1,31 @@
+import dayjs from 'dayjs'
 import sample from 'lodash.sample'
+import random from 'lodash.random'
 import { city, province } from './address'
 import { useRegexp } from './regexp'
 
-export const uuid = () => {
-  // @ts-ignore
-  return crypto.randomUUID()
+export const UUID = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+export const date = (format: string = 'YYYY-MM-DD') => {
+  // 随机时间戳
+  const randomTimestamp = Math.floor(Math.random() * (new Date().getTime() - 1000000000000)) + 1000000000000
+  return dayjs(randomTimestamp).format(format)
+}
+
+// 车牌号
+export const carNumber = (newEnergy: boolean = false) => {
+  // 部分城市的简称
+  const province = ['京', '津', '冀', '浙', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '桂', '川', '贵', '新']
+  // 英文字母
+  const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+  const number = `${sample(province)}${sample(letter)}${UUID().toUpperCase()}`
+  return newEnergy ? number.substring(0, 8) : number.substring(0, 7)
 }
 
 // 随机生成公司名称
@@ -25,4 +46,8 @@ export const companyName = () => {
     `${shopName}${sample(industry)}(${province()})${sample(organizationalForm)}`,
   ]
   return sample(arr)
+}
+
+export const mac = () => {
+  return `${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}:${useRegexp(/([A-F0-9]{2})/g)}`
 }
