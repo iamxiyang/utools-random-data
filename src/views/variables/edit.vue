@@ -81,7 +81,7 @@
 
   const router = useRouter()
   const appStore = useAppStore()
-  const { variables } = storeToRefs(appStore)
+  const { variables, systemVariables, } = storeToRefs(appStore)
 
   const id = ref(`var-${Date.now()}`)
   const rev = ref('')
@@ -172,24 +172,33 @@
       return
     }
 
-    // 变量名字只能是 中文和英文，不能出现符合和数字
-    const reg = /^[\u4e00-\u9fa5a-zA-Z]+$/
+    // 变量名字只能是 中文、英文和数字，不能出现 符号
+    const reg = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/
     if (!reg.test(edit.name)) {
-      ElMessage.error('变量名称只能是中文和英文')
+      ElMessage.error('变量名称只能是中文、英文和数字')
       return
     }
 
-    const isExist = variables.value.some((item) => item.name === edit.name)
+    const isExist = systemVariables.value.find((item) => item.name === edit.name)
     if (isExist) {
-      ElMessage.error('变量名称已存在，请更换名称')
+      ElMessage.error('变量名称不能和内置变量相同，请更换名称')
       return
     }
+
+    const isExist2 = variables.value.filter((item) => item.data.name === edit.name && (!rev.value || item._id !== id.value))
+    if (isExist2.length) {
+      ElMessage.error('变量名称不能和已有变量相同，请更换名称')
+      return
+    }
+
     // 检查名称是否变化，名称变化以使用的需要手动修改
-    const allVariablesName = variables.value.map((item) => item.name)
-    if (rev.value && allVariablesName.includes(edit.name)) {
-      await ElMessageBox.confirm('', {
-        message: `变量名称已修改，你需要手动修改使用到该变量的地方，否则将会导致插件无法正常使用`,
-      })
+    if (rev.value) {
+      const variable = variables.value.find((item) => item._id === id.value)
+      if (variable && variable.data.name !== edit.name) {
+        await ElMessageBox.confirm('', {
+          message: `检测到修改了变量名称，如果指令中使用了当前变量，你需要手动修改使用到的地方才能正常工作`,
+        })
+      }
     }
     // 生成2条数据，如果生成错误告知错误不允许保存
     let strArr = []
@@ -217,7 +226,6 @@
       })
       const index = variables.value.findIndex((item: DbDoc) => item._id === id.value)
 
-      // TODO 修改变成了新增？？？对比错误？
       if (index >= 0) {
         variables.value.splice(index, 1, {
           _id: id.value,
@@ -245,15 +253,17 @@
     const { id: queryId } = useRoute().query
 
     if (queryId) {
+      id.value = queryId as string
       const variable = variables.value.find((item) => item._id === queryId)
       if (variable) {
+        rev.value = variable?._rev as string
         edit.name = variable.data.name
         edit.code = variable.data.code
         edit.explain = variable.data.explain
         result.value = evaluate(variable.data.code)
       }
     } else {
-      // ElMessageBox.alert('自定义变量可以通过 JavaScript 实现特殊的随机规则，但目前尚属于测试阶段，可能不稳定或做出重大修改，欢迎反馈你的使用体验', '提示')
+      ElMessageBox.alert('自定义变量可以通过 JavaScript 实现特殊的随机规则，但目前尚属于测试阶段，可能不稳定或做出重大修改，欢迎反馈你的使用体验', '提示')
     }
   })
 </script>
