@@ -167,7 +167,7 @@
           data: toRaw(edit),
         })
       } else {
-        commands.value.push({
+        commands.value.unshift({
           _id: id.value,
           _rev: rev.value,
           data: toRaw(edit),

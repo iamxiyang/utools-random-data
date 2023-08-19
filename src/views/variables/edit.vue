@@ -233,7 +233,7 @@
           data,
         })
       } else {
-        variables.value.push({
+        variables.value.unshift({
           _id: id.value,
           _rev: rev.value,
           data,
