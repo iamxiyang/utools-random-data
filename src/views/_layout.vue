@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container">
-    <el-menu :default-active="$route.name" router>
+    <el-menu :default-active="$route.name" router v-if="showLayout">
       <el-menu-item index="/commands/">指令列表</el-menu-item>
       <el-menu-item index="/variables/">变量列表</el-menu-item>
       <el-menu-item index="/commands/batch">批量生成</el-menu-item>
@@ -12,7 +12,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const router = useRouter()
+
+  const showLayout = computed(() => {
+    return router.currentRoute.value.path !== '/commands/random-all'
+  })
+  onMounted(() => {
+    router.replace('/commands/')
+  })
+</script>
 
 <style lang="scss" scoped>
   .layout-container {

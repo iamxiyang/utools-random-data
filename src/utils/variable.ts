@@ -21,25 +21,16 @@ export function evaluate(code: string, isTest: boolean = false) {
     _times: times,
   }
 
-  // const fn = new Function(
-  //   Object.keys(sandbox).join(','),
-  //   `(async function(){
-  //   try {
-  //     ${code}
-  //   } catch(error) {
-  //     console.error(error);
-  //   }
-  // })()`,
-  // )
-
   if (isTest) {
     const fn = new Function(Object.keys(sandbox).join(','), code)
-    return fn(...Object.values(sandbox))
+    const value = fn(...Object.values(sandbox))
+    return value
   }
 
   try {
     const fn = new Function(Object.keys(sandbox).join(','), code)
-    return fn(...Object.values(sandbox))
+    const value = fn(...Object.values(sandbox))
+    return value
   } catch (err) {
     console.error(err)
   }

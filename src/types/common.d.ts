@@ -18,19 +18,18 @@ type DbCommands = DbDoc<Commands>
 interface Variables {
   code: string
   name: string
-}
-
-
-interface SystemVariablesObject {
-  [key: string]: {
-    fun: Function
-    example: string | number
-    description: string
-  }
+  explain: string
 }
 
 type DbVariables = DbDoc<Variables>
 
-declare interface Window {
-  preload?: typeof import('./preload/index');
+interface SystemVariables {
+  fun: Function
+  name?: string
+  example: string
+  explain: string
+}
+
+interface SystemVariablesObject {
+  [key: string]: SystemVariables
 }

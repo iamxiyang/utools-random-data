@@ -17,6 +17,19 @@
       </template>
       <el-input v-model.trim="edit.name"></el-input>
     </el-form-item>
+    <el-form-item prop="explain">
+      <template #label>
+        <div class="flex items-center">
+          <span class="mr-10px">功能描述</span>
+          <el-popover placement="right" title="功能描述" :width="300" trigger="hover" content="在变量列表显示变量的功能描述">
+            <template #reference>
+              <el-icon><QuestionFilled /></el-icon>
+            </template>
+          </el-popover>
+        </div>
+      </template>
+      <el-input v-model.trim="edit.explain"></el-input>
+    </el-form-item>
     <el-form-item prop="code">
       <template #label>
         <div class="flex items-center">
@@ -64,15 +77,18 @@
   import { QuestionFilled } from '@element-plus/icons-vue'
   import { evaluate } from '../../utils/variable'
   import { useAppStore } from '../../store/app.store'
+  import cloneDeep from 'lodash.clonedeep'
 
+  const router = useRouter()
   const appStore = useAppStore()
   const { variables } = storeToRefs(appStore)
 
   const id = ref(`var-${Date.now()}`)
   const rev = ref('')
-  const edit = reactive({
+  const edit = reactive<Variables>({
     name: '',
     code: '',
+    explain: '',
   })
 
   const GIT_STRING_VARIABLES_URL = 'https://github.com/iamxiyang/utools-random-data/blob/main/src/variables/string.default.ts'
@@ -163,9 +179,6 @@
       return
     }
 
-    // 检测是否出现同名变量
-    console.log('🚀 ~ file: edit.vue:164 ~ saveVars ~ variables.value:', variables.value)
-
     const isExist = variables.value.some((item) => item.name === edit.name)
     if (isExist) {
       ElMessage.error('变量名称已存在，请更换名称')
@@ -196,19 +209,20 @@
       dangerouslyUseHTMLString: true,
     })
     // 保存数据，返回上一级页面
-
     try {
-      const data = {
+      const data = cloneDeep({
         name: edit.name,
         code: edit.code,
-      }
+        explain: edit.explain,
+      })
       const index = variables.value.findIndex((item: DbDoc) => item._id === id.value)
 
+      // TODO 修改变成了新增？？？对比错误？
       if (index >= 0) {
         variables.value.splice(index, 1, {
           _id: id.value,
           _rev: rev.value,
-          data: toRaw(data),
+          data,
         })
       } else {
         variables.value.push({
@@ -219,6 +233,7 @@
       }
 
       ElMessage.success('保存成功，可以在评论区和大家分享哦~')
+      router.back()
     } catch (err) {
       ElMessageBox.alert('确认', {
         message: '代码执行出错，请检查你写的代码，并确保测试通过后再保存' + err,
@@ -228,11 +243,14 @@
 
   onMounted(() => {
     const { id: queryId } = useRoute().query
+
     if (queryId) {
-      const variable = variables.value.find((item) => item.id === queryId)
+      const variable = variables.value.find((item) => item._id === queryId)
       if (variable) {
-        edit.name = variable.name
-        edit.code = variable.code
+        edit.name = variable.data.name
+        edit.code = variable.data.code
+        edit.explain = variable.data.explain
+        result.value = evaluate(variable.data.code)
       }
     } else {
       // ElMessageBox.alert('自定义变量可以通过 JavaScript 实现特殊的随机规则，但目前尚属于测试阶段，可能不稳定或做出重大修改，欢迎反馈你的使用体验', '提示')

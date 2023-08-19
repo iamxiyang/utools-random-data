@@ -19,7 +19,6 @@ export default [
       feature: false,
     },
   },
-
   {
     _id: 'cmd-username',
     data: {
@@ -34,7 +33,7 @@ export default [
     _id: 'cmd-email',
     data: {
       code: 'cmd-email',
-      explain: '随机生成一个邮箱地址',
+      explain: '随机生成邮箱地址',
       cmds: ['邮箱', 'email'],
       content: '${邮箱}',
       feature: false,

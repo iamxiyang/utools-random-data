@@ -21,7 +21,7 @@
       <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
       <div class="m-y-20px">
         <el-select placeholder="插入变量" filterable @change="addVariable">
-          <el-option v-for="item in appStore.allVariables" :key="item.name" :label="item.name" :value="item.name"></el-option>
+          <el-option v-for="name in allVariablesName" :key="name" :label="name" :value="!name"></el-option>
         </el-select>
       </div>
     </el-form-item>
@@ -36,7 +36,7 @@
       <el-alert title="以下是根据你的指令内容随机生成的2条内容，如果觉得不符合预期可修改后重新测试" type="info" />
       <div class="m-t-40px p-b-10px">
         <template v-for="(text, index) in testText" :key="text">
-          <p class="m-0">{{ text }}</p>
+          <p class="m-0 break-words" style="white-space: pre-wrap">{{ text }}</p>
           <el-divider v-if="index < testText.length - 1" />
         </template>
       </div>
@@ -48,11 +48,11 @@
   import cloneDeep from 'lodash.clonedeep'
   import { ElInput, ElMessage, FormInstance } from 'element-plus'
   import { runCmd } from '../../commands/parse'
-  import { uuid } from '../../variables/modules/other'
+  import { UUID } from '../../variables/modules/other'
   import { useAppStore } from '../../store/app.store'
 
   const appStore = useAppStore()
-  const { commands } = storeToRefs(appStore)
+  const { commands, allVariablesName } = storeToRefs(appStore)
 
   const router = useRouter()
 
@@ -74,7 +74,7 @@
   // 初始化数据
   onMounted(() => {
     const { id: queryId } = useRoute().query
-    id.value = (queryId as string) || `cmd-${uuid()}`
+    id.value = (queryId as string) || `cmd-${UUID()}`
 
     if (queryId) {
       const find: DbCommands | undefined = commands.value.find((item: DbCommands) => item._id === queryId)
@@ -104,7 +104,7 @@
   })
 
   const tagInputConfrim = () => {
-    if (inputValue) {
+    if (inputValue.value) {
       edit.cmds.push(inputValue.value)
     }
     tagInputVisible.value = false
@@ -128,7 +128,7 @@
   })
 
   const addVariable = (val: string) => {
-    edit.content = edit.content + val
+    edit.content = `${edit.content}\${${val}}`
   }
 
   // 数据测试

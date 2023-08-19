@@ -6,20 +6,13 @@ interface AppStore {
   commands: DbCommands[]
 }
 
-interface SystemVariables {
-  fun: Function
-  name: string
-  example: string
-  description: string
-}
-
 const systemVariables = Object.keys(variables).map((name) => {
-  const { example, description, fun } = variables[name]
+  const { example, explain, fun } = variables[name]
   return {
     fun,
     name,
     example,
-    description,
+    explain,
   }
 }) as SystemVariables[]
 
@@ -31,27 +24,33 @@ export const useAppStore = defineStore('app', {
     }
   },
   getters: {
-    // allCommandsName(state) {
-    //   return state.commands.map((item) => item.data.explain)
-    // },
-    allVariablesName(state) {
-      // TODO 需要有对应的 id
-      return ([...systemVariables, ...state.variables] as (DbVariables & SystemVariables)[]).map((item) => {
-        if (item.name) {
-          return item.name
-        }
-        return item._id.replace('vars-', '')
-      })
-    },
     systemVariables() {
-      return [...systemVariables]
+      return systemVariables
     },
     allVariables(state) {
       // 系统变量包含 fun，但不包含 code
-      const variables = [...state.variables].map(({ data }) => {
-        return { name: data.name, code: data.code }
+      const variables = state.variables.map((row) => {
+        return {
+          ...row.data,
+          _id: row._id,
+        }
       })
-      return [...systemVariables, ...variables]
+      return [...variables, ...systemVariables]
+    },
+    allVariablesName(state) {
+      const systemName = systemVariables.map((item) => {
+        return item.name
+      })
+      const variablesName = state.variables.map((item) => {
+        return item.data.name
+      })
+      return [...variablesName, ...systemName].filter((item) => item)
+    },
+    allVariablesObject(): Record<string, Variables | SystemVariables> {
+      return this.allVariables.reduce((prev, next) => {
+        prev[`\${${next.name}}`] = next
+        return prev
+      }, {} as Record<string, Variables | SystemVariables>)
     },
   },
 })

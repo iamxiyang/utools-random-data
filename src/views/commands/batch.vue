@@ -37,8 +37,7 @@
   const { commands } = storeToRefs(appStore)
 
   const route = useRoute()
-  // @ts-ignore
-  const { id = '' } = route.params
+  const { id = '' } = route.query
 
   const curFeature = ref('')
   const number = ref(1)

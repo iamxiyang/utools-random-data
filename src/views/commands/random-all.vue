@@ -29,7 +29,7 @@
     if (text) {
       copyPasteOut(text)
     } else {
-      router.replace('/index')
+      router.replace('/commands')
     }
   }
 
@@ -37,7 +37,7 @@
     switch (event.code) {
       case 'ArrowUp':
         if (active.value > 0) {
-          active.value++
+          active.value--
         }
         break
       case 'ArrowDown':
@@ -47,11 +47,11 @@
         break
       case 'Enter':
       case 'Space':
-        const text = runCmd(commands.value[active.value].data.content)
+        const text = runCmd(commands.value[active.value]?.data.content)
         if (text) {
           copyPasteOut(text)
         } else {
-          router.replace('/index')
+          router.replace('/commands')
         }
         break
     }
