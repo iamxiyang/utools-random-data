@@ -30,7 +30,7 @@ const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => 
   const varDiff = diff(dbVariables, state.variables)
 
   // 指令新增、修改，需要判断是否修改 utools 的 feature
-  ;[...cmdDiff.add, ...cmdDiff.update].forEach((row) => {
+  cmdDiff.add.forEach((row) => {
     if (row?.data?.feature) {
       const { code, explain, cmds } = cloneDeep(row.data)
       utools.setFeature({
@@ -39,7 +39,18 @@ const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => 
         cmds,
         platform: ['win32', 'darwin', 'linux'],
       })
-    } else if (row?.data?.feature) {
+    }
+  })
+  cmdDiff.update.forEach((row) => {
+    if (row?.data?.feature) {
+      const { code, explain, cmds } = cloneDeep(row.data)
+      utools.setFeature({
+        code,
+        explain,
+        cmds,
+        platform: ['win32', 'darwin', 'linux'],
+      })
+    } else {
       utools.removeFeature(row._id)
     }
   })
