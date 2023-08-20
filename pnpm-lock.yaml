@@ -39,8 +39,8 @@ dependencies:
     specifier: ^2.1.6
     version: 2.1.6(typescript@5.1.6)(vue@3.3.4)
   reregexp:
-    specifier: ^1.6.1
-    version: 1.6.1
+    specifier: 1.6.0
+    version: 1.6.0
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -1677,8 +1677,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /reregexp@1.6.1:
-    resolution: {integrity: sha512-DffVGx+LeDxJzY/7RWcmZ8YlJPDKRVi7GddWfef4GZLDd9yH+2e+LmFZ9hTMaTyybu3IYPZcq1f8/ejH214eFQ==}
+  /reregexp@1.6.0:
+    resolution: {integrity: sha512-LDRDxAd5mYCT3ikkMs+WzMMIh86qVpZFbD4L+y4aPKXnE8K5PU3bykPdm/z8gq3WgsVm+1oiQlrSpYMZz9Ra9A==}
     dev: false
 
   /resolve@1.22.4:
