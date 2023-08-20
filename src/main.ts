@@ -68,7 +68,6 @@ utools.onMainPush(
       let content = ''
       if (optionCode) {
         const codeDb = utools.db.get(optionCode)
-        console.log('🚀 ~ file: main.ts:71 ~ codeDb:', codeDb)
         if (!codeDb) {
           return true
         }

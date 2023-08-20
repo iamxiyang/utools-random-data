@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 import sample from 'lodash.sample'
-import random from 'lodash.random'
 import { city, province } from './address'
 import { useRegexp } from './regexp'
 
