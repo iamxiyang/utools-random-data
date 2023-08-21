@@ -57,11 +57,6 @@ export const phone = (prefix: boolean = false) => {
   return prefix ? `+86${num}` : num
 }
 
-// 电话号码
-export const tel = () => {
-  return '0' + Math.floor(Math.random() * 10000000000)
-}
-
 // 姓名
 export const username = () => {
   // 常见的中文姓
@@ -330,10 +325,4 @@ export const IdCard = (maxAge: number = 50, minAge: number = 18) => {
     iSum += (Math.pow(2, i) % 11) * parseInt(sId.charAt(17 - i), 11)
   }
   return sId + getValidationCode(iSum)
-}
-
-// 星座
-export const constellation = () => {
-  const constellations = ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
-  return sample(constellations)
 }

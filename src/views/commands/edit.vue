@@ -21,7 +21,7 @@
       <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
       <div class="m-y-20px">
         <el-select placeholder="插入变量" filterable @change="addVariable">
-          <el-option v-for="item in _variable" :key="item.name" :label="item.name" :value="item.name"></el-option>
+          <el-option v-for="name in allVariablesName" :key="name" :label="name" :value="!name"></el-option>
         </el-select>
       </div>
     </el-form-item>
@@ -36,7 +36,7 @@
       <el-alert title="以下是根据你的指令内容随机生成的2条内容，如果觉得不符合预期可修改后重新测试" type="info" />
       <div class="m-t-40px p-b-10px">
         <template v-for="(text, index) in testText" :key="text">
-          <p class="m-0">{{ text }}</p>
+          <p class="m-0 break-words" style="white-space: pre-wrap">{{ text }}</p>
           <el-divider v-if="index < testText.length - 1" />
         </template>
       </div>
@@ -45,15 +45,14 @@
 </template>
 
 <script setup lang="ts">
-  import { ElInput, ElMessage, FormInstance } from 'element-plus'
   import cloneDeep from 'lodash.clonedeep'
-  import variable from '../constant/variable'
-  import { runCmd } from '../utils/random'
-  import { uuid } from '../random'
-  import useAppStore from '../store/index'
+  import { ElInput, ElMessage, FormInstance } from 'element-plus'
+  import { runCmd } from '../../commands/parse'
+  import { UUID } from '../../variables/modules/other'
+  import { useAppStore } from '../../store/app.store'
 
   const appStore = useAppStore()
-  const { features }: { features: DbDoc[] } = $(storeToRefs(appStore))
+  const { commands, allVariablesName } = storeToRefs(appStore)
 
   const router = useRouter()
 
@@ -67,49 +66,49 @@
     }
   }
 
-  let id = $ref('')
-  let rev = $ref('')
+  const id = ref('')
+  const rev = ref('')
   const defaultData = defaultEdit()
-  let edit = $ref<Feature>(defaultData)
+  let edit = reactive<Commands>(defaultData)
 
   // 初始化数据
   onMounted(() => {
     const { id: queryId } = useRoute().query
-    id = (queryId as string) || `cmd-${uuid()}`
+    id.value = (queryId as string) || `cmd-${UUID()}`
 
     if (queryId) {
-      const find: DbDoc | undefined = features.find((item: DbDoc) => item._id === queryId)
+      const find: DbCommands | undefined = commands.value.find((item: DbCommands) => item._id === queryId)
       const data = find?.data
       if (data) {
-        rev = find?._rev as string
-        edit = cloneDeep(data)
+        rev.value = find?._rev as string
+        edit = Object.assign(edit, cloneDeep(data))
       }
     }
   })
 
   // 自定义唤醒词
-  let inputValue = $ref('')
-  let tagInputVisible = $ref(false)
-  let tagInputRef = $ref<InstanceType<typeof ElInput>>()
+  const inputValue = ref('')
+  const tagInputVisible = ref(false)
+  const tagInputRef = ref<InstanceType<typeof ElInput>>()
 
   const delCmd = (tag: string) => {
     edit.cmds.splice(edit.cmds.indexOf(tag), 1)
   }
 
   watchEffect(() => {
-    if (tagInputVisible) {
+    if (tagInputVisible.value) {
       nextTick(() => {
-        tagInputRef!.input!.focus()
+        tagInputRef.value!.input!.focus()
       })
     }
   })
 
   const tagInputConfrim = () => {
-    if (inputValue) {
-      edit.cmds.push(inputValue)
+    if (inputValue.value) {
+      edit.cmds.push(inputValue.value)
     }
-    tagInputVisible = false
-    inputValue = ''
+    tagInputVisible.value = false
+    inputValue.value = ''
   }
 
   // 内容效验
@@ -128,30 +127,19 @@
     explain: [{ trigger: 'blur', required: true, message: '指令名称必须填写' }],
   })
 
-  // 内置变量
-  const _variable = computed(() => {
-    return Object.keys(variable).map((name) => {
-      const { example, description } = variable[name]
-      return {
-        name,
-        example,
-        description,
-      }
-    })
-  })
   const addVariable = (val: string) => {
-    edit.content = edit.content + val
+    edit.content = `${edit.content}\${${val}}`
   }
 
   // 数据测试
-  let dialogTest = $ref(false)
-  let testText = $ref<string[] | number[]>([])
+  let dialogTest = ref(false)
+  let testText = ref<string[] | number[]>([])
 
   const testCmd = () => {
     const text = runCmd(edit.content)
     const text2 = runCmd(edit.content)
-    testText = [text, text2]
-    dialogTest = true
+    testText.value = [text, text2]
+    dialogTest.value = true
   }
 
   // 保存指令
@@ -160,28 +148,28 @@
       if (!formEl) return
       await formEl.validate()
       // 判断功能名称不能重复
-      for (let i = 0, len = features.length; i < len; i++) {
-        const _id = features[i]._id
-        const { explain } = features[i].data
-        if (_id !== id && explain === edit.explain) {
+      for (let i = 0, len = commands.value.length; i < len; i++) {
+        const _id = commands.value[i]._id
+        const { explain } = commands.value[i].data
+        if (_id !== id.value && explain === edit.explain) {
           ElMessage.error('功能名称已存在，不能重复')
           break
         }
       }
       if (!edit.code) {
-        edit.code = id
+        edit.code = id.value
       }
-      const index = features.findIndex((item: DbDoc) => item._id === id)
+      const index = commands.value.findIndex((item: DbDoc) => item._id === id.value)
       if (index >= 0) {
-        features.splice(index, 1, {
-          _id: id,
-          _rev: rev,
+        commands.value.splice(index, 1, {
+          _id: id.value,
+          _rev: rev.value,
           data: toRaw(edit),
         })
       } else {
-        features.push({
-          _id: id,
-          _rev: rev,
+        commands.value.unshift({
+          _id: id.value,
+          _rev: rev.value,
           data: toRaw(edit),
         })
       }

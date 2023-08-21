@@ -340,14 +340,6 @@ const BANK_CONFIG = [
   ['68580', '广东发展银行', '广发VISA信用卡', '16', 4],
 ]
 
-// 借记卡 1  贷记卡 2 准贷记卡 3 信用卡 4
-const BANK_TYPE = {
-  1: '借记卡',
-  2: '贷记卡',
-  3: '准贷记卡',
-  4: '信用卡',
-}
-
 /**
  *
  * @param {string} bankcard
@@ -372,7 +364,7 @@ const getVerificationCode = (bankcard: string) => {
 
 const bcBuilder = (bankType: string | number = '') => {
   const banks = !!bankType ? BANK_CONFIG.filter((c) => c[4] === +bankType) : BANK_CONFIG
-  const bankInfo = banks[random(banks.length-1)]  
+  const bankInfo = banks[random(banks.length - 1)]
   let cardNo = bankInfo[0] + times(Number(bankInfo[3]) - (bankInfo[0] as string).length - 1).join('')
   cardNo = cardNo + getVerificationCode(cardNo)
   return [cardNo, bankInfo[1], bankInfo[2]]

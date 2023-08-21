@@ -1,21 +1,8 @@
 import random from 'lodash.random'
-import sample from 'lodash.sample'
-import textJson from './text.json'
-
-const { lunyu, tuhua, feihua } = textJson
-
-// 随机返回一句论语
-export const returnLunyu = () => {
-  return sample(lunyu)
-}
-
-// 随机返回一句土话
-export const returnTuhua = () => {
-  return sample(tuhua)
-}
+import feihuaJSON from './text.json'
 
 const choice = (a: 'title' | 'famous' | 'bosh' | 'after' | 'before') => {
-  const arr = feihua[a]
+  const arr = feihuaJSON[a]
   return arr[(Math.random() * arr.length) | 0]
 }
 

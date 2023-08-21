@@ -1,21 +1,58 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>随机生成虚假数据</title>
+    <style>
+      body {
+        margin: 0;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>随机生成虚假数据</title>
-  <style>
-    body {
-      margin: 0;
-    }
-  </style>
-</head>
+      .app-error-tip {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #888;
+        height: 80vh;
+        opacity: 0;
+        font-size: 16px;
+        animation: show 3s;
+        animation-fill-mode: forwards;
+      }
 
-<body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
+      @keyframes show {
+        0% {
+          opacity: 0;
+        }
 
+        80% {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script>
+      utools.onPluginDetach(() => {
+        console.log('插件应用已作为系统窗口使用')
+        window.isDetach = true
+      })
+    </script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="app-error-tip">
+        <p>如果你看到这段内容，可能是程序出现BUG，请联系作者反馈</p>
+        <p>作者微信 hexiyangwxh</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>

@@ -1,5 +1,5 @@
 <template>
-  <div v-for="(item, index) in features" :key="item._id" class="line" :class="{ active: active === index }" @click="clickCmd(item)">
+  <div v-for="(item, index) in commands" :key="item._id" class="line" :class="{ active: active === index }" @click="clickCmd(item)">
     <img src="/logo.png" class="icon" alt="logo" />
     <div class="content">
       <p class="explain">{{ item.data.explain }}</p>
@@ -13,56 +13,51 @@
 </template>
 
 <script setup lang="ts">
-  import useAppStore from '../store/index'
-  import { runCmd } from '../utils/random'
-  import { copyPasteOut } from '../utils/utools'
+  import { useEventListener } from '@vueuse/core'
+  import { runCmd } from '../../commands/parse'
+  import { useAppStore } from '../../store/app.store'
+  import { copyPasteOut } from '../../utils/utools'
 
-  const appStore = useAppStore()
   const router = useRouter()
-  const { features } = $(storeToRefs(appStore))
+  const appStore = useAppStore()
+  const { commands } = storeToRefs(appStore)
 
-  let active = $ref(0)
+  const active = ref(0)
 
-  const clickCmd = (item: DbDoc) => {
+  const clickCmd = (item: DbCommands) => {
     const text = runCmd(item.data.content)
     if (text) {
       copyPasteOut(text)
     } else {
-      router.replace('/index')
+      router.replace('/commands')
     }
   }
 
   const keyDown = (event: KeyboardEvent) => {
     switch (event.code) {
       case 'ArrowUp':
-        if (active > 0) {
-          active = active - 1
+        if (active.value > 0) {
+          active.value--
         }
         break
       case 'ArrowDown':
-        if (active < features.length - 1) {
-          active = active + 1
+        if (active.value < commands.value.length - 1) {
+          active.value++
         }
         break
       case 'Enter':
       case 'Space':
-        const text = runCmd(features[active].data.content)
+        const text = runCmd(commands.value[active.value]?.data.content)
         if (text) {
           copyPasteOut(text)
         } else {
-          router.replace('/index')
+          router.replace('/commands')
         }
         break
     }
   }
 
-  onMounted(() => {
-    window.addEventListener('keydown', keyDown)
-  })
-
-  onUnmounted(() => {
-    window.removeEventListener('keydown', keyDown)
-  })
+  useEventListener('keydown', keyDown)
 </script>
 
 <style scoped lang="scss">

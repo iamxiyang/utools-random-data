@@ -7,3 +7,5 @@ TODO.md
 __tests__
 .idea
 *.log
+!public/**
+public/**/.DS_Store

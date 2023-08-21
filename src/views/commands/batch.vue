@@ -4,7 +4,7 @@
   <el-form label-position="left" label-width="80px">
     <el-form-item label="选择指令">
       <el-select placeholder="请选择指令" filterable v-model="curFeature" class="w-200px">
-        <el-option v-for="item in features" :key="item._id" :label="item.data.explain" :value="item._id"> </el-option>
+        <el-option v-for="item in commands" :key="item._id" :label="item.data.explain" :value="item._id"> </el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="生成数量">
@@ -30,51 +30,51 @@
 
 <script setup lang="ts">
   import { ElMessage } from 'element-plus'
-  import useAppStore from '../store/index'
-  import { runCmd } from '../utils/random'
-  import { copyText } from '../utils/helper'
+  import { useAppStore } from '../../store/app.store'
+  import { copyText } from '../../utils'
+  import { runCmd } from '../../commands/parse'
   const appStore = useAppStore()
-  const { features } = storeToRefs(appStore)
+  const { commands } = storeToRefs(appStore)
 
   const route = useRoute()
-  const { id = '' } = route.params
+  const { id = '' } = route.query
 
-  let curFeature = $ref('')
-  let number = $ref(1)
-  let symbol = $ref('\r\n')
-  let result = $ref('')
-  let isFilterRepeat = $ref(false)
+  const curFeature = ref('')
+  const number = ref(1)
+  const symbol = ref('\r\n')
+  const result = ref('')
+  const isFilterRepeat = ref(false)
 
   onMounted(() => {
-    curFeature = id as string
+    curFeature.value = id as string
   })
 
   const saveCmd = () => {
     if (!curFeature) {
       return ElMessage.error('请选择指令')
     }
-    const content = features.value.find((item: DbDoc) => item._id === curFeature)?.data.content
+    const content = commands.value.find((item: DbDoc) => item._id === curFeature.value)?.data.content
     if (!content) return
     let text = ''
     const arr = []
-    for (let i = 0; i < number; i++) {
+    for (let i = 0; i < number.value; i++) {
       arr.push(runCmd(content))
     }
-    if (isFilterRepeat) {
+    if (isFilterRepeat.value) {
       const _arr = [...new Set(arr)]
-      text = _arr.join(symbol)
+      text = _arr.join(symbol.value)
       ElMessage.info(`已过滤重复内容，实际生成 ${_arr.length} 条`)
     } else {
-      text = arr.join(symbol)
+      text = arr.join(symbol.value)
     }
-    result = text
+    result.value = text
   }
 
   const copyResult = () => {
     if (!result) {
       return ElMessage.error('请先生成数据')
     }
-    copyText(result)
+    copyText(result.value)
     ElMessage.success('复制成功')
   }
 </script>

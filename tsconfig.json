@@ -9,13 +9,29 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "paths": {
-      "@": ["./src"]
+      "@": [
+        "./src"
+      ]
     },
-    "types": ["node"],
+    "types": [
+      "node",
+      "element-plus/global",
+      "utools-api-types"
+    ],
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/utils/bcBuilder.js"],
-  "exclude": ["node_modules/**"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+  ],
+  "exclude": [
+    "node_modules/**"
+  ]
 }

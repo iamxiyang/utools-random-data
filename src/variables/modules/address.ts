@@ -65,19 +65,6 @@ export const street = () => {
 export const _clearAddressCaches = () => {
   caches = {}
 }
-// 邮编
-export const postcode = () => {
-  // 我国采用四级六位编码制，前两位表示省（直辖市,自治区），第三位代表邮区，第四位代表县（市），最后两位数字是代表从这个城市哪个投递区投递的，即投递区的位置。
-  // TODO 暂时没考虑好怎么生成，最好能够和城市信息对应上
-  return ''
-}
-
-// 小区
-export const community = () => {
-  const prefix = ['天下', '世纪', '龙湖', '高兴', '万乐', '智慧']
-  const suffix = ['新村', '新花园', '小区', '广场', '中心', '家园', '新城']
-  return (sample(prefix) as string) + sample(suffix)
-}
 
 // 学校名称
 export const school = () => {
@@ -88,6 +75,6 @@ export const school = () => {
 // 快递地址
 export const express = () => {
   // 地址、学校、姓名、电话、邮编随机顺序组合返回
-  const arr = [`${address()} ${school()} ${postcode()} ${phone()} ${username()}`, `${username()} ${address()} ${postcode()} ${phone()}`, `${username()} ${phone()} ${address()} ${postcode()}`]
+  const arr = [`${address()} ${school()}  ${phone()} ${username()}`, `${username()} ${address()}  ${phone()}`, `${username()} ${phone()} ${address()} `]
   return sample(arr)
 }
