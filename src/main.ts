@@ -16,11 +16,6 @@ import { debug } from './utils'
 import { runCmd } from './commands/parse'
 import { copyPasteOut } from './utils/utools'
 
-const app = createApp(AppVue)
-app.use(pinia)
-app.use(router)
-app.mount('#app')
-
 utools.onPluginEnter(({ code, type, payload }) => {
   debug('用户进入插件main', code, type, payload)
   if (code === 'setting') {
@@ -45,7 +40,7 @@ utools.onPluginEnter(({ code, type, payload }) => {
   copyPasteOut(text)
 })
 
-utools.onMainPush(
+utools.onMainPush?.(
   // callback
   ({ code }) => {
     if (code === 'random-all') {
@@ -92,5 +87,10 @@ utools.onMainPush(
     }
   },
 )
+
+const app = createApp(AppVue)
+app.use(pinia)
+app.use(router)
+app.mount('#app')
 
 useDark({})
