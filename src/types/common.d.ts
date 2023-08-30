@@ -25,7 +25,6 @@ type DbVariables = DbDoc<Variables>
 
 interface SystemVariables {
   fun: Function
-  name?: string
   example: string
   explain: string
 }

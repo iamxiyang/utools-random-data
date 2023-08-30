@@ -21,7 +21,7 @@
       <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
       <div class="m-y-20px">
         <el-select placeholder="插入变量" filterable @change="addVariable">
-          <el-option v-for="name in allVariablesName" :key="name" :label="name" :value="!name"></el-option>
+          <el-option v-for="name in allVariablesName" :key="name" :label="name" :value="name"></el-option>
         </el-select>
       </div>
     </el-form-item>

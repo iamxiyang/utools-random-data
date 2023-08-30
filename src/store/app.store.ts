@@ -14,7 +14,7 @@ const systemVariables = Object.keys(variables).map((name) => {
     example,
     explain,
   }
-}) as SystemVariables[]
+}) as (SystemVariables & { name: string })[]
 
 export const useAppStore = defineStore('app', {
   state: (): AppStore => {
