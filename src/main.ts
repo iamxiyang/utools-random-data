@@ -46,10 +46,9 @@ utools.onMainPush?.(
     if (code === 'random-all') {
       const dbCommands = utools.db.allDocs('cmd-')
       return dbCommands.map((row) => {
-        const { explain } = row.data
+        const explain = row?.data?.explain
         return {
-          text: explain,
-          code: row._id,
+          text: explain || '-',
         }
       })
     }
@@ -58,27 +57,17 @@ utools.onMainPush?.(
   // selectCallback
   ({ code, option }) => {
     if (code === 'random-all') {
-      // @ts-ignore 测试时存在，文档没这样写，不确定 uTools 后续是否调整
-      const { code: optionCode } = option
-      let content = ''
-      if (optionCode) {
-        const codeDb = utools.db.get(optionCode)
-        if (!codeDb) {
-          return true
-        }
-        content = codeDb.data.content
-      } else {
-        // 如果没有 code，根据名称查询所有数据
-        const dbCommands = utools.db.allDocs('cmd-')
-        const dbCommand = dbCommands.find((row) => {
-          const { explain } = row.data
-          return explain === option.text
-        })
-        if (!dbCommand) {
-          return true
-        }
-        content = dbCommand.data.content
+      // 根据名称查询所有数据，找到匹配的
+      const dbCommands = utools.db.allDocs('cmd-')
+      const dbCommand = dbCommands.find((row) => {
+        const { explain } = row.data
+        return explain === option.text
+      })
+      if (!dbCommand) {
+        return true
       }
+      const content = dbCommand.data.content
+
       if (!content) {
         return true
       }
