@@ -18,9 +18,16 @@ let isFirstUse = !utools?.dbStorage?.getItem('is-first-use')
 
 // 执行隐藏窗口、复制粘贴、退出插件步骤
 export const copyPasteOut = (text: string) => {
-  window.utools.hideMainWindow()
-  utools.copyText(text)
-  paste()
+
+  // window.utools.hideMainWindow()
+  
+  // utools.copyText(text)
+ 
+  // setTimeout(paste)
+
+  utools.hideMainWindowPasteText(text)
+ 
+  
 
   if (isFirstUse) {
     showTips()
