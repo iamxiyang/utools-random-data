@@ -1,5 +1,7 @@
 import random from 'lodash.random'
+import sample from 'lodash.sample'
 import feihuaJSON from './text.json'
+import lunyuJSON from './lunyu.json'
 
 const choice = (a: 'title' | 'famous' | 'bosh' | 'after' | 'before') => {
   const arr = feihuaJSON[a]
@@ -34,4 +36,9 @@ const returnFeihua = (length = 200, title = '随机一段废话') => {
 
 export const text = (min: number = 200, max: number = min) => {
   return returnFeihua(random(min, max))
+}
+
+export const lunyu = () => {
+  const item = sample(lunyuJSON.articles)
+  return sample(item?.content)
 }

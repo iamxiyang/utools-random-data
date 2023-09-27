@@ -3,7 +3,7 @@ import { bankCard, bankCardNumber } from './modules/bank'
 import { UUID, carNumber, companyName, date, mac } from './modules/other'
 import { IdCard, phone, username } from './modules/people'
 import { useRegexp } from './modules/regexp'
-import { text } from './modules/text'
+import { text,lunyu } from './modules/text'
 import { domain, email, img, url } from './modules/web'
 
 // 这里存放所有对外暴露的内置变量，key是变量使用词汇
@@ -115,6 +115,11 @@ export default {
     fun: mac,
     example: mac(),
     explain: '随机返回一个Mac地址',
+  },
+  论语: {
+    fun: lunyu,
+    example: lunyu(),
+    explain: '随机返回一句论语',
   },
   文本: {
     fun: text,
