@@ -68,6 +68,11 @@ const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => 
     utools.db.bulkDocs(cloneDeep(allAddUpdate))
   }
 
+  // 新添加的数据，store 缺少 rev 影响对比，暂时这样处理
+  ;[...cmdDiff.add, ...varDiff.add].forEach((row) => {
+    row._rev = utools.db.get(row._id)?._rev
+  })
+
   // 批量删除
   ;[...varDiff.del, ...cmdDiff.del].forEach((row) => {
     utools.db.remove(row._id)
