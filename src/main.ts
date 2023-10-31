@@ -16,6 +16,10 @@ import { debug } from './utils'
 import { runCmd } from './commands/parse'
 import { copyPasteOut } from './utils/utools'
 
+const app = createApp(AppVue)
+app.use(pinia)
+app.use(router)
+
 utools.onPluginEnter(({ code, type, payload }) => {
   debug('用户进入插件main', code, type, payload)
   if (code === 'setting') {
@@ -40,11 +44,11 @@ utools.onPluginEnter(({ code, type, payload }) => {
   copyPasteOut(text)
 })
 
+const dbCommands = utools.db.allDocs('cmd-')
 utools.onMainPush?.(
   // callback
   ({ code }) => {
     if (code === 'random-all') {
-      const dbCommands = utools.db.allDocs('cmd-')
       return dbCommands.map((row) => {
         const explain = row?.data?.explain
         return {
@@ -58,7 +62,6 @@ utools.onMainPush?.(
   ({ code, option }) => {
     if (code === 'random-all') {
       // 根据名称查询所有数据，找到匹配的
-      const dbCommands = utools.db.allDocs('cmd-')
       const dbCommand = dbCommands.find((row) => {
         const { explain } = row.data
         return explain === option.text
@@ -77,9 +80,5 @@ utools.onMainPush?.(
   },
 )
 
-const app = createApp(AppVue)
-app.use(pinia)
-app.use(router)
 app.mount('#app')
-
 useDark({})
