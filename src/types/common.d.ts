@@ -32,3 +32,8 @@ interface SystemVariables {
 interface SystemVariablesObject {
   [key: string]: SystemVariables
 }
+
+declare interface Window {
+  preload: typeof import('../preload/index')
+  isDetach: boolean
+}

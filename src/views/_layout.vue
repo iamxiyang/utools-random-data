@@ -4,6 +4,7 @@
       <el-menu-item index="/commands/">指令列表</el-menu-item>
       <el-menu-item index="/variables/">变量列表</el-menu-item>
       <el-menu-item index="/commands/batch">批量生成</el-menu-item>
+      <el-menu-item index="/import-export">导入导出</el-menu-item>
       <el-menu-item index="/about">关于插件</el-menu-item>
     </el-menu>
     <div class="view">

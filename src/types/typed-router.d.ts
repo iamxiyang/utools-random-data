@@ -44,6 +44,7 @@ declare module 'vue-router/auto/routes' {
     '/commands/batch': RouteRecordInfo<'/commands/batch', '/commands/batch', Record<never, never>, Record<never, never>>,
     '/commands/edit': RouteRecordInfo<'/commands/edit', '/commands/edit', Record<never, never>, Record<never, never>>,
     '/commands/random-all': RouteRecordInfo<'/commands/random-all', '/commands/random-all', Record<never, never>, Record<never, never>>,
+    '/import-export': RouteRecordInfo<'/import-export', '/import-export', Record<never, never>, Record<never, never>>,
     '/variables/': RouteRecordInfo<'/variables/', '/variables', Record<never, never>, Record<never, never>>,
     '/variables/edit': RouteRecordInfo<'/variables/edit', '/variables/edit', Record<never, never>, Record<never, never>>,
   }

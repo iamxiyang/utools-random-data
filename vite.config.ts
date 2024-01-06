@@ -8,15 +8,13 @@ import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import Unocss from 'unocss/vite'
 import presetWind from '@unocss/preset-wind'
+import { createPreloadPlugin } from 'vite-plugin-utools-helper'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
   build: {
     target: 'es2019',
-  },
-  define: {
-    __VUE_PROD_DEVTOOLS__: true,
   },
   resolve: {
     alias: {
@@ -54,6 +52,8 @@ export default defineConfig({
     Unocss({
       presets: [presetWind()],
     }),
+    // preload打包
+    createPreloadPlugin({}),
   ],
   server: {
     port: 5175,
