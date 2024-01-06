@@ -81,7 +81,7 @@
 
   const router = useRouter()
   const appStore = useAppStore()
-  const { variables, systemVariables, } = storeToRefs(appStore)
+  const { variables, systemVariables } = storeToRefs(appStore)
 
   const id = ref(`var-${Date.now()}`)
   const rev = ref('')
@@ -118,7 +118,7 @@
 
   const editorRef = ref<HTMLElement>()
 
-  const defaultEditorValue = `// 使用参考：${GIT_STRING_VARIABLES_URL} `
+  const defaultEditorValue = ``
 
   watch(editorRef, () => {
     if (!editorRef.value) return
@@ -262,8 +262,6 @@
         edit.explain = variable.data.explain
         result.value = evaluate(variable.data.code)
       }
-    } else {
-      ElMessageBox.alert('自定义变量可以通过 JavaScript 实现特殊的随机规则，但目前尚属于测试阶段，可能不稳定或做出重大修改，欢迎反馈你的使用体验', '提示')
     }
   })
 </script>
