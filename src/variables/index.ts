@@ -55,11 +55,6 @@ export default {
     example: UUID(),
     explain: '随机返回一个UUID',
   },
-  车牌号: {
-    fun: carNumber,
-    example: carNumber(),
-    explain: '建议使用自定义变量替代。随机返回一个车牌号',
-  },
   手机号: {
     fun: phone,
     example: phone(),
@@ -70,15 +65,10 @@ export default {
     example: username(),
     explain: '随机返回一个中文姓名',
   },
-  身份证号: {
-    fun: IdCard,
-    example: IdCard(),
-    explain: '建议使用自定义变量替代。随机返回一个符合规则的国内身份证号',
-  },
   正则: {
     fun: useRegexp,
     example: useRegexp(/[a-zA-Z0-9]{6,12}/),
-    explain: '支持正则表达式，可以传递一个正则表达式，返回一个符合正则表达式的字符串，如 正则(/[a-zA-Z0-9]{6,12}/)} 依赖reregexp',
+    explain: '支持正则表达式，需要传递一个正则表达式，返回一个符合正则表达式的字符串，如 正则(/[a-zA-Z0-9]{6,12}/)} 依赖reregexp',
   },
 
   邮箱: {
@@ -96,16 +86,6 @@ export default {
     example: domain(),
     explain: '随机返回一个域名',
   },
-  银行卡: {
-    fun: bankCard,
-    example: bankCard(),
-    explain: '建议使用自定义变量替代。随机返回一个银行卡信息',
-  },
-  银行卡号: {
-    fun: bankCardNumber,
-    example: bankCardNumber(),
-    explain: '建议使用自定义变量替代。随机返回一个银行卡号',
-  },
   公司名称: {
     fun: companyName,
     example: companyName(),
@@ -115,6 +95,26 @@ export default {
     fun: mac,
     example: mac(),
     explain: '随机返回一个Mac地址',
+  },
+  身份证号: {
+    fun: IdCard,
+    example: IdCard(),
+    explain: '建议使用自定义变量替代。随机返回一个符合规则的国内身份证号',
+  },
+  车牌号: {
+    fun: carNumber,
+    example: carNumber(),
+    explain: '建议使用自定义变量替代。随机返回一个车牌号',
+  },
+  银行卡: {
+    fun: bankCard,
+    example: bankCard(),
+    explain: '建议使用自定义变量替代。随机返回一个银行卡信息',
+  },
+  银行卡号: {
+    fun: bankCardNumber,
+    example: bankCardNumber(),
+    explain: '建议使用自定义变量替代。随机返回一个银行卡号',
   },
   文本: {
     fun: text,
