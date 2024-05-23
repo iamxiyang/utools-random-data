@@ -18,7 +18,7 @@
       </el-tooltip>
     </el-form-item>
     <el-form-item required prop="content" label="指令内容">
-      <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }"></el-input>
+      <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }" @blur="blurEvent"></el-input>
       <div class="m-y-20px">
         <el-select placeholder="插入变量" filterable @change="addVariable">
           <el-option v-for="name in allVariablesName" :key="name" :label="name" :value="name"></el-option>
@@ -127,8 +127,17 @@
     explain: [{ trigger: 'blur', required: true, message: '指令名称必须填写' }],
   })
 
+  const blurIndex = ref(0)
+
+  const blurEvent = (event: FocusEvent) => {
+    blurIndex.value = (event?.target as HTMLInputElement)?.selectionStart || edit.content.length
+  }
+
   const addVariable = (val: string) => {
-    edit.content = `${edit.content}\${${val}}`
+    const start = edit.content.slice(0, blurIndex.value)
+    const end = edit.content.slice(blurIndex.value)
+    edit.content = `${start}\${${val}}${end}`
+    blurIndex.value = blurIndex.value + val.length + '\${}'.length
   }
 
   // 数据测试
