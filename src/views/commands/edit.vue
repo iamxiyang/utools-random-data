@@ -19,7 +19,7 @@
     </el-form-item>
     <el-form-item required prop="content" label="指令内容">
       <el-input type="textarea" v-model="edit.content" :autosize="{ minRows: 6, maxRows: 16 }" @blur="blurEvent"></el-input>
-      <div class="m-y-20px">
+      <div class="m-y-20px w-180px">
         <el-select placeholder="插入变量" filterable @change="addVariable">
           <el-option v-for="name in allVariablesName" :key="name" :label="name" :value="name"></el-option>
         </el-select>
