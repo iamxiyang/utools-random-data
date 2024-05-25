@@ -1,6 +1,6 @@
 {
   "name": "utools-random-data",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
