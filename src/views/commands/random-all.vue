@@ -64,7 +64,7 @@
   .line {
     display: flex;
     align-items: center;
-    padding: 10px 1%;
+    padding: 14px 22px;
     border-bottom: 1px solid var(--el-border-color-lighter, #f2f2f2);
     cursor: pointer;
     &:active,
@@ -72,8 +72,8 @@
       background-color: var(--el-fill-color-light, #dee2e6);
     }
     .icon {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       flex-shrink: 0;
       margin-right: 16px;
       object-fit: contain;

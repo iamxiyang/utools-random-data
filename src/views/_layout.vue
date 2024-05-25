@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container">
+  <div class="layout-container" :class="routeName">
     <el-menu :default-active="$route.name" router v-if="showLayout">
       <el-menu-item index="/commands/">指令列表</el-menu-item>
       <el-menu-item index="/variables/">变量列表</el-menu-item>
@@ -16,11 +16,18 @@
 <script setup lang="ts">
   const router = useRouter()
 
+  const routeName = computed(() => {
+    return router.currentRoute.value.name?.split('/').filter(Boolean).join('-')
+  })
+
   const showLayout = computed(() => {
     return router.currentRoute.value.path !== '/commands/random-all'
   })
+
   onMounted(() => {
-    router.replace('/commands/')
+    if (router.currentRoute.value.path === '/') {
+      router.replace('/commands/')
+    }
   })
 </script>
 
@@ -37,6 +44,12 @@
       padding: 0 20px;
       height: 100vh;
       overflow-y: scroll;
+    }
+
+    &.commands-random-all {
+      .view {
+        padding: 0;
+      }
     }
   }
 </style>
