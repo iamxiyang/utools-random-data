@@ -6,7 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
-import Unocss from 'unocss/vite'
+import UnoCSS from 'unocss/vite'
 import presetWind from '@unocss/preset-wind'
 import { createPreloadPlugin } from 'vite-plugin-utools-helper'
 
@@ -49,7 +49,7 @@ export default defineConfig({
       ],
       resolvers: [ElementPlusResolver()],
     }),
-    Unocss({
+    UnoCSS({
       presets: [presetWind()],
     }),
     // preload打包
@@ -57,5 +57,11 @@ export default defineConfig({
   ],
   server: {
     port: 5175,
+    hmr: {
+      overlay: false,
+    },
+    warmup: {
+      clientFiles: ['./src/App.vue', './src/views/_layout.vue', './src/views/commands/random-all.vue'],
+    },
   },
 })
