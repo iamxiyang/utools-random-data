@@ -11,10 +11,11 @@ import 'element-plus/es/components/message/style/css'
 import 'element-plus/theme-chalk/el-message-box.css'
 import 'element-plus/theme-chalk/el-overlay.css'
 import 'element-plus/theme-chalk/el-dialog.css'
+import 'element-plus/theme-chalk/el-notification.css'
 
 import { debug } from './utils'
 import { runCmd } from './commands/parse'
-import { copyPasteOut } from './utils/utools'
+import { copyPasteOut, isDetach } from './utils/utools'
 
 const app = createApp(AppVue)
 app.use(pinia)
@@ -42,6 +43,9 @@ utools.onPluginEnter(({ code, type, payload }) => {
   const { content } = codeDb?.data
   const text = runCmd(content)
   copyPasteOut(text)
+  if (isDetach()) {
+    router.push({ name: '/commands/random-all' })
+  }
 })
 
 const dbCommands = utools.db.allDocs('cmd-')

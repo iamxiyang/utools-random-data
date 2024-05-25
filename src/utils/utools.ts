@@ -1,4 +1,4 @@
-import { debug } from '.'
+import { ElNotification } from 'element-plus'
 
 // 粘贴指令
 export const paste = () => {
@@ -8,6 +8,13 @@ export const paste = () => {
   if (utools.isWindows() || utools.isLinux()) {
     utools.simulateKeyboardTap('v', 'ctrl')
   }
+}
+
+export const isDetach = () => {
+  if (utools.getWindowType) {
+    return utools.getWindowType() === 'detach'
+  }
+  return window.isDetach
 }
 
 const showTips = () => {
@@ -20,7 +27,7 @@ let isFirstUse = !utools?.dbStorage?.getItem('is-first-use')
 export const copyPasteOut = (text: string) => {
   if (utools.hideMainWindowPasteText) {
     utools.hideMainWindowPasteText(text)
-  } else {
+  } else if (!isDetach()) {
     window.utools.hideMainWindow()
     utools.copyText(text)
     paste()
@@ -30,12 +37,13 @@ export const copyPasteOut = (text: string) => {
     showTips()
     utools.dbStorage.setItem('is-first-use', new Date().getTime())
     isFirstUse = false
-  } else if (window.isDetach) {
-    utools.copyText(text)
-    utools.showNotification('数据已生成，分离窗口下会影响自动粘贴，请手动粘贴使用，建议关闭分离窗口')
+  } else if (isDetach()) {
+    ElNotification.success('数据已生成，分离窗口下会影响自动粘贴，请手动粘贴使用')
   }
 
-  if (!window.isDetach) {
+  if (isDetach()) {
+    utools.copyText(text)
+  } else {
     utools.outPlugin()
   }
 }
