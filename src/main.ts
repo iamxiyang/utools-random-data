@@ -51,10 +51,10 @@ const getCommandContent = (code: string): string | undefined => {
   const target = all.find(item =>
     item._id === code ||
     item.data?.code === code ||
-    (Array.isArray(item.data?.cmds || item.cmds) && (item.data?.cmds || item.cmds).includes(code))
+    (Array.isArray(item.data?.cmds) && (item.data?.cmds).includes(code))
   )
 
-  return target?.data?.content ?? target?.content
+  return target?.data?.content
 }
 
 /** 处理插件进入 */

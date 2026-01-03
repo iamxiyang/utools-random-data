@@ -64,7 +64,6 @@
 import { ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Loading, Warning, InfoFilled } from '@element-plus/icons-vue'
-import type { UtoolsAiModel } from 'utools-api-types'
 
 const props = defineProps({
   modelValue: Boolean,
