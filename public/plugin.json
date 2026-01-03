@@ -5,7 +5,7 @@
     "main": "http://localhost:5175",
     "preload": "preload.js"
   },
-  "logo": "./logo.png",
+  "logo": "logo.png",
   "preload": "preload.js",
   "pluginSetting": {
     "height": 600
