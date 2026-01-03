@@ -297,9 +297,9 @@ export const IdCard = (maxAge: number = 50, minAge: number = 18) => {
   // 身份证号码生成，规则参考：https://baike.baidu.com/item/%E5%B1%85%E6%B0%91%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81/3400358
 
   // 第一、二位表示省级行政区。
-  const province = [11, 12, 13, 14, 15, 21, 22, 23, 31, 32, 33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65]
+  const provinceList = [11, 12, 13, 14, 15, 21, 22, 23, 31, 32, 33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65]
   // 第三、四位表示地级行政区；第五、六位表示县级行政区。
-  const city = ['0101', '0201']
+  const cityList = ['0101', '0201']
 
   // 随机生成一个生日
   const birthday = (separator = '') => {
@@ -320,7 +320,7 @@ export const IdCard = (maxAge: number = 50, minAge: number = 18) => {
 
   let iSum = 0
   // @ts-ignore
-  const sId = sample(province) + sample(city) + birthday() + String(random(100, 999))
+  const sId = sample(provinceList) + sample(cityList) + birthday() + String(random(100, 999))
   for (let i = 17; i >= 1; i--) {
     iSum += (Math.pow(2, i) % 11) * parseInt(sId.charAt(17 - i), 11)
   }

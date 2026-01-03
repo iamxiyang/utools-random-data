@@ -1,6 +1,6 @@
 {
   "name": "utools-random-data",
-  "version": "2.0.6",
+  "version": "3.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -9,21 +9,22 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.3.1",
-    "@vueuse/core": "^10.9.0",
-    "dayjs": "^1.11.11",
-    "element-plus": "^2.7.3",
+    "@element-plus/icons-vue": "^2.3.2",
+    "@vueuse/core": "^14.1.0",
+    "dayjs": "^1.11.19",
+    "element-plus": "^2.13.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.isequal": "^4.5.0",
     "lodash.random": "^3.2.0",
     "lodash.sample": "^4.2.1",
     "lodash.times": "^4.3.2",
     "lz-string": "^1.5.0",
-    "monaco-editor": "^0.49.0",
-    "pinia": "^2.1.7",
-    "reregexp": "1.6.0",
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "monaco-editor": "^0.55.1",
+    "pinia": "^3.0.4",
+    "reregexp": "1.6.1",
+    "vue": "^3.5.26",
+    "vue-router": "^4.6.4",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@types/lodash.clonedeep": "^4.5.9",
@@ -31,24 +32,19 @@
     "@types/lodash.random": "^3.2.9",
     "@types/lodash.sample": "^4.2.9",
     "@types/lodash.times": "^4.3.9",
-    "@types/node": "^20.12.12",
-    "@unocss/preset-wind": "^0.60.3",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "sass": "^1.77.2",
-    "typescript": "^5.4.5",
-    "unocss": "^0.60.3",
-    "unplugin-auto-import": "^0.17.6",
-    "unplugin-vue-components": "^0.27.0",
-    "unplugin-vue-router": "^0.8.8",
-    "utools-api-types": "^5.0.0",
-    "vite": "^5.2.11",
-    "vite-plugin-utools-helper": "^0.0.6",
-    "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.19"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "vite-plugin-utools-helper@0.0.6": "patches/vite-plugin-utools-helper@0.0.6.patch"
-    }
+    "@types/node": "^25.0.3",
+    "@unocss/preset-wind": "^66.5.12",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "sass": "^1.97.1",
+    "typescript": "^5.9.3",
+    "unocss": "^66.5.12",
+    "unplugin-auto-import": "^20.3.0",
+    "unplugin-vue-components": "^30.0.0",
+    "unplugin-vue-router": "^0.19.2",
+    "utools-api-types": "^7.2.0",
+    "vite": "^7.3.0",
+    "vite-plugin-utools-helper": "^0.0.7",
+    "vitest": "^4.0.16",
+    "vue-tsc": "^3.2.1"
   }
 }

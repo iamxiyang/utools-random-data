@@ -1,0 +1,310 @@
+/* Global Page Layout Styles */
+.page-container {
+  padding: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Flex 布局页面 - 列表页使用，自动填满剩余高度 */
+.page-flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  /* 允许内容收缩 */
+
+  .page-header {
+    flex-shrink: 0;
+  }
+
+  .page-table-card {
+    flex: 1;
+    min-height: 0;
+    /* 允许内部滚动 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .command-list,
+  .variables-table {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--el-border-color-darker);
+      border-radius: 2px;
+    }
+  }
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--el-text-color-primary);
+  }
+
+  /* Support for el-page-header within .page-header wrapper or as a replacement */
+  &.el-page-header {
+    margin-bottom: 16px;
+  }
+}
+
+.page-card {
+  background: var(--el-bg-color);
+  border-radius: 6px;
+  border: 1px solid var(--el-border-color-lighter);
+  padding: 16px;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.page-table-card {
+  background: var(--el-bg-color);
+  border-radius: 6px;
+  border: 1px solid var(--el-border-color-lighter);
+  padding: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+/* Form Actions */
+.form-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  &.sticky-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background: var(--el-bg-color);
+    padding: 12px 16px;
+    margin: 0 -16px -16px -16px;
+    /* Negative margin to counteract card padding */
+    border-top: 1px solid var(--el-border-color-lighter);
+  }
+}
+
+.description-section {
+  color: var(--el-text-color-regular);
+  line-height: 1.6;
+}
+
+/* Table Utilities */
+.table-action-icon {
+  font-size: 18px;
+  margin: 0 4px;
+  cursor: pointer;
+  color: var(--el-text-color-secondary);
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--el-color-primary);
+  }
+
+  &.delete:hover {
+    color: var(--el-color-danger);
+  }
+}
+
+/* Common utility for spacing */
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Global Table & List Style Consolidation */
+:root {
+  --app-table-font-size: 13px;
+  --app-table-header-bg: var(--el-fill-color-light);
+}
+
+.el-table {
+  font-size: var(--app-table-font-size);
+
+  th.el-table__cell {
+    background-color: var(--app-table-header-bg) !important;
+    color: var(--el-text-color-regular);
+    font-weight: 600;
+  }
+}
+
+/* Scrollbar beautification (optional but nice for "modern" feel) */
+/* Global Scrollbar Reset */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--el-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--el-bg-color-page);
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
+
+/* Shared UI Components */
+.section-group {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  .badge-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--el-color-primary-light-9);
+    color: var(--el-color-primary);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid var(--el-color-primary-light-7);
+  }
+
+  .badge-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--el-text-color-primary);
+    letter-spacing: 0.5px;
+  }
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .label-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--el-text-color-primary);
+    }
+
+    .label-hint {
+      font-size: 12px;
+      color: var(--el-text-color-secondary);
+    }
+  }
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* Interaction Enhancements */
+.el-button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper {
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clickable-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}

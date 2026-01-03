@@ -9,7 +9,7 @@ export const readFile = async (filePath: string): Promise<string> => {
   return fs.promises.readFile(filePath, { encoding: 'utf-8' })
 }
 
-// 兼容旧版本 utools 使用
-utools.onPluginDetach(() => {
-  window.isDetach = true
+// 捕获初次进入的数据，供 main.ts 加载慢时读取
+utools.onPluginEnter((res: any) => {
+  (window as any)._utools_entry = res
 })

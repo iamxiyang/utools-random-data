@@ -20,10 +20,10 @@ export const date = (format: string = 'YYYY-MM-DD') => {
 // 车牌号
 export const carNumber = (newEnergy: boolean = false) => {
   // 部分城市的简称
-  const province = ['京', '津', '冀', '浙', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '桂', '川', '贵', '新']
+  const provinces = ['京', '津', '冀', '浙', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '桂', '川', '贵', '新']
   // 英文字母
   const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-  const number = `${sample(province)}${sample(letter)}${UUID().toUpperCase()}`
+  const number = `${sample(provinces)}${sample(letter)}${UUID().toUpperCase()}`
   return newEnergy ? number.substring(0, 8) : number.substring(0, 7)
 }
 

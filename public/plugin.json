@@ -1,4 +1,5 @@
 {
+  "$schema": "../node_modules/utools-api-types/resource/utools.schema.json",
   "main": "index.html",
   "development": {
     "main": "http://localhost:5175",
@@ -13,13 +14,20 @@
     {
       "code": "random-all",
       "explain": "随机数据-全部指令，如果找不到指令可以点击这里",
-      "cmds": ["随机数据全部指令", "random-all"],
+      "cmds": [
+        "随机数据全部指令",
+        "random-all"
+      ],
       "mainPush": true
     },
     {
       "code": "setting",
       "explain": "随机数据-设置",
-      "cmds": ["设置", "随机数据设置", "setting"]
+      "cmds": [
+        "设置",
+        "随机数据设置",
+        "setting"
+      ]
     }
   ]
 }

@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '',
       component: () => import('../views/_layout.vue'),
-      children: routes,
+      children: [...routes],
     },
   ],
 })

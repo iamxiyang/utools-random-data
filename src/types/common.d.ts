@@ -35,5 +35,5 @@ interface SystemVariablesObject {
 
 declare interface Window {
   preload: typeof import('../preload/index')
-  isDetach: boolean
 }
+

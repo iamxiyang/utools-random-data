@@ -11,10 +11,7 @@ export const paste = () => {
 }
 
 export const isDetach = () => {
-  if (utools.getWindowType) {
-    return utools.getWindowType() === 'detach'
-  }
-  return window.isDetach
+  return utools.getWindowType() === 'detach'
 }
 
 const showTips = () => {
@@ -28,7 +25,7 @@ export const copyPasteOut = (text: string) => {
   if (utools.hideMainWindowPasteText) {
     utools.hideMainWindowPasteText(text)
   } else if (!isDetach()) {
-    window.utools.hideMainWindow()
+    utools.hideMainWindow()
     utools.copyText(text)
     paste()
   }
