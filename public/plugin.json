@@ -12,15 +12,6 @@
   },
   "features": [
     {
-      "code": "random-all",
-      "explain": "随机数据-全部指令，如果找不到指令可以点击这里",
-      "cmds": [
-        "随机数据全部指令",
-        "random-all"
-      ],
-      "mainPush": true
-    },
-    {
       "code": "setting",
       "explain": "随机数据-设置",
       "cmds": [
@@ -28,6 +19,15 @@
         "随机数据设置",
         "setting"
       ]
+    },
+    {
+      "code": "random-all",
+      "explain": "随机数据-全部指令，如果找不到指令可以点击这里",
+      "cmds": [
+        "随机数据全部指令",
+        "random-all"
+      ],
+      "mainPush": true
     }
   ]
 }
