@@ -45,8 +45,8 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
       reregexp:
-        specifier: 1.6.1
-        version: 1.6.1
+        specifier: 1.6.0
+        version: 1.6.0
       vue:
         specifier: ^3.5.26
         version: 3.5.26(typescript@5.9.3)
@@ -1209,8 +1209,8 @@ packages:
     resolution: {integrity: sha512-9u/XQ1pvrQtYyMpZe7DXKv2p5CNvyVwzUB6uhLAnQwHMSgKMBR62lc7AHljaeteeHXn11XTAaLLUVZYVZyuRBQ==}
     engines: {node: '>= 20.19.0'}
 
-  reregexp@1.6.1:
-    resolution: {integrity: sha512-DffVGx+LeDxJzY/7RWcmZ8YlJPDKRVi7GddWfef4GZLDd9yH+2e+LmFZ9hTMaTyybu3IYPZcq1f8/ejH214eFQ==}
+  reregexp@1.6.0:
+    resolution: {integrity: sha512-LDRDxAd5mYCT3ikkMs+WzMMIh86qVpZFbD4L+y4aPKXnE8K5PU3bykPdm/z8gq3WgsVm+1oiQlrSpYMZz9Ra9A==}
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
@@ -2554,7 +2554,7 @@ snapshots:
 
   readdirp@5.0.0: {}
 
-  reregexp@1.6.1: {}
+  reregexp@1.6.0: {}
 
   rfdc@1.4.1: {}
 
