@@ -19,7 +19,9 @@ interface DiffResult {
  */
 const diff = (oldArr: DbDoc[], newArr: DbDoc[]): DiffResult => {
   const oldMap = new Map(oldArr.map(item => [item._id, item]))
-  const newMap = new Map(newArr.map(item => [item._id, item]))
+  // 过滤掉无效数据
+  const validNewArr = newArr.filter(item => item && item._id)
+  const newMap = new Map(validNewArr.map(item => [item._id, item]))
 
   const add: DbDoc[] = []
   const del: DbDoc[] = []
@@ -31,7 +33,12 @@ const diff = (oldArr: DbDoc[], newArr: DbDoc[]): DiffResult => {
     if (!oldItem) {
       add.push(newItem)
     } else if (!isEqual(newItem.data, oldItem.data)) {
-      update.push(newItem)
+      // 这里的 newItem 可能缺少 _rev 或者 _rev 过旧，
+      // 必须使用数据库中的最新 _rev，否则 bulkDocs 会报冲突
+      update.push({
+        ...newItem,
+        _rev: oldItem._rev
+      })
     }
   }
 
@@ -50,7 +57,10 @@ const diff = (oldArr: DbDoc[], newArr: DbDoc[]): DiffResult => {
  */
 const saveCommandOrder = (commands: DbCommands[]) => {
   const orderIds = commands.map((cmd) => cmd._id)
-  utools.dbStorage?.setItem(CMD_ORDER_KEY, orderIds)
+  const existing = utools.dbStorage?.getItem(CMD_ORDER_KEY)
+  if (!isEqual(existing, orderIds)) {
+    utools.dbStorage?.setItem(CMD_ORDER_KEY, orderIds)
+  }
 }
 
 /**
@@ -97,8 +107,11 @@ const syncUtoolsFeatures = (row: DbCommands, isDelete = false) => {
  */
 const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => {
   try {
-    const dbCommands = utools.db.allDocs('cmd-') as unknown as DbCommands[]
-    const dbVariables = utools.db.allDocs('var-') as unknown as DbVariables[]
+    // 过滤掉内部存储的 key，避免 diff 出错
+    const dbCommands = (utools.db.allDocs('cmd-') as unknown as DbCommands[])
+      .filter(item => item._id.startsWith('cmd-'))
+    const dbVariables = (utools.db.allDocs('var-') as unknown as DbVariables[])
+      .filter(item => item._id.startsWith('var-'))
 
     const cmdDiff = diff(dbCommands, state.commands)
     const varDiff = diff(dbVariables, state.variables)
@@ -111,14 +124,15 @@ const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => 
     // 批量新增和修改
     const allAddUpdate = [...cmdDiff.add, ...cmdDiff.update, ...varDiff.add, ...varDiff.update]
     if (allAddUpdate.length) {
-      console.log('[DEBUG] 正在批量写入数据库, 数量:', allAddUpdate.length)
+      console.log('[DEBUG] 正在批量写入数据库, 数量:', allAddUpdate.length, '内容:', allAddUpdate)
       const results = utools.db.bulkDocs(cloneDeep(allAddUpdate))
 
       // 使用返回的 rev 更新状态，避免后续冲突
       results.forEach((res) => {
         if (res.ok) {
-          const item = allAddUpdate.find(i => i._id === res.id)
-          if (item) {
+          // 在 store 中更新这个 item 的 rev
+          const item = state.commands.find(i => i._id === res.id) || state.variables.find(i => i._id === res.id)
+          if (item && item._rev !== res.rev) {
             item._rev = res.rev
             console.log('[DEBUG] 数据库写入成功, id:', res.id, 'new_rev:', res.rev)
           }
@@ -131,6 +145,7 @@ const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => 
     // 批量删除
     const allDel = [...cmdDiff.del, ...varDiff.del]
     allDel.forEach((row) => {
+      console.log('[DEBUG] 正在从数据库删除, id:', row._id)
       utools.db.remove(row._id)
     })
 
@@ -147,33 +162,39 @@ const syncDb = (state: { commands: DbCommands[]; variables: DbVariables[] }) => 
 export const utoolsDbSync = ({ store }: PiniaPluginContext) => {
   if (store.$id !== 'app') return
 
+  const INIT_FLAG_KEY = 'plugin-db-initialized-v1'
+  const isInitialized = utools.dbStorage?.getItem(INIT_FLAG_KEY)
+
   // 初始化数据
-  let allCmds = utools.db?.allDocs('cmd-') as DbCommands[]
-  let allVars = utools.db?.allDocs('var-') as DbVariables[]
+  let allCmds = (utools.db?.allDocs('cmd-') as DbCommands[])
+    .filter(item => item && item._id && item._id.startsWith('cmd-'))
+  let allVars = (utools.db?.allDocs('var-') as DbVariables[])
+    .filter(item => item && item._id && item._id.startsWith('var-'))
 
-  // 首次运行，如果没有数据则加载默认数据
-  if (!allCmds?.length) {
-    allCmds = cloneDeep(defaultCommands)
-    utools.db?.bulkDocs(allCmds)
-    // 重新获取带 rev 的数据
-    allCmds = utools.db?.allDocs('cmd-') as DbCommands[]
-  }
-  if (!allVars?.length) {
-    allVars = cloneDeep(defaultStringVariables)
-    utools.db?.bulkDocs(allVars)
-    // 重新获取带 rev 的数据
-    allVars = utools.db?.allDocs('var-') as DbVariables[]
+  // 首次运行，如果没有数据且没初始化过，则加载默认数据
+  if (!isInitialized) {
+    if (!allCmds?.length) {
+      console.log('[DEBUG] 首次运行，加载默认指令')
+      utools.db?.bulkDocs(cloneDeep(defaultCommands))
+      allCmds = utools.db?.allDocs('cmd-') as DbCommands[]
+    }
+    if (!allVars?.length) {
+      console.log('[DEBUG] 首次运行，加载默认变量')
+      utools.db?.bulkDocs(cloneDeep(defaultStringVariables))
+      allVars = utools.db?.allDocs('var-') as DbVariables[]
+    }
+    utools.dbStorage?.setItem(INIT_FLAG_KEY, true)
   }
 
-  // 确保所有数据都有 data 属性（兼容处理）
-  allCmds = allCmds.filter(item => item && typeof item === 'object').map(item => {
+  // 确保所有数据都有 data 属性（兼容旧格式）
+  allCmds = allCmds.map(item => {
     if (!item.data && (item as any).explain) {
       const { _id, _rev, ...data } = item as any
       return { _id, _rev, data: data as Commands }
     }
     return item
   })
-  allVars = allVars.filter(item => item && typeof item === 'object').map(item => {
+  allVars = allVars.map(item => {
     if (!item.data && (item as any).name) {
       const { _id, _rev, ...data } = item as any
       return { _id, _rev, data: data as Variables }
