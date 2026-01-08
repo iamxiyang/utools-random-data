@@ -38,25 +38,6 @@ const mountApp = () => {
 
 // ==================== 逻辑处理 ====================
 
-/** 根据指令码获取对应的内容 */
-const getCommandContent = (code: string): string | undefined => {
-  if (!code) return
-
-  // 1. 尝试直接获取
-  const direct = utools.db.get(code) as any
-  if (direct) return direct.data?.content ?? direct.content
-
-  // 2. 全表扫描匹配 (处理 ID 不一致或同步延迟)
-  const all = utools.db.allDocs()
-  const target = all.find(item =>
-    item._id === code ||
-    item.data?.code === code ||
-    (Array.isArray(item.data?.cmds) && (item.data?.cmds).includes(code))
-  )
-
-  return target?.data?.content
-}
-
 /** 处理插件进入 */
 const handlePluginEnter = async (action: any) => {
   const { code } = action
@@ -69,21 +50,30 @@ const handlePluginEnter = async (action: any) => {
     return
   }
 
-  // 动态指令执行
-  const content = getCommandContent(code)
-  if (typeof content === 'string') {
-    copyPasteOut(runCmd(content))
-    if (isDetach()) {
-      mountApp()
-      router.replace(ROUTES.RANDOM_ALL)
-    }
+  // 获取指令对应的配置内容
+  const codeDb = utools.db.get(code)
+  if (!codeDb) {
+    mountApp()
+    router.replace(ROUTES.COMMANDS)
+    utools.showNotification('指令不存在或已失效')
+    utools.removeFeature(code)
     return
   }
 
-  // 失效清理
-  if (code && !Object.values(FEATURE_CODES).includes(code as any)) {
-    utools.showNotification('指令不存在或已失效')
-    utools.removeFeature(code)
+  // 执行生成指令
+  const { content } = codeDb?.data || {}
+  if (!content) {
+    mountApp()
+    router.replace(ROUTES.COMMANDS)
+    return
+  }
+
+  const text = runCmd(content)
+  copyPasteOut(text)
+
+  if (isDetach()) {
+    mountApp()
+    router.replace(ROUTES.RANDOM_ALL)
   }
 }
 

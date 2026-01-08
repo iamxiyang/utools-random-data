@@ -5,7 +5,7 @@ interface DbDoc<T = any> {
 }
 
 interface Commands {
-  code: string // 唯一标识,插件内不可重复
+  code: string // 唯一标识，与 _id 保持一致，用于 setFeature
   explain: string // 描述,将在搜索列表对应位置中显示
   icon?: string // 图标,可选
   cmds: string[] // 功能响应词汇

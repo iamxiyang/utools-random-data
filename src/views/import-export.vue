@@ -75,9 +75,8 @@
       if (appStore.commands && Array.isArray(appStore.commands)) {
         appStore.commands.forEach(cmd => {
           if (cmd.data?.feature) {
-            const code = cmd.data.code || cmd._id
-            utools.removeFeature(code)
-            console.log('[DEBUG] 重置清理 Feature:', code)
+            utools.removeFeature(cmd.data.code)
+            console.log('[DEBUG] 重置清理 Feature:', cmd.data.code)
           }
         })
       }
